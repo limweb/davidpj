@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:model="com.vstyran.transform.model.*"
+			   xmlns:component="component.*"
+			   xmlns:view1="view.*"
+			   minWidth="955" minHeight="600" creationComplete="init()">
+	<fx:Declarations>
+		<fx:Component className="VGuideLine">
+			<s:Line y="45" height="230" alpha="0.1">
+				<s:stroke>
+					<s:SolidColorStroke/>
+				</s:stroke>
+			</s:Line>
+		</fx:Component>                                       
+		<fx:Component className="HGuideLine">
+			<s:Line x="30" width="400" alpha="0.1">
+				<s:stroke>
+					<s:SolidColorStroke/>
+				</s:stroke>
+			</s:Line>
+		</fx:Component>                                       
+		<fx:Component className="RGuideLine">
+			<s:Line>
+				<fx:Script>
+					<![CDATA[
+						import com.vstyran.transform.utils.TransformUtil;
+						
+						import mx.core.UIComponent;
+						
+						import spark.components.Group;
+						
+						public function update(target:UIComponent, passiveGuideGroup:Group):void
+						{
+							var m:Matrix = TransformUtil.getMatrix(target, passiveGuideGroup);
+							
+							var stPoimt:Point =  m.transformPoint(new Point(target.width/2, target.height/2));
+							var endPoimt:Point =  m.transformPoint(new Point(target.width, target.height/2));
+							this.xFrom = stPoimt.x;
+							this.yFrom = stPoimt.y;
+							this.xTo = endPoimt.x;
+							this.yTo = endPoimt.y;
+						}
+					]]>
+				</fx:Script>
+				<s:stroke>
+					<s:SolidColorStroke color="#AA0000"/>
+				</s:stroke>
+			</s:Line>
+		</fx:Component>    
+	</fx:Declarations>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		mx|DataGrid {
+			backgroundColor: #cccccc;
+			alternatingItemColors: #cccccc, #cccccc;
+			headerColors: #999999, #999999;
+			horizontalGridLines: true;
+			verticalGridLineColor: #ffffff;
+		}
+	</fx:Style>
+<fx:Script>
+	<![CDATA[
+		import com.vstyran.transform.connectors.UIConnector;
+		import com.vstyran.transform.connectors.UIScaleConnector;
+		import com.vstyran.transform.consts.GuidelineType;
+		import com.vstyran.transform.consts.TransformationType;
+		import com.vstyran.transform.events.GuidelineEvent;
+		import com.vstyran.transform.model.Bounds;
+		import com.vstyran.transform.model.GridData;
+		import com.vstyran.transform.model.Guideline;
+		import com.vstyran.transform.utils.DataUtil;
+		import com.vstyran.transform.view.TransformTool;
+		
+		import component.vDataGrid;
+		
+		import mx.collections.ArrayCollection;
+		import mx.controls.CheckBox;
+		import mx.controls.DateChooser;
+		import mx.controls.RadioButton;
+		import mx.controls.TextArea;
+		import mx.core.IVisualElement;
+		import mx.core.UIComponent;
+		import mx.events.DragEvent;
+		import mx.events.FlexEvent;
+		import mx.events.ResizeEvent;
+		import mx.managers.DragManager;
+		
+		import skins.TransformToolSkin2;
+		import skins.TransformToolSkin3;
+		
+		import view.CustomUITransformTool;
+		
+		
+		[Bindable]	public var compList:ArrayCollection;
+		[Bindable]	public var compList2:ArrayCollection;
+		[Bindable]
+		private var deletedObjects:ArrayCollection = new ArrayCollection();
+		private var tool:TransformTool;
+		private var uiConnector:UIConnector;
+		private var uiScaleConnector:UIScaleConnector;
+		private var _currentTarget:UIComponent;
+		
+		private var bounds:Bounds = new Bounds();
+		private	var griddata:GridData = new GridData(); // กำหนดการ snap to grid
+
+
+		protected function init():void
+		{
+			uiConnector = new UIConnector();
+			uiScaleConnector = new UIScaleConnector();
+			tool = new TransformTool();
+			tool.setStyle("skinClass", Class(TransformToolSkin2));
+			bounds.x = GG.x;
+			bounds.y = GG.y;
+			bounds.width = GG.width;
+			bounds.height = GG.height;
+			tool.bounds = bounds;
+			
+			griddata.cellHeight = 20;
+			griddata.cellWidth = 20;
+			griddata.fraction = 5;
+			griddata.x = 1;
+			griddata.y = 1;
+			tool.grid  = griddata;
+ 			tool.visible = false;
+
+			
+//			setCurrentTarget(textTarget1);
+			GG.addElement(tool);
+//			tool.addEventListener(GuidelineEvent.GUIDELINES_UPDATE,tool_guidelinesUpdateHandler);
+			compList = new ArrayCollection([
+				{icon:"assets/Button.png",list:"Button",obj:1},
+				{icon:"assets/CheckBox.png",list:"CheckBox",obj:2},
+				{icon:"assets/ComboBox.png",list:"ComboBox",obj:3},
+				{icon:"assets/DataGrid.png",list:"DataGrid",obj:4},
+				{icon:"assets/DateChooser.png",list:"DateChooser",obj:5},
+				{icon:"assets/RadioButton.png",list:"RadioButton",obj:6},
+				{icon:"assets/TextInput.png",list:"TextInput",obj:7},
+				{icon:"assets/TextArea.png",list:"TextArea",obj:8}
+			]);
+		}
+		
+		protected function tool_guidelinesUpdateHandler(event:GuidelineEvent):void
+		{
+
+//			if(event.cross && event.cross.vGuideline)
+//				vGuide.x = event.cross.vGuideline.value;
+//			vGuide.visible = (event.cross && event.cross.vGuideline);
+//			
+//			if(event.cross && event.cross.hGuideline)
+//				hGuide.y = event.cross.hGuideline.value;
+//			hGuide.visible = (event.cross && event.cross.hGuideline);
+//			
+//			passiveGuideGroup.removeAllElements();
+//			if(event.cross)
+//			{
+//				if(showPassiveGuides.selected)
+//				{
+//					for each (var vguide:Guideline in event.cross.getVGuidelines()) 
+//					{
+//						var vGuideLine:VGuideLine = new VGuideLine();
+//						vGuideLine.x = vguide.value;
+//						passiveGuideGroup.addElement(vGuideLine);
+//					}
+//					for each (var hguide:Guideline in event.cross.getHGuidelines()) 
+//					{
+//						var hGuideLine:HGuideLine = new HGuideLine();
+//						hGuideLine.y = hguide.value;
+//						passiveGuideGroup.addElement(hGuideLine);
+//					}
+//				}
+//				
+//				if(event.transformationType == TransformationType.ROTATE)
+//				{
+//					if(event.cross.rGuideline)
+//					{
+//						var rTargetGuideLine:RGuideLine = new RGuideLine();
+//						rTargetGuideLine.update(tool.target, passiveGuideGroup);
+//						passiveGuideGroup.addElement(rTargetGuideLine);
+//					}
+//					
+//					for each (var rguide:Guideline in event.cross.getRGuidelines()) 
+//					{
+//						var rGuideLine:RGuideLine = new RGuideLine();
+//						rGuideLine.update(rguide.userData as Image, passiveGuideGroup);
+//						passiveGuideGroup.addElement(rGuideLine);
+//					}
+//				}
+//			}
+
+		}
+		
+		public function setCurrentTarget(value:UIComponent):void
+		{
+			_currentTarget = value;
+			
+			uiScaleConnector.target = null;
+			uiConnector.target = null;
+			
+			if(_currentTarget == null)
+				return;
+			
+			if(_currentTarget is Label)
+			{
+				uiScaleConnector.target = _currentTarget;
+				tool.connector = uiScaleConnector;
+	
+			}
+			else
+			{
+				uiConnector.target = _currentTarget;
+				tool.connector = uiConnector;
+			}
+		}
+		
+		protected function select(event:MouseEvent):void
+		{
+			if(_currentTarget != event.currentTarget)
+			{
+				setCurrentTarget(event.currentTarget as UIComponent);
+				tool.startMoving(event);
+				tool.visible = true;
+			}
+		}
+		
+		protected function unselect(event:MouseEvent):void {
+				if(tool){
+					tool.visible = false;
+				}
+		}
+
+		protected function GG_resizeHandler(event:ResizeEvent):void
+		{
+			bounds.x = GG.x;
+			bounds.y = GG.y;
+			bounds.width = GG.width;
+			bounds.height = GG.height;
+			if (tool!=null)
+			{
+				tool.bounds = bounds;
+			}
+		}
+		
+		// releases the mouse button while over the Canvas container.
+		private function dragDropHandler(event:DragEvent):void {
+			
+			// Get the data identified by the color format
+			// from the drag source.
+			var data:Object;
+			
+			if( event.dragSource.hasFormat('img')) {
+				
+				data = event.dragSource.dataForFormat('img');
+				
+				switch(data.toolTip)
+				{
+					case "Button":
+					{
+						var bt:Button = new Button();
+						//bt.label = data[0].list;
+						bt.doubleClickEnabled = true;
+//						bt.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+//						bt.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						bt.x = event.localX;
+						bt.y = event.localY;
+						bt.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(bt);		
+						break;
+					}
+					case "TextInput":
+					{
+						var tx:TextInput = new TextInput();
+						//tx.text = data[0].list;
+//						tx.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+						tx.doubleClickEnabled = true;
+//						tx.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						tx.x = event.localX;
+						tx.y = event.localY;
+						tx.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(tx);
+						break;
+					}
+					case "CheckBox":
+					{
+						var ck:CheckBox = new CheckBox();
+						ck.doubleClickEnabled = true;
+						//ck.label = data[0].list;
+//						ck.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+//						ck.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						ck.x = event.localX;
+						ck.y = event.localY;
+						ck.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(ck);
+						break;
+					}
+					case "DataGrid":
+					{
+						var dg:vDataGrid = new vDataGrid();
+						dg.doubleClickEnabled = true;
+//						dg.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+//						dg.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						dg.x = event.localX;
+						dg.y = event.localY;
+						dg.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(dg);
+						break;
+					}
+					case "DateChooser":
+					{
+						var dc:DateChooser = new DateChooser();
+						dc.doubleClickEnabled = true;
+//						dc.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+//						dc.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						dc.x = event.localX;
+						dc.y = event.localY;
+						dc.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(dc);
+						break;
+					}
+					case "RadioButton":
+					{
+						var rd:RadioButton = new RadioButton();
+						rd.doubleClickEnabled = true;
+						rd.label = "Radio Button";
+//						rd.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+//						rd.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						rd.x = event.localX;
+						rd.y = event.localY;
+						rd.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(rd);
+						break;
+					}
+					case "TextArea":
+					{	
+						var ta:TextArea = new TextArea();
+						ta.text = "Text Area";
+						ta.doubleClickEnabled = true;
+//						ta.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+//						ta.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						ta.x = event.localX;
+						ta.y = event.localY;
+						ta.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(ta);								
+						break;
+					}
+					case 9:
+					{	
+						var cc:customComponent = new customComponent();
+						//ta.text = "Text Area";
+						//ta.doubleClickEnabled = true;
+						//						ta.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+						//						ta.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						cc.x = event.localX;
+						cc.y = event.localY;
+						cc.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(cc);								
+						break;
+					}						
+					case "ComboBox":
+					{
+						var cb:ComboBox = new ComboBox();
+						cb.doubleClickEnabled = true;
+//						cb.addEventListener(MouseEvent.DOUBLE_CLICK,showComponentProperity);
+//						cb.addEventListener(MouseEvent.MOUSE_MOVE,mouseMoveHandler);
+						cb.x = event.localX;
+						cb.y = event.localY;
+						cb.addEventListener(MouseEvent.MOUSE_DOWN,select);
+						GG.addElement(cb);
+						break;
+					}
+					default:
+					{
+						break;
+					}
+						
+				} // cacse 
+				
+			} 
+//			else if(event.dragSource.hasFormat('canvasmove')){
+//				data = event.dragSource.dataForFormat('canvasmove');
+//				data.x = event.localX;
+//				data.y = event.localY;
+//			}
+			
+		}		
+
+		private function dragEnterHandler(event:DragEvent):void {
+			
+//			var dropTarget:Canvas = Canvas(event.currentTarget);// as Group;
+//			DragManager.acceptDragDrop(dropTarget);
+//			var dropTarget:Group = Group(event.currentTarget);// as Group;
+//			DragManager.acceptDragDrop(dropTarget);
+			var dropTarget:Box = Box(event.currentTarget);// as vBOX
+			DragManager.acceptDragDrop(dropTarget);
+		}
+		
+		protected function button1_clickHandler(event:MouseEvent):void
+		{
+			// TODO Auto-generated method stub
+			var evt:CustomCompEvent = new CustomCompEvent(CustomCompEvent.BUTTON_ONE);
+			dispatchEvent(evt);
+			
+		}
+		
+		protected function button2_clickHandler(event:MouseEvent):void
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+		protected function button3_clickHandler(event:MouseEvent):void
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+		protected function button4_clickHandler(event:MouseEvent):void
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		
+		protected function box1_clickHandler(event:MouseEvent):void
+		{
+			if(event.target.className == "Box"){
+				if(tool){
+					tool.visible = false;
+				}
+			}
+			
+		}
+		
+		protected function updateGuides():void
+		{
+			var guidelines:Vector.<Guideline> = new Vector.<Guideline>();
+			
+//			for (var i:int = 0; i < g_target.numElements; i++) 
+//			{
+//				var element:IVisualElement = g_target.getElementAt(i);
+//				
+//				if(element is Image && tool.target != element)
+//				{
+//					
+//					var box:Rectangle = DataUtil.createData(element as Image).getBoundingBox();
+//					
+//					guidelines.push(new Guideline(GuidelineType.VERTICAL_EDGE, box.x, 3));
+//					guidelines.push(new Guideline(GuidelineType.VERTICAL_CENTER, box.x+box.width/2, 3));
+//					guidelines.push(new Guideline(GuidelineType.VERTICAL_EDGE, box.x+box.width, 3));
+//					
+//					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_EDGE, box.y, 3));
+//					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_CENTER, box.y+box.height/2, 3));
+//					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_EDGE, box.y+box.height, 3));
+//					
+//					if((element as Image).rotation%90 != 0)
+//					{
+//						var guideLine:Guideline = new Guideline(GuidelineType.ROTATION, (element as Image).rotation, 3);
+//						guideLine.userData = element;
+//						guidelines.push(guideLine);
+//					}
+//				}
+//			}
+			tool.guidelines = guidelines;
+		}
+		
+	]]>
+</fx:Script>
+	<mx:HDividedBox width="100%" height="100%" horizontalGap="20">
+
+			<mx:VBox width="100%" height="100%" maxWidth="600" borderColor="black"
+					 borderStyle="solid" verticalGap="0">
+				<mx:VBox width="100%" height="20" backgroundColor="blue">
+					
+				</mx:VBox>
+				<mx:VBox width="100%" height="20" backgroundColor="yellow">
+					
+				</mx:VBox>
+				<mx:Box width="100%" height="100%" backgroundColor="#FFFFFF"
+						click="box1_clickHandler(event)" dragDrop="dragDropHandler(event);"
+						dragEnter="dragEnterHandler(event);">
+				<s:Group width="100%" height="100%">
+					<s:Group id="GG" width="100%" height="100%" resize="GG_resizeHandler(event)">
+						<component:MyGrid id="myG" x="{GG.x}" y="{GG.y}" width="{GG.width}"
+										  height="{GG.height}" step="20"/> 
+	
+					</s:Group>
+						
+					<s:Group width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
+						<s:Group id="passiveGuideGroup" left="0" right="0" top="0" bottom="0"/>
+						<s:Line id="vGuide" visible="false" height="100%" depth="3" yFrom="45"
+								yTo="275">
+							<s:stroke>
+								<s:SolidColorStroke color="#AA0000"/>
+							</s:stroke>
+						</s:Line>
+						<s:Line id="hGuide" visible="false" width="100%" depth="3" xFrom="30"
+								xTo="430">
+							<s:stroke>
+								<s:SolidColorStroke color="#AA0000"/>
+							</s:stroke>
+						</s:Line>
+					</s:Group>
+				</s:Group>
+				</mx:Box>
+				<mx:HBox width="100%" height="20" backgroundColor="black">
+					<s:Spacer width="100%"/>
+					<mx:CheckBox id="showPassiveGuides" label="Show passive guidelines"
+								 selected="true"/>
+					<s:Button/>
+					<s:Button/>
+				</mx:HBox>
+			</mx:VBox>
+
+		<mx:VDividedBox width="350" height="100%">
+			<mx:VBox width="350" height="100%">
+				<mx:HBox width="350" height="30" backgroundColor="blue" paddingLeft="5"
+						 paddingTop="5">
+					<s:Label color="white" text="Orion Xerver Form Designer">
+						
+					</s:Label>
+				</mx:HBox>
+				<mx:Panel width="350" height="50" dropShadowVisible="false" headerHeight="20"
+						  title="Instructions">
+					
+				</mx:Panel>
+				<mx:Accordion width="350" height="100%">
+					<s:NavigatorContent width="100%" height="100%" label="First Section">
+						<mx:DataGrid width="100%" height="100%" dataProvider="{compList}"
+									 dragEnabled="false" dragMoveEnabled="false">
+							<mx:columns>
+								<mx:DataGridColumn dataField="icon"
+												   headerText="Detail index fields"
+												   itemRenderer="ImageRenderer"/>									
+								<mx:DataGridColumn dataField="Name" headerText="Header Index fields"/>
+							
+							</mx:columns>
+						</mx:DataGrid>				
+					</s:NavigatorContent>					
+					<mx:Form id="shippingAddress" label="Document Index Fields">
+						
+						<mx:FormItem id="sfirstNameItem" label="First Name">
+							<mx:TextInput id="sfirstName"/>
+						</mx:FormItem>
+						
+						<!-- Additional contents goes here. -->
+						
+					</mx:Form>					
+					<mx:Form id="billingAddress" label="Workflow Fields">
+						<!-- Form contents goes here. -->
+							<s:List width="100%" height="100%" dataProvider="{compList}"
+									dragEnabled="true" dragMoveEnabled="true" dropEnabled="true"
+									itemRenderer="listitemrender">
+							</s:List>
+					</mx:Form>
+					
+					<mx:Form id="creditCardInfo" label="Buttons">
+						<!-- Form contents goes here. -->
+					</mx:Form>
+					
+					<mx:Form id="submitOrder" label="Boxes and Panels">
+						<!-- Form contents goes here. -->
+					</mx:Form>
+					<mx:Form id="submitOrder1" label="Rules">
+						<!-- Form contents goes here. -->
+					</mx:Form>
+					<mx:Form id="submitOrder3" label="Text labels">
+						<!-- Form contents goes here. -->
+					</mx:Form>					
+				</mx:Accordion>				
+			</mx:VBox>	
+			<mx:HBox width="350" height="25" minHeight="21" maxHeight="21" verticalAlign="middle">
+				<s:Button width="21">
+					
+				</s:Button>
+				<s:Button width="21">
+					
+				</s:Button>
+				<s:Button width="21">
+					
+				</s:Button>
+				<s:Button width="21">
+					
+				</s:Button>
+				<s:Button width="21" label="1" click="button1_clickHandler(event)">
+					
+				</s:Button>
+				<s:Button width="21" label="2" click="button2_clickHandler(event)">
+					
+				</s:Button>
+				<s:Button width="21" label="3" click="button3_clickHandler(event)">
+					
+				</s:Button>
+				<s:Button width="21" label="4" click="button4_clickHandler(event)">
+					
+				</s:Button>		
+				<s:ComboBox width="100%">
+					
+				</s:ComboBox>
+			</mx:HBox>
+			<mx:VBox width="350" height="100%" verticalGap="0">
+				<mx:TabNavigator width="350" height="100%" borderStyle="solid" paddingBottom="0"
+								 paddingTop="0" verticalGap="0">
+					<mx:VBox width="350" height="100%" label="Form" verticalGap="0">						
+						<mx:DataGrid width="100%" height="80" headerHeight="20">
+							<mx:columns>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+							</mx:columns>
+						</mx:DataGrid>
+						<mx:DataGrid width="100%" height="80" headerHeight="20">
+							<mx:columns>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+							</mx:columns>
+						</mx:DataGrid>
+						<mx:DataGrid width="100%" height="80" headerHeight="20">
+							<mx:columns>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+							</mx:columns>
+						</mx:DataGrid>					
+					</mx:VBox>
+					
+					<mx:VBox width="100%" height="100%" label="Panels / Datagrids">
+						<!-- Stocks view goes here. -->
+						
+					</mx:VBox>
+					
+					<mx:VBox width="350" height="100%" label="Fields / Controls" verticalGap="0">
+						<mx:HBox width="100%" horizontalAlign="center" paddingBottom="15"
+								 paddingTop="15">
+							<s:ComboBox width="90%"/>
+						</mx:HBox>
+						
+						<mx:DataGrid width="100%" height="80" headerHeight="20">
+							<mx:columns>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+							</mx:columns>
+						</mx:DataGrid>
+						<mx:DataGrid width="100%" height="80" headerHeight="20">
+							<mx:columns>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+							</mx:columns>
+						</mx:DataGrid>
+						<mx:DataGrid width="100%" height="80" headerHeight="20">
+							<mx:columns>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+								<mx:DataGridColumn>
+									
+								</mx:DataGridColumn>
+							</mx:columns>
+						</mx:DataGrid>					
+					</mx:VBox>   
+					<mx:VBox width="100%" height="100%" label="String">
+						<!-- Futures view goes here. -->
+					</mx:VBox>   
+				</mx:TabNavigator>
+				<mx:HBox width="350" height="20" backgroundColor="black">
+					<s:Spacer width="100%"/>
+					<s:Button>
+						
+					</s:Button>
+					<s:Button>
+						
+					</s:Button>
+				</mx:HBox>
+			</mx:VBox>
+		</mx:VDividedBox>
+</mx:HDividedBox>
+</s:Application>
