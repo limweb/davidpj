@@ -63,6 +63,8 @@
 	</fx:Style>
 <fx:Script>
 	<![CDATA[
+		import skins.CustomUITransformToolSkin;
+		import skins.TransformToolSkin1;
 		import com.vstyran.transform.connectors.UIConnector;
 		import com.vstyran.transform.connectors.UIScaleConnector;
 		import com.vstyran.transform.consts.GuidelineType;
@@ -88,8 +90,6 @@
 		import mx.events.ResizeEvent;
 		import mx.managers.DragManager;
 		
-		import skins.TransformToolSkin2;
-		import skins.TransformToolSkin3;
 		
 		import view.CustomUITransformTool;
 		
@@ -98,9 +98,9 @@
 		[Bindable]	public var compList2:ArrayCollection;
 		[Bindable]
 		private var deletedObjects:ArrayCollection = new ArrayCollection();
-		private var tool:TransformTool;
-		private var uiConnector:UIConnector;
-		private var uiScaleConnector:UIScaleConnector;
+		private var tool:CustomUITransformTool;
+//		private var uiConnector:UIConnector;
+//		private var uiScaleConnector:UIScaleConnector;
 		private var _currentTarget:UIComponent;
 		
 		private var bounds:Bounds = new Bounds();
@@ -109,10 +109,10 @@
 
 		protected function init():void
 		{
-			uiConnector = new UIConnector();
-			uiScaleConnector = new UIScaleConnector();
-			tool = new TransformTool();
-			tool.setStyle("skinClass", Class(TransformToolSkin2));
+//			uiConnector = new UIConnector();
+//			uiScaleConnector = new UIScaleConnector();
+			tool = new CustomUITransformTool();
+			tool.setStyle("skinClass", Class(CustomUITransformToolSkin));
 			bounds.x = GG.x;
 			bounds.y = GG.y;
 			bounds.width = GG.width;
@@ -130,7 +130,7 @@
 			
 //			setCurrentTarget(textTarget1);
 			GG.addElement(tool);
-//			tool.addEventListener(GuidelineEvent.GUIDELINES_UPDATE,tool_guidelinesUpdateHandler);
+			tool.addEventListener(GuidelineEvent.GUIDELINES_UPDATE,tool_guidelinesUpdateHandler);
 			compList = new ArrayCollection([
 				{icon:"assets/Button.png",list:"Button",obj:1},
 				{icon:"assets/CheckBox.png",list:"CheckBox",obj:2},
@@ -146,33 +146,33 @@
 		protected function tool_guidelinesUpdateHandler(event:GuidelineEvent):void
 		{
 
-//			if(event.cross && event.cross.vGuideline)
-//				vGuide.x = event.cross.vGuideline.value;
-//			vGuide.visible = (event.cross && event.cross.vGuideline);
-//			
-//			if(event.cross && event.cross.hGuideline)
-//				hGuide.y = event.cross.hGuideline.value;
-//			hGuide.visible = (event.cross && event.cross.hGuideline);
-//			
-//			passiveGuideGroup.removeAllElements();
-//			if(event.cross)
-//			{
-//				if(showPassiveGuides.selected)
-//				{
-//					for each (var vguide:Guideline in event.cross.getVGuidelines()) 
-//					{
-//						var vGuideLine:VGuideLine = new VGuideLine();
-//						vGuideLine.x = vguide.value;
-//						passiveGuideGroup.addElement(vGuideLine);
-//					}
-//					for each (var hguide:Guideline in event.cross.getHGuidelines()) 
-//					{
-//						var hGuideLine:HGuideLine = new HGuideLine();
-//						hGuideLine.y = hguide.value;
-//						passiveGuideGroup.addElement(hGuideLine);
-//					}
-//				}
-//				
+			if(event.cross && event.cross.vGuideline)
+				vGuide.x = event.cross.vGuideline.value;
+			vGuide.visible = (event.cross && event.cross.vGuideline);
+			
+			if(event.cross && event.cross.hGuideline)
+				hGuide.y = event.cross.hGuideline.value;
+			hGuide.visible = (event.cross && event.cross.hGuideline);
+			
+			passiveGuideGroup.removeAllElements();
+			if(event.cross)
+			{
+				if(showPassiveGuides.selected)
+				{
+					for each (var vguide:Guideline in event.cross.getVGuidelines()) 
+					{
+						var vGuideLine:VGuideLine = new VGuideLine();
+						vGuideLine.x = vguide.value;
+						passiveGuideGroup.addElement(vGuideLine);
+					}
+					for each (var hguide:Guideline in event.cross.getHGuidelines()) 
+					{
+						var hGuideLine:HGuideLine = new HGuideLine();
+						hGuideLine.y = hguide.value;
+						passiveGuideGroup.addElement(hGuideLine);
+					}
+				}
+				
 //				if(event.transformationType == TransformationType.ROTATE)
 //				{
 //					if(event.cross.rGuideline)
@@ -189,38 +189,18 @@
 //						passiveGuideGroup.addElement(rGuideLine);
 //					}
 //				}
-//			}
+			}
 
 		}
 		
-		public function setCurrentTarget(value:UIComponent):void
-		{
-			_currentTarget = value;
-			
-			uiScaleConnector.target = null;
-			uiConnector.target = null;
-			
-			if(_currentTarget == null)
-				return;
-			
-			if(_currentTarget is Label)
-			{
-				uiScaleConnector.target = _currentTarget;
-				tool.connector = uiScaleConnector;
-	
-			}
-			else
-			{
-				uiConnector.target = _currentTarget;
-				tool.connector = uiConnector;
-			}
-		}
+
 		
 		protected function select(event:MouseEvent):void
 		{
 			if(_currentTarget != event.currentTarget)
 			{
-				setCurrentTarget(event.currentTarget as UIComponent);
+				tool.target = event.currentTarget as UIComponent;
+				tool.showPreviewCover = true;
 				tool.startMoving(event);
 				tool.visible = true;
 			}
@@ -438,31 +418,31 @@
 		{
 			var guidelines:Vector.<Guideline> = new Vector.<Guideline>();
 			
-//			for (var i:int = 0; i < g_target.numElements; i++) 
-//			{
-//				var element:IVisualElement = g_target.getElementAt(i);
-//				
-//				if(element is Image && tool.target != element)
-//				{
-//					
-//					var box:Rectangle = DataUtil.createData(element as Image).getBoundingBox();
-//					
-//					guidelines.push(new Guideline(GuidelineType.VERTICAL_EDGE, box.x, 3));
-//					guidelines.push(new Guideline(GuidelineType.VERTICAL_CENTER, box.x+box.width/2, 3));
-//					guidelines.push(new Guideline(GuidelineType.VERTICAL_EDGE, box.x+box.width, 3));
-//					
-//					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_EDGE, box.y, 3));
-//					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_CENTER, box.y+box.height/2, 3));
-//					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_EDGE, box.y+box.height, 3));
-//					
+			for (var i:int = 0; i < GG.numElements; i++) 
+			{
+				var element:IVisualElement = GG.getElementAt(i);
+				
+				if(element is UIComponent && tool.target != element)
+				{
+					
+					var box:Rectangle = DataUtil.createData(element as UIComponent).getBoundingBox();
+					
+					guidelines.push(new Guideline(GuidelineType.VERTICAL_EDGE, box.x, 3));
+					guidelines.push(new Guideline(GuidelineType.VERTICAL_CENTER, box.x+box.width/2, 3));
+					guidelines.push(new Guideline(GuidelineType.VERTICAL_EDGE, box.x+box.width, 3));
+					
+					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_EDGE, box.y, 3));
+					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_CENTER, box.y+box.height/2, 3));
+					guidelines.push(new Guideline(GuidelineType.HORIZONTAL_EDGE, box.y+box.height, 3));
+					
 //					if((element as Image).rotation%90 != 0)
 //					{
 //						var guideLine:Guideline = new Guideline(GuidelineType.ROTATION, (element as Image).rotation, 3);
 //						guideLine.userData = element;
 //						guidelines.push(guideLine);
 //					}
-//				}
-//			}
+				}
+			}
 			tool.guidelines = guidelines;
 		}
 		
