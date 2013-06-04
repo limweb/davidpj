@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:pages="david.pages.*"
+			   width="100%" height="100%"
+			   creationComplete="creationCompleteHandler(event)">
+	
+	<fx:Style source="Styles.css"/>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>	
+	
+	<fx:Script>
+		<![CDATA[
+			import david.configs.Constants;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			[Bindable] public var isLogin:Boolean = false;
+			//[Bindable] public var userRole:String = null;
+			[Bindable] public var userModel:UserModel = new UserModel();
+			[Bindable] public var linkBarDataProvider:ArrayCollection = new ArrayCollection();
+			
+			[Bindable] [Embed(source="../assets/logout.png")]
+			public var ICON_TEST:Class;
+			
+			[Bindable] [Embed(source="../assets/documents.png")]
+			public var ICON_DOC:Class;
+			
+			[Bindable] [Embed(source="../assets/manage.png")]
+			public var ICON_MANAGE:Class;
+			
+			[Bindable] [Embed(source="../assets/report.png")]
+			public var ICON_REPORT:Class;
+			
+			[Bindable] [Embed(source="../assets/config.png")]
+			public var ICON_CONFIG:Class;
+			
+			//-- Createion Complete
+			protected function creationCompleteHandler(event:FlexEvent):void {
+				mainStackID.selectedChild = homeID;
+			}
+			
+			
+			//-- Log-in
+			public function login(user:String, pass:String):void {
+				
+				if (user != null && user.length > 0) {
+					
+					if ( user == "admin" ) { //Admin
+						linkBarDataProvider.removeAll();
+						linkBarDataProvider.addItem( { label:Constants.DOC_EXP_LABEL, data:Constants.DOC_EXP_LABEL, icon:ICON_DOC } );
+						linkBarDataProvider.addItem( { label:Constants.CASE_MANAGER_LABEL, data:Constants.CASE_MANAGER_LABEL, icon:ICON_MANAGE } );
+						linkBarDataProvider.addItem( { label:Constants.CHART_REPORT_LABEL, data:Constants.CHART_REPORT_LABEL, icon:ICON_REPORT } );
+						linkBarDataProvider.addItem( { label:Constants.CONFIG_ADMIN_LABEL, data:Constants.CONFIG_ADMIN_LABEL, icon:ICON_CONFIG } );
+						userModel.userName = user;
+						userModel.userRole = Constants.ADMIN_ROLE;
+						isLogin = true;
+						//mainStackID.selectedChild = configAdminID;
+						configAdminID.init();
+						
+					} else if ( user == "user" ) { //User
+						linkBarDataProvider.removeAll();
+						linkBarDataProvider.addItem( { label:Constants.DOC_EXP_LABEL, data:Constants.DOC_EXP_LABEL, icon:ICON_DOC } );
+						linkBarDataProvider.addItem( { label:Constants.CASE_MANAGER_LABEL, data:Constants.CASE_MANAGER_LABEL, icon:ICON_MANAGE } );
+						linkBarDataProvider.addItem( { label:Constants.CHART_REPORT_LABEL, data:Constants.CHART_REPORT_LABEL, icon:ICON_REPORT } );
+						isLogin = true;
+						userModel.userName = user;
+						userModel.userRole = Constants.USER_ROLE;
+						//mainStackID.selectedChild = caseManagerID;
+						caseManagerID.init();
+						
+					} else {
+						Alert.show("Not Correct UserName!! \n\n Username >> 'admin' or 'user'");
+					}
+					
+				} else {
+					Alert.show("Please Input UserName! \n\n Username >> 'admin' or 'user' ");
+				}
+			}
+			
+			
+			//-- Log-out
+			public function logout():void {
+				userModel.userName = null;
+				userModel.userRole = null;
+				isLogin = false;
+				linkBarDataProvider.removeAll();
+				mainStackID.selectedChild = homeID;
+			}
+			
+			
+			//-- Link-bar selected
+			public function linkBarChangePage(linkBarSelected:String):void {
+				if (linkBarSelected == Constants.DOC_EXP_LABEL) {
+					mainStackID.selectedChild = documentExplorerID;
+					documentExplorerID.init();
+				
+				} else if (linkBarSelected == Constants.CASE_MANAGER_LABEL) {
+					mainStackID.selectedChild = caseManagerID;
+					caseManagerID.init();
+				
+				} else if (linkBarSelected == Constants.CHART_REPORT_LABEL) {
+					mainStackID.selectedChild = chartReportID;
+					chartReportID.init();
+				
+				} else if (linkBarSelected == Constants.CONFIG_ADMIN_LABEL) {
+					mainStackID.selectedChild = configAdminID;
+					configAdminID.init();
+				}
+			}
+			
+			//User login click
+			public function userLoginSelectPage(toPage:String):void {
+				if ( toPage == "CA" ) {
+					mainStackID.selectedChild = configAdminID;
+					configAdminID.init();
+				} else if ( toPage == "CM" ) {
+					mainStackID.selectedChild = caseManagerID;
+					caseManagerID.init();
+				} else if ( toPage == "CR" ) {
+					mainStackID.selectedChild = chartReportID;
+					chartReportID.init();
+				} else { //DE
+					mainStackID.selectedChild = documentExplorerID;
+					documentExplorerID.init();
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:ViewStack id="mainStackID" width="100%" height="100%" creationPolicy="all">
+		<pages:Home id="homeID"/>
+		<pages:CA id="configAdminID"/>
+		<pages:CM id="caseManagerID"/>
+		<pages:CR id="chartReportID"/>
+		<pages:DE id="documentExplorerID"/>
+	</mx:ViewStack>
+	
+	
+</s:Application>
