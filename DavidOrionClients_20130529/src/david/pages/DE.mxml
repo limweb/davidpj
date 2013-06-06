@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:component="component.*"
-				width="100%" height="100%">
+			   width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
 			import component.ExtendsCheckbox2;
@@ -205,6 +205,33 @@
 			
 			//############################## Start: DG1 Click Handler ###################################//
 			public function dg1ChkBoxClickHandler(action:String):void {
+				
+				var selectedCount:int = 0;
+				
+				/* for each ( var obj:Object in dataProvider1List_ID ) {
+					if (obj.isSelected == 1) {
+						selectedCount++;
+					}
+				} */
+				
+				
+				/* Alert.show(
+					"Action is : " + action
+					+ " \ndataProvider1List_ID.length : " + dataProvider1List_ID.length
+					+ "\n"+ selectedCount + " row selected!"
+				); */
+				
+				/* <fx:Object IndexValue1="xxxx" IndexValue2="xxxx" IndexValue3="xxxx" IndexValue4="xxxx" IndexValue5="xxxx" isSelected="false"></fx:Object> */
+				
+				
+				if ( action == 'M' ) {
+				//	advanceDG1_ID.headerRenderer.dg1_main_checkBox_id;
+					
+					for each ( var obj2:Object in dataProvider1List_ID ) {
+						obj2.isSelected = 1;
+					}
+					
+				}
 				
 			}
 			//############################## End: DG1 Click Handler ###################################//
@@ -415,7 +442,7 @@
 						
 						<s:Spacer height="3"/>
 						
-						<mx:Text text="Index fields:" height="10"
+						<mx:Text text="Index fields:"
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
 						
 						<s:Spacer height="3"/>
@@ -437,7 +464,7 @@
 										  paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="0" gap="0" 
 										  fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
 											
-											<component:ExtendsCheckbox2 width="100" id="main_checkBox_id" label="Main checkBox" isTristate="true" click="checkBoxClickHandler('M')"/>
+											<component:ExtendsCheckbox2 width="100" id="main_checkBox_id" label="ALL INDEX FIELDS" isTristate="true" click="checkBoxClickHandler('M')"/>
 											<component:ExtendsCheckbox2 width="100" id="child_checkBox_id1" label="IndexField1" isTristate="false" click="checkBoxClickHandler('C')"/>
 											<component:ExtendsCheckbox2 width="100" id="child_checkBox_id2" label="IndexField2" isTristate="false" click="checkBoxClickHandler('C')"/>
 											<component:ExtendsCheckbox2 width="100" id="child_checkBox_id3" label="IndexField3" isTristate="false" click="checkBoxClickHandler('C')"/>
@@ -485,19 +512,19 @@
 						<s:VerticalLayout/>
 					</s:layout>
 					<mx:VDividedBox height="100%" width="100%">
-						<s:TitleWindow title="DocumentClass1" 
-									   height="100%" width="100%" 
-									   dropShadowVisible="false" 
+						<component:CustomTitleWindow title="DocumentClass1" 
+									   height="100%" width="100%" skinClass="component.CustomTitleWindowSkin"
+									   dropShadowVisible="false" headerHeight="16"
 									   fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold">
 							
-							<mx:AdvancedDataGrid height="100%" width="100%" borderVisible="false" rowHeight="20"
+							<mx:AdvancedDataGrid id="advanceDG1_ID" height="100%" width="100%" borderVisible="false" rowHeight="20"
 												 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
 								
 								<mx:dataProvider>
-									<mx:ArrayCollection>
-										<fx:Object IndexValue1="xxxx" IndexValue2="xxxx" IndexValue3="xxxx" IndexValue4="xxxx" IndexValue5="xxxx" ></fx:Object>
-										<fx:Object IndexValue1="xxxx" IndexValue2="xxxx" IndexValue3="xxxx" IndexValue4="xxxx" IndexValue5="xxxx"></fx:Object>
-										<fx:Object IndexValue1="xxxx" IndexValue2="xxxx" IndexValue3="xxxx" IndexValue4="xxxx" IndexValue5="xxxx"></fx:Object>
+									<mx:ArrayCollection id="dataProvider1List_ID">
+										<fx:Object IndexValue1="xxxx" IndexValue2="xxxx" IndexValue3="xxxx" IndexValue4="xxxx" IndexValue5="xxxx" isSelected="0"></fx:Object>
+										<fx:Object IndexValue1="xxxx" IndexValue2="xxxx" IndexValue3="xxxx" IndexValue4="xxxx" IndexValue5="xxxx" isSelected="0"></fx:Object>
+										<fx:Object IndexValue1="xxxx" IndexValue2="xxxx" IndexValue3="xxxx" IndexValue4="xxxx" IndexValue5="xxxx" isSelected="0"></fx:Object>
 									</mx:ArrayCollection>
 								</mx:dataProvider>
 								
@@ -513,9 +540,10 @@
 										</mx:headerRenderer>
 										<mx:itemRenderer>
 											<fx:Component>
-												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
-													<mx:CheckBox/> <!--selected="{data.isDelete}" change="outerDocument.setDeleteAt(data.internalSv)"-->
-													<component:ExtendsCheckbox2 width="10" id="dg1_main_checkBox_id" isTristate="true" state="-1"/>
+												<!--<mx:CheckBox/> selected="{data.isDelete}" change="outerDocument.setDeleteAt(data.internalSv)"-->
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="0" paddingRight="0">
+													<component:ExtendsCheckbox2 width="10" isTristate="false" state="1"
+																				click="outerDocument.dg1ChkBoxClickHandler('C')"/>
 												</mx:HBox>
 											</fx:Component>
 										</mx:itemRenderer>
@@ -567,10 +595,10 @@
 								</s:ArrayList>-->
 							</mx:AdvancedDataGrid>
 							
-						</s:TitleWindow>
-						<s:TitleWindow title="DocumentClass2" 
-									   height="100%" width="100%" 
-									   dropShadowVisible="false" 
+						</component:CustomTitleWindow>
+						<component:CustomTitleWindow title="DocumentClass2" 
+									   height="100%" width="100%" headerHeight="16" 
+									   dropShadowVisible="false" skinClass="component.CustomTitleWindowSkin" 
 									   fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold">
 							<mx:AdvancedDataGrid height="100%" width="100%" borderVisible="false" rowHeight="20"
 										fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
@@ -588,14 +616,16 @@
 										<mx:headerRenderer>
 											<fx:Component>
 												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
-													<mx:CheckBox /> <!--selected="{outerDocument.deleteAll}" change="outerDocument.setDeleteAll()"-->
+													<!--<mx:CheckBox /> selected="{outerDocument.deleteAll}" change="outerDocument.setDeleteAll()"-->
+													<component:ExtendsCheckbox2 width="10" isTristate="true" state="-1"/>
 												</mx:HBox>
 											</fx:Component>
 										</mx:headerRenderer>
 										<mx:itemRenderer>
 											<fx:Component>
 												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
-													<mx:CheckBox/> <!--selected="{data.isDelete}" change="outerDocument.setDeleteAt(data.internalSv)"-->
+													<!--<mx:CheckBox/> selected="{data.isDelete}" change="outerDocument.setDeleteAt(data.internalSv)"-->
+													<component:ExtendsCheckbox2 width="10" isTristate="false" state="1"/>
 												</mx:HBox>
 											</fx:Component>
 										</mx:itemRenderer>
@@ -635,7 +665,7 @@
 									<fx:Object dataField1="data4" dataField2="data4" dataField3="data4"></fx:Object>
 								</s:ArrayList>-->
 							</mx:AdvancedDataGrid>
-						</s:TitleWindow>
+						</component:CustomTitleWindow>
 					</mx:VDividedBox>
 
 					

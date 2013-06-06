@@ -2,6 +2,7 @@
 <mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:component="component.*"
 			   width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
@@ -23,23 +24,23 @@
 		<s:layout>
 			<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="0" paddingRight="0" gap="0"/>
 		</s:layout>
-				
+		
 		<!--Common header-->
-		<s:BorderContainer id="CommonHeader" width="100%" height="38" borderVisible="false"
-						   backgroundColor="#00315B7E">
+		<s:BorderContainer id="CommonHeader" width="100%" height="36" borderVisible="false"
+						   backgroundColor="#00004F6C">
 			<s:layout>
 				<s:HorizontalLayout paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="5" verticalAlign="middle"/>
 			</s:layout>
 			<s:BorderContainer width="50%" height="{CommonHeader.height}" borderVisible="false"
-							   backgroundColor="#00315B7E">
+							   backgroundColor="#00004F6C">
 				<s:layout>
 					<s:HorizontalLayout paddingTop="0" paddingBottom="0" gap="5" verticalAlign="middle"/>
 				</s:layout>
 				<s:Label text="Configuration / Administration" verticalAlign="top" 
-						 fontFamily="Franklin Gothic Medium" fontSize="24" fontWeight="bold" color="white"/>
+						 fontFamily="Arial Black" fontSize="24" fontWeight="normal" color="white"/>
 			</s:BorderContainer>
 			<s:BorderContainer width="120" height="{CommonHeader.height}" borderVisible="false"
-							   backgroundColor="#00315B7E">
+							   backgroundColor="#00004F6C">
 				<s:layout>
 					<s:HorizontalLayout paddingTop="0" paddingBottom="0" gap="5" verticalAlign="middle"/>
 				</s:layout>
@@ -50,7 +51,7 @@
 						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>
 			</s:BorderContainer>
 			<s:BorderContainer width="50%" height="{CommonHeader.height}" borderVisible="false"
-							   backgroundColor="#00315B7E">
+							   backgroundColor="#00004F6C">
 				<s:layout>
 					<s:HorizontalLayout paddingTop="0" paddingBottom="0" gap="5" verticalAlign="middle" horizontalAlign="right"/>
 				</s:layout>
@@ -65,7 +66,7 @@
 				<s:Label text="username" 
 						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>
 				<s:Button label="Log off" buttonMode="true" 
-						  height="21" click="FlexGlobals.topLevelApplication.logout()"
+						  height="21" 
 						  fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold" 
 						  styleName="logOffButton"/>
 				<s:BitmapImage width="20" height="20" 
@@ -74,7 +75,7 @@
 			</s:BorderContainer>
 		</s:BorderContainer>
 		<mx:HRule width="100%" strokeWidth="1" strokeColor="black"/>
-		<mx:Spacer height="5"/>
+		<mx:Spacer height="3"/>
 		<!--End Common Header-->
 		
 		<!--App launch bar-->
@@ -82,9 +83,9 @@
 			<s:layout>
 				<s:BasicLayout/>
 			</s:layout>
-			<mx:LinkBar id="AppLaunchBar" 
-						x="185" width="100%" height="26" horizontalAlign="center" horizontalGap="8"
-						fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold"
+			<mx:LinkBar id="AppLaunchBar"
+						x="185" width="100%" height="24" horizontalAlign="center" horizontalGap="10"
+						fontFamily="Arial Black" fontSize="12" fontWeight="normal"
 						dataProvider="{FlexGlobals.topLevelApplication.linkBarDataProvider}"
 						itemClick="AppLaunchBar_itemClickHandler(event)"
 						separatorColor="#00C1DAD6" separatorWidth="1" iconField="icon">
@@ -97,20 +98,27 @@
 			<s:layout>
 				<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="0" paddingRight="0" gap="0"/>
 			</s:layout>
-		
+			
 			<!--Logo and Search box-->
 			<s:BorderContainer id="LogoAndSearchBox" width="100%" height="40" borderVisible="false">
 				<s:layout>
 					<s:BasicLayout/>
 				</s:layout>
 				<!--Logo-->
-				<s:BorderContainer x="5" y="-35" width="175" height="75" borderVisible="false">
-						<s:BitmapImage width="100%" height="100%" 
-									   scaleMode="stretch" fillMode="scale" 
-									   source="../assets/orionlogo.jpg"/>
+				<s:BorderContainer x="5" y="-30" width="175" height="70" borderVisible="false">
+					<s:layout>
+						<s:BasicLayout/>
+					</s:layout>
+					<s:BitmapImage width="97%" height="100%" 
+								   scaleMode="stretch" fillMode="scale" 
+								   source="../assets/orionlogo.jpg"/>
+					<s:BitmapImage x="3" y="3"
+								   width="70" height="25" 
+								   scaleMode="stretch" fillMode="scale" 
+								   source="../assets/MagSoftlogo.jpg"/>
 				</s:BorderContainer>
 				<!--SearchBox container-->
-				<s:BorderContainer x="185" width="100%" height="40" borderVisible="true" backgroundColor="#00C1DAD6">
+				<s:BorderContainer x="185" width="100%" height="40" borderVisible="true" borderColor="#00E3784E" backgroundColor="#00C1DAD6">
 					<s:layout>
 						<s:HorizontalLayout verticalAlign="middle" 
 											paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5"/>
@@ -122,6 +130,7 @@
 									fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
 						<s:dataProvider>
 							<mx:ArrayList>
+								<fx:String>System</fx:String>
 								<fx:String>Users</fx:String>
 								<fx:String>Groups</fx:String>
 								<fx:String>Roles</fx:String>
@@ -136,34 +145,36 @@
 							  buttonMode="true" styleName="searchButton"
 							  fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold"/>
 				</s:BorderContainer>
+				<s:Spacer width="5"/>
 			</s:BorderContainer>
 			
 			<!--Entity chooser-->
 			<s:BorderContainer id="EntityChooser" width="100%" height="100%" borderVisible="false">
 				<s:layout>
 					<s:HorizontalLayout paddingTop="5" paddingBottom="5"
-									  paddingLeft="5" paddingRight="5" 
-									  gap="10"/>
+										paddingLeft="5" paddingRight="5" 
+										gap="10"/>
 				</s:layout>
 				<s:BorderContainer id="EntityList" width="170" height="100%" borderVisible="false">
 					<s:layout>
-						<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="0" paddingRight="0" gap="0"/>
+						<s:VerticalLayout paddingTop="5" paddingBottom="5" paddingLeft="0" paddingRight="0" gap="0"/>
 					</s:layout>
-					<s:BorderContainer width="170" height="20" borderVisible="true" borderColor="#00315B7E" backgroundColor="#00315B7E">
+					<s:BorderContainer width="170" height="20" borderVisible="true" borderColor="#00004F6C" backgroundColor="#00004F6C">
 						<s:layout>
 							<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="5" gap="0"/>
 						</s:layout>
 						<mx:Text text="Choose entity:" 
-								color="white" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold"/>
+								 color="white" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold"/>
 					</s:BorderContainer>
-					<s:BorderContainer width="170" height="120" borderVisible="true">
+					<s:BorderContainer width="170" height="136" borderVisible="true">
 						<s:layout>
-							<s:VerticalLayout paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="0" gap="0"/>
+							<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="0" gap="0"/>
 						</s:layout>
-						<s:List height="110" borderVisible="false"
-								fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold" 
+						<s:List width="159" height="134" borderVisible="false"
+								fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold"
 								rollOverColor="#00C0C0C0" itemRenderer="ListItemRenderer">
 							<mx:ArrayCollection>
+								<fx:String>System</fx:String> 
 								<fx:String>Users, Groups, Roles</fx:String> 
 								<fx:String>Folders</fx:String> 
 								<fx:String>Document Classes</fx:String> 
@@ -179,50 +190,82 @@
 					<s:layout>
 						<s:VerticalLayout gap="0" horizontalAlign="right"/>
 					</s:layout>
-					<s:BorderContainer width="100%" height="23" borderVisible="false" >
+					<s:BorderContainer width="100%" height="25" borderVisible="false" >
 						<s:layout>
 							<s:HorizontalLayout gap="0" horizontalAlign="right" verticalAlign="bottom"/>
 						</s:layout>
-						<!--<s:TabBar height="20" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold">
-							<mx:ArrayCollection>
-								<fx:String>Contact Information</fx:String> 
-								<fx:String>Access Controls</fx:String>
-							</mx:ArrayCollection>
-						</s:TabBar>-->
-						<!--<s:BorderContainer width="100%" height="50" borderVisible="false">
-							<s:layout>
-								<s:VerticalLayout gap="5" horizontalAlign="right"/>
-							</s:layout>
-							<mx:Text text="hello" height="8"/>
-							<s:TabBar height="12" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold">
-								<mx:ArrayCollection>
-									<fx:String>Contact Information</fx:String> 
-									<fx:String>Access Controls</fx:String> 
-								</mx:ArrayCollection>
-							</s:TabBar>
-						</s:BorderContainer>-->
-						<s:TabBar height="20" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold" useHandCursor="true" buttonMode="true">
+						<!--s:TabBar height="20" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold">
+						<mx:ArrayCollection>
+						<fx:String>Contact Information</fx:String> 
+						<fx:String>Access Controls</fx:String>
+						</mx:ArrayCollection>
+						</s:TabBar>
+						<s:BorderContainer width="100%" height="50" borderVisible="false">
+						<s:layout>
+						<s:VerticalLayout gap="5" horizontalAlign="right"/>
+						</s:layout>
+						<mx:Text text="hello" height="8"/>
+						<s:TabBar height="12" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold">
+						<mx:ArrayCollection>
+						<fx:String>Contact Information</fx:String> 
+						<fx:String>Access Controls</fx:String> 
+						</mx:ArrayCollection>
+						</s:TabBar>
+						</s:BorderContainer-->
+						<s:TabBar height="20" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold">
 							<mx:ArrayCollection>
 								<fx:String>Contact Information</fx:String> 
 								<fx:String>Access Controls</fx:String> 
 							</mx:ArrayCollection>
 						</s:TabBar>
 					</s:BorderContainer>
-					<s:TitleWindow title="Users" height="100%" width="100%" dropShadowVisible="false">
-						<mx:AdvancedDataGrid height="100%" width="100%" borderVisible="false" rowHeight="18"
-									fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
-							<mx:columns>
-								<mx:AdvancedDataGridColumn width="20"/>
-								<mx:AdvancedDataGridColumn width="20"/>
-								<mx:AdvancedDataGridColumn width="20"/>
-								<mx:AdvancedDataGridColumn dataField="Value1" headerText="Property1"/>
-								<mx:AdvancedDataGridColumn dataField="Value2" headerText="Property2"/>
-								<mx:AdvancedDataGridColumn dataField="Value3" headerText="Property3"/>
-								<mx:AdvancedDataGridColumn dataField="Value4" headerText="Property4"/>
-								<mx:AdvancedDataGridColumn dataField="Value5" headerText="Property5"/>
-								<mx:AdvancedDataGridColumn width="20"/>
-								
-								<!--<s:ArrayList>
+					<component:CustomTitleWindow title="Users" height="100%" width="100%" dropShadowVisible="false" fontFamily="Franklin Gothic Medium"
+								   				 fontSize="11" fontWeight="normal" skinClass="component.CustomTitleWindowSkin" headerHeight="16">
+						
+						<mx:AdvancedDataGrid id="advanceDG1_ID" height="100%" width="100%" borderVisible="false" rowHeight="20"
+											 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" lockedColumnCount="6">
+							
+							<mx:dataProvider>
+								<mx:ArrayCollection id="dataProvider1List_ID">
+									<fx:Object Value1="xxxx" Value2="xxxx" Value3="xxxx" Value4="xxxx" Value5="xxxx" isSelected="0"></fx:Object>
+									<fx:Object Value1="xxxx" Value2="xxxx" Value3="xxxx" Value4="xxxx" Value5="xxxx" isSelected="0"></fx:Object>
+									<fx:Object Value1="xxxx" Value2="xxxx" Value3="xxxx" Value4="xxxx" Value5="xxxx" isSelected="0"></fx:Object>
+								</mx:ArrayCollection>
+							</mx:dataProvider>
+							
+							<mx:groupedColumns>
+								<mx:AdvancedDataGridColumn width="15" editorDataField="selected" sortable="false">
+									<mx:headerRenderer>
+										<fx:Component>
+											<mx:HBox horizontalAlign="center" width="100%" verticalAlign="middle" paddingLeft="0" paddingRight="0">
+												<component:ExtendsCheckbox2 width="10" isTristate="true" state="-1"/>
+											</mx:HBox>
+										</fx:Component>
+									</mx:headerRenderer>
+									<mx:itemRenderer>
+										<fx:Component>
+											<!--<mx:CheckBox/> selected="{data.isDelete}" change="outerDocument.setDeleteAt(data.internalSv)"-->
+											<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="0" paddingRight="0">
+												<component:ExtendsCheckbox2 width="10" isTristate="false" state="1"/>
+											</mx:HBox>
+										</fx:Component>
+									</mx:itemRenderer>
+								</mx:AdvancedDataGridColumn>
+								<mx:AdvancedDataGridColumn width="15"/>
+								<mx:AdvancedDataGridColumn width="15"/>
+								<mx:AdvancedDataGridColumn dataField="Value1" headerText="IndexField1"/>
+								<mx:AdvancedDataGridColumn dataField="Value2" headerText="IndexField2"/>
+								<mx:AdvancedDataGridColumn dataField="Value3" headerText="IndexField3"/>
+								<mx:AdvancedDataGridColumn dataField="Value4" headerText="IndexField4"/>
+								<mx:AdvancedDataGridColumn dataField="Value5" headerText="IndexField5"/>
+								<mx:AdvancedDataGridColumn width="15"/>
+							</mx:groupedColumns>
+						</mx:AdvancedDataGrid>
+						
+						<!--<s:DataGrid height="100%" width="100%" borderVisible="false" rowHeight="18"  
+									fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold">
+							<s:columns>
+								<s:ArrayList>
 									<s:GridColumn width="20"/>
 									<s:GridColumn width="20"/>
 									<s:GridColumn width="20"/>
@@ -232,31 +275,31 @@
 									<s:GridColumn dataField="Value4" headerText="Property4"/>
 									<s:GridColumn dataField="Value5" headerText="Property5"/>
 									<s:GridColumn width="20"/>
-								</s:ArrayList>-->
-							</mx:columns>
-							<!--<s:typicalItem>
+								</s:ArrayList>
+							</s:columns>
+							<s:typicalItem>
 								<fx:Object dataField1="Sample Data" dataField2="Sample Data"
-									   dataField3="Sample Data"></fx:Object>
-							</s:typicalItem>-->
-							<!--<s:ArrayList>
+										   dataField3="Sample Data"></fx:Object>
+							</s:typicalItem>
+							<s:ArrayList>
 								<fx:Object dataField1="data1" dataField2="data1" dataField3="data1"></fx:Object>
 								<fx:Object dataField1="data2" dataField2="data2" dataField3="data2"></fx:Object>
 								<fx:Object dataField1="data3" dataField2="data3" dataField3="data3"></fx:Object>
 								<fx:Object dataField1="data4" dataField2="data4" dataField3="data4"></fx:Object>
-							</s:ArrayList>-->
-						</mx:AdvancedDataGrid>
-					</s:TitleWindow>
+							</s:ArrayList>
+						</s:DataGrid>-->
+					</component:CustomTitleWindow>
 				</s:BorderContainer>
-			
-			<!--End SearchFiltersAndSearchResults-->
+				
+				<!--End SearchFiltersAndSearchResults-->
 			</s:BorderContainer>
 			
-		<!--End stage-->
+			<!--End stage-->
 		</s:BorderContainer>
 		
 		<s:Spacer height="5"/>
 		<!--Common footer-->
-		<s:BorderContainer width="100%" height="18" borderVisible="false" backgroundColor="#00315B7E">
+		<s:BorderContainer width="100%" height="18" borderVisible="false" backgroundColor="#00004F6C">
 			<s:layout>
 				<s:HorizontalLayout verticalAlign="middle" paddingLeft="5" paddingRight="5"/>
 			</s:layout>
@@ -268,12 +311,16 @@
 				<s:Label text="Copyright 2013 Magsoft" 
 						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>
 			</s:HGroup>
+			<!--s:HGroup width="100%" horizontalAlign="center">
+			<s:Label text="Credits" 
+			fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>				
+			</s:HGroup-->
 			<s:HGroup width="100%" horizontalAlign="right">
-				<s:Label text="Credits" 
+				<s:Label text="DASHBOARD" 
 						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>				
 			</s:HGroup>
 		</s:BorderContainer>
 		<!--End common footer-->
-
+		
 	</s:BorderContainer>
 </mx:Canvas>

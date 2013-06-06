@@ -2,6 +2,7 @@
 <mx:Canvas  xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:component="component.*"
 			   width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
@@ -174,12 +175,35 @@
 						<s:VerticalLayout/>
 					</s:layout>
 					<mx:VDividedBox height="100%" width="100%">
-						<s:TitleWindow title="WorkBoxes" height="100%" width="100%" dropShadowVisible="false">
-							<mx:AdvancedDataGrid height="100%" width="100%" minHeight="20" rowHeight="14" borderVisible="false"										
+						<component:CustomTitleWindow title="WorkBoxes" height="100%" width="100%" dropShadowVisible="false"
+													 skinClass="component.CustomTitleWindowSkin" headerHeight="16">
+							<mx:AdvancedDataGrid height="100%" width="100%" minHeight="20" rowHeight="20" borderVisible="false"										
 										fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
+								<mx:dataProvider>
+									<mx:ArrayCollection>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+									</mx:ArrayCollection>
+								</mx:dataProvider>
 								
-								<mx:columns>
-									<mx:AdvancedDataGridColumn width="20"/>
+								<mx:groupedColumns>
+									<mx:AdvancedDataGridColumn width="20" editorDataField="selected" sortable="false">
+										<mx:headerRenderer>
+											<fx:Component>
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
+													<component:ExtendsCheckbox2 width="10" isTristate="true" state="-1"/>
+												</mx:HBox>
+											</fx:Component>
+										</mx:headerRenderer>
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
+													<component:ExtendsCheckbox2 width="10" isTristate="false" state="1"/>
+												</mx:HBox>
+											</fx:Component>
+										</mx:itemRenderer>
+									</mx:AdvancedDataGridColumn>
 									<mx:AdvancedDataGridColumn width="20"/>
 									<mx:AdvancedDataGridColumn width="20"/>
 									<mx:AdvancedDataGridColumn dataField="dataField1" headerText="Column 1"/>
@@ -188,7 +212,7 @@
 									<mx:AdvancedDataGridColumn dataField="dataField4" headerText="Column 4"/>
 									<mx:AdvancedDataGridColumn dataField="dataField5" headerText="Column 5"/>
 									<mx:AdvancedDataGridColumn width="20"/>
-								</mx:columns>
+								</mx:groupedColumns>
 								
 								
 								<!--<s:columns>
@@ -217,13 +241,37 @@
 								
 								
 							</mx:AdvancedDataGrid>
-						</s:TitleWindow>
-						<s:TitleWindow title="Cases" height="100%" width="100%" dropShadowVisible="false">
-							<mx:AdvancedDataGrid height="100%" width="100%" minHeight="20" rowHeight="14" borderVisible="false"										
+						</component:CustomTitleWindow>
+						<component:CustomTitleWindow title="Cases" height="100%" width="100%" dropShadowVisible="false"
+													 skinClass="component.CustomTitleWindowSkin" headerHeight="16">
+							<mx:AdvancedDataGrid height="100%" width="100%" minHeight="20" rowHeight="20" borderVisible="false"										
 										fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
 								
-								<mx:columns>
-									<mx:AdvancedDataGridColumn width="20"/>
+								<mx:dataProvider>
+									<mx:ArrayCollection>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+									</mx:ArrayCollection>
+								</mx:dataProvider>
+								
+								<mx:groupedColumns>
+									<mx:AdvancedDataGridColumn width="20" editorDataField="selected" sortable="false">
+										<mx:headerRenderer>
+											<fx:Component>
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
+													<component:ExtendsCheckbox2 width="10" isTristate="true" state="-1"/>
+												</mx:HBox>
+											</fx:Component>
+										</mx:headerRenderer>
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
+													<component:ExtendsCheckbox2 width="10" isTristate="false" state="1"/>
+												</mx:HBox>
+											</fx:Component>
+										</mx:itemRenderer>
+									</mx:AdvancedDataGridColumn>
 									<mx:AdvancedDataGridColumn width="20"/>
 									<mx:AdvancedDataGridColumn width="20"/>
 									<mx:AdvancedDataGridColumn dataField="dataField1" headerText="Column 1"/>
@@ -232,7 +280,7 @@
 									<mx:AdvancedDataGridColumn dataField="dataField4" headerText="Column 4"/>
 									<mx:AdvancedDataGridColumn dataField="dataField5" headerText="Column 5"/>
 									<mx:AdvancedDataGridColumn width="20"/>
-								</mx:columns>
+								</mx:groupedColumns>
 								
 								<!--<s:columns>
 									<s:ArrayList>
@@ -260,13 +308,37 @@
 								
 								
 							</mx:AdvancedDataGrid>
-						</s:TitleWindow>
-						<s:TitleWindow title="Steps" height="100%" width="100%" dropShadowVisible="false">
-							<mx:AdvancedDataGrid height="100%" width="100%" minHeight="20" rowHeight="14" borderVisible="false"										
+						</component:CustomTitleWindow>
+						<component:CustomTitleWindow title="Steps" height="100%" width="100%" dropShadowVisible="false"
+									   				 skinClass="component.CustomTitleWindowSkin" headerHeight="16">
+							<mx:AdvancedDataGrid height="100%" width="100%" minHeight="20" rowHeight="20" borderVisible="false"										
 										fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
 								
-								<mx:columns>
-									<mx:AdvancedDataGridColumn width="20"/>
+								<mx:dataProvider>
+									<mx:ArrayCollection>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+									</mx:ArrayCollection>
+								</mx:dataProvider>
+								
+								<mx:groupedColumns>
+									<mx:AdvancedDataGridColumn width="20" editorDataField="selected" sortable="false">
+										<mx:headerRenderer>
+											<fx:Component>
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
+													<component:ExtendsCheckbox2 width="10" isTristate="true" state="-1"/>
+												</mx:HBox>
+											</fx:Component>
+										</mx:headerRenderer>
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
+													<component:ExtendsCheckbox2 width="10" isTristate="false" state="1"/>
+												</mx:HBox>
+											</fx:Component>
+										</mx:itemRenderer>
+									</mx:AdvancedDataGridColumn>
 									<mx:AdvancedDataGridColumn width="20"/>
 									<mx:AdvancedDataGridColumn width="20"/>
 									<mx:AdvancedDataGridColumn dataField="dataField1" headerText="Column 1"/>
@@ -275,7 +347,7 @@
 									<mx:AdvancedDataGridColumn dataField="dataField4" headerText="Column 4"/>
 									<mx:AdvancedDataGridColumn dataField="dataField5" headerText="Column 5"/>
 									<mx:AdvancedDataGridColumn width="20"/>
-								</mx:columns>
+								</mx:groupedColumns>
 								
 								<!--<s:columns>
 									<s:ArrayList>
@@ -301,13 +373,37 @@
 									<fx:Object dataField1="data4" dataField2="data4" dataField3="data4"></fx:Object>
 								</s:ArrayList>-->
 							</mx:AdvancedDataGrid>
-						</s:TitleWindow>
-						<s:TitleWindow title="Documents" height="100%" width="100%" dropShadowVisible="false">
-							<mx:AdvancedDataGrid height="100%" width="100%" minHeight="20" rowHeight="14" borderVisible="false"										
+						</component:CustomTitleWindow>
+						<component:CustomTitleWindow title="Documents" height="100%" width="100%" dropShadowVisible="false"
+													 skinClass="component.CustomTitleWindowSkin" headerHeight="16">
+							<mx:AdvancedDataGrid height="100%" width="100%" minHeight="20" rowHeight="20" borderVisible="false"										
 										fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
 								
-								<mx:columns>
-									<mx:AdvancedDataGridColumn width="20"/>
+								<mx:dataProvider>
+									<mx:ArrayCollection>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+										<fx:Object dataField1="xxxx" dataField2="xxxx" dataField3="xxxx" dataField4="xxxx" dataField5="xxxx"></fx:Object>
+									</mx:ArrayCollection>
+								</mx:dataProvider>
+								
+								<mx:groupedColumns>
+									<mx:AdvancedDataGridColumn width="20" editorDataField="selected" sortable="false">
+										<mx:headerRenderer>
+											<fx:Component>
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
+													<component:ExtendsCheckbox2 width="10" isTristate="true" state="-1"/>
+												</mx:HBox>
+											</fx:Component>
+										</mx:headerRenderer>
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="2" paddingRight="2">
+													<component:ExtendsCheckbox2 width="10" isTristate="false" state="1"/>
+												</mx:HBox>
+											</fx:Component>
+										</mx:itemRenderer>
+									</mx:AdvancedDataGridColumn>
 									<mx:AdvancedDataGridColumn width="20"/>
 									<mx:AdvancedDataGridColumn width="20"/>
 									<mx:AdvancedDataGridColumn dataField="dataField1" headerText="Priority"/>
@@ -316,7 +412,7 @@
 									<mx:AdvancedDataGridColumn dataField="dataField4" headerText="Batch#"/>
 									<mx:AdvancedDataGridColumn dataField="dataField5" headerText="Column 5"/>
 									<mx:AdvancedDataGridColumn width="20"/>
-								</mx:columns>
+								</mx:groupedColumns>
 								
 								<!--<s:columns>
 									<s:ArrayList>
@@ -344,7 +440,7 @@
 								
 								
 							</mx:AdvancedDataGrid>
-						</s:TitleWindow>
+						</component:CustomTitleWindow>
 					</mx:VDividedBox>
 					
 					<!--Action controls-->
