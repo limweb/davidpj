@@ -50,6 +50,9 @@
 			[Bindable] public function get state():int { return _state; }
 			public function set state(value:int):void {
 				_state = value;
+				
+				//Alert.show("_state : " + _state );
+				
 				switch(_state) {
 					case INTERMEDIATE:
 						if (!_isTristate) {
