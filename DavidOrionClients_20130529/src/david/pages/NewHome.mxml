@@ -16,35 +16,8 @@
 			import mx.managers.PopUpManager;
 			import mx.utils.StringUtil;
 			
-			private var resetPassPopup:ResetPassPopup;
-			
-			protected function login_clickHandler():void {
-				var user:String = StringUtil.trim(inputUserID.text);
-				var pass:String = StringUtil.trim(inputPassword.text);
-				FlexGlobals.topLevelApplication.login(user,pass);
-			}
-			
-			protected function loginKeyUp(event:KeyboardEvent):void {
-				if ( event.keyCode == 13 ) {
-					login_clickHandler();
-				}
-			}
-			
-			protected function text1_clickHandler(event:MouseEvent):void {
-				resetPassPopup = ResetPassPopup(PopUpManager.createPopUp( UIComponent(this.parentApplication), ResetPassPopup, true) );
-				resetPassPopup.okBtnID.addEventListener(MouseEvent.CLICK, okBtnPopup);
-				resetPassPopup.addEventListener( CloseEvent.CLOSE, resetPassPopupClose );
-			}
-			private function okBtnPopup( event:MouseEvent ):void {
-				PopUpManager.removePopUp( resetPassPopup );
-			}
-			private function resetPassPopupClose( event:CloseEvent ):void {
-				PopUpManager.removePopUp( resetPassPopup );
-			}
-			
 		]]>
 	</fx:Script>
-	
 	
 	<s:BorderContainer width="100%" height="100%">
 		<s:layout>
@@ -52,21 +25,21 @@
 		</s:layout>
 		
 		<!--Common header-->
-		<s:BorderContainer id="CommonHeader" width="100%" height="38" borderVisible="false"
-						   backgroundColor="#00315B7E">
+		<s:BorderContainer id="CommonHeader" width="100%" height="36" borderVisible="false"
+						   backgroundColor="#00004F6C">
 			<s:layout>
 				<s:HorizontalLayout paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="5" verticalAlign="middle"/>
 			</s:layout>
 			<s:BorderContainer width="50%" height="{CommonHeader.height}" borderVisible="false"
-							   backgroundColor="#00315B7E">
+							   backgroundColor="#00004F6C">
 				<s:layout>
 					<s:HorizontalLayout paddingTop="0" paddingBottom="0" gap="5" verticalAlign="middle"/>
 				</s:layout>
-				<s:Label text="Welcome" verticalAlign="top" 
-						 fontFamily="Franklin Gothic Medium" fontSize="24" fontWeight="bold" color="white"/>
+				<s:Label text="Configuration / Administration" verticalAlign="top" 
+						 fontFamily="Arial Black" fontSize="24" fontWeight="normal" color="white"/>
 			</s:BorderContainer>
 			<s:BorderContainer width="120" height="{CommonHeader.height}" borderVisible="false"
-							   backgroundColor="#00315B7E">
+							   backgroundColor="#00004F6C">
 				<s:layout>
 					<s:HorizontalLayout paddingTop="0" paddingBottom="0" gap="5" verticalAlign="middle"/>
 				</s:layout>
@@ -77,7 +50,7 @@
 						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>
 			</s:BorderContainer>
 			<s:BorderContainer width="50%" height="{CommonHeader.height}" borderVisible="false"
-							   backgroundColor="#00315B7E">
+							   backgroundColor="#00004F6C">
 				<s:layout>
 					<s:HorizontalLayout paddingTop="0" paddingBottom="0" gap="5" verticalAlign="middle" horizontalAlign="right"/>
 				</s:layout>
@@ -92,7 +65,7 @@
 				<s:Label text="username" 
 						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>
 				<s:Button label="Log off" buttonMode="true" 
-						  height="21" click="FlexGlobals.topLevelApplication.logout()"
+						  height="21" 
 						  fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold" 
 						  styleName="logOffButton"/>
 				<s:BitmapImage width="20" height="20" 
@@ -101,168 +74,514 @@
 			</s:BorderContainer>
 		</s:BorderContainer>
 		<mx:HRule width="100%" strokeWidth="1" strokeColor="black"/>
-		<mx:Spacer height="5"/>
+		<mx:Spacer height="3"/>
 		<!--End Common Header-->
 		
-		
-		<!--Spacer for app launch bar-->
-		<s:Spacer height="30"/>
-		
-		<!--Logo and Search box-->
-		<s:BorderContainer id="LogoAndSearchBox" width="100%" height="40" borderVisible="false">
+		<!--App launch bar-->
+		<s:BorderContainer width="100%" height="26" borderVisible="false">
 			<s:layout>
 				<s:BasicLayout/>
 			</s:layout>
-			<!--Logo-->
-			<s:BorderContainer x="5" y="-35" width="175" height="75" borderVisible="false">
-				<s:BitmapImage width="100%" height="100%" 
-							   scaleMode="stretch" fillMode="scale" 
-							   source="../assets/orionlogo.jpg"/>
-			</s:BorderContainer>
+			<mx:LinkBar id="AppLaunchBar"
+						x="185" width="100%" height="24" horizontalAlign="center" horizontalGap="10"
+						fontFamily="Arial Black" fontSize="12" fontWeight="normal"
+						dataProvider="{FlexGlobals.topLevelApplication.linkBarDataProvider}"
+						itemClick="AppLaunchBar_itemClickHandler(event)"
+						separatorColor="#00C1DAD6" separatorWidth="1" iconField="icon">
+			</mx:LinkBar>
 		</s:BorderContainer>
 		
-		
-		<!-- View stack for other pages -->
-		
-		<!--App launch buttons-->
-		<s:BorderContainer width="100%" height="100%" borderVisible="false">
+		<!--Stage-->
+		<s:Spacer height="5"/>
+		<s:BorderContainer id="Stage" width="100%" height="100%" borderVisible="false">
 			<s:layout>
-				<s:HorizontalLayout paddingTop="5" paddingBottom="15" paddingLeft="185" paddingRight="50" 
-									gap="5"/>
+				<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="0" paddingRight="0" gap="0"/>
 			</s:layout>
 			
-			<!--Login-->
-			<s:BorderContainer id="LoginWindow" width="175" height="100%" borderVisible="true" borderColor="#00E3784E">
+			<!--Logo and Search box-->
+			<s:BorderContainer id="LogoAndSearchBox" width="100%" height="40" borderVisible="false">
 				<s:layout>
-					<s:VerticalLayout paddingTop="5" paddingLeft="5" verticalAlign="middle" gap="0"/>
+					<s:BasicLayout/>
 				</s:layout>
+				<!--Logo-->
+				<s:BorderContainer x="5" y="-30" width="175" height="70" borderVisible="false">
+					<s:layout>
+						<s:BasicLayout/>
+					</s:layout>
+					<s:BitmapImage width="97%" height="100%" 
+								   scaleMode="stretch" fillMode="scale" 
+								   source="../assets/orionlogo.jpg"/>
+					<s:BitmapImage x="3" y="3"
+								   width="70" height="25" 
+								   scaleMode="stretch" fillMode="scale" 
+								   source="../assets/MagSoftlogo.jpg"/>
+				</s:BorderContainer>
+				<!--SearchBox container-->
+				<s:BorderContainer x="185" width="100%" height="40" borderVisible="true" borderColor="#00E3784E" backgroundColor="#00C1DAD6">
+					<s:layout>
+						<s:HorizontalLayout verticalAlign="middle" 
+											paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5"/>
+					</s:layout>
+					<mx:Text text="Search for" height="21"  
+							 fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold"/>
+					<s:DropDownList width="150" height="21"
+									rollOverColor="#00C0C0C0"
+									fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal">
+						<s:dataProvider>
+							<mx:ArrayList>
+								<fx:String>System</fx:String>
+								<fx:String>Users</fx:String>
+								<fx:String>Groups</fx:String>
+								<fx:String>Roles</fx:String>
+								<fx:String>Folders</fx:String>
+								<fx:String>Document Classes</fx:String>
+								<fx:String>Workflow Procedures</fx:String>
+							</mx:ArrayList>
+						</s:dataProvider>
+					</s:DropDownList>
+					<s:TextInput width="100%"/>
+					<s:Button label="Search" height="21" 
+							  buttonMode="true" styleName="searchButton"
+							  fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold"/>
+				</s:BorderContainer>
+				<s:Spacer width="5"/>
+			</s:BorderContainer>
+			
+			<!--Entity chooser-->
+			<s:BorderContainer id="EntityChooser" width="100%" height="100%" borderVisible="false">
+				<s:layout>
+					<s:HorizontalLayout paddingTop="5" paddingBottom="5"
+										paddingLeft="5" paddingRight="5" 
+										gap="10"/>
+				</s:layout>
+				<s:BorderContainer id="EntityList" width="170" height="100%" borderVisible="false">
+					<s:layout>
+						<s:VerticalLayout paddingTop="5" paddingBottom="5" paddingLeft="0" paddingRight="0" gap="0"/>
+					</s:layout>
+					<s:BorderContainer width="170" height="20" borderVisible="true" borderColor="#00004F6C" backgroundColor="#00004F6C">
+						<s:layout>
+							<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="5" gap="0"/>
+						</s:layout>
+						<mx:Text text="Choose entity:" 
+								 color="white" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold"/>
+					</s:BorderContainer>
+					<s:BorderContainer width="170" height="136" borderVisible="true">
+						<s:layout>
+							<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="0" gap="0"/>
+						</s:layout>
+						<s:List width="159" height="134" borderVisible="false"
+								fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold"
+								rollOverColor="#00C0C0C0"> <!--itemRenderer="ListItemRenderer"-->
+							<mx:ArrayCollection>
+								<fx:String>System</fx:String> 
+								<fx:String>Users, Groups, Roles</fx:String> 
+								<fx:String>Folders</fx:String> 
+								<fx:String>Document Classes</fx:String> 
+								<fx:String>Workflow Procedures</fx:String> 
+								<fx:String>Jobs</fx:String> 
+							</mx:ArrayCollection>
+						</s:List>
+					</s:BorderContainer>
+				</s:BorderContainer>
 				
-				<!--Login Status-->
-				<s:Label text="Logging in" color="green"
-						 fontFamily="Arial Black" fontSize="12" fontWeight="normal"
-						 visible="{FlexGlobals.topLevelApplication.isLogin}"
-						 includeInLayout="{FlexGlobals.topLevelApplication.isLogin}"/>
+				<!--Entities-->
+				<s:BorderContainer width="100%" height="100%" borderVisible="false">
+					<s:layout>
+						<s:VerticalLayout gap="0" horizontalAlign="right"/>
+					</s:layout>
+					
+					<!-- Tab bar for border layout -->
+					<s:BorderContainer width="100%" height="25" borderVisible="false" >
+						<s:layout>
+							<s:HorizontalLayout gap="0" horizontalAlign="right" verticalAlign="bottom"/>
+						</s:layout>
+						<s:TabBar id="tabbar_id" height="20" fontFamily="Franklin Gothic Medium" fontSize="13" fontWeight="bold"
+								  change="tabbarChangeHandler(event)">
+							<mx:ArrayCollection>
+								<!--<fx:String>Contact Information</fx:String> 
+								<fx:String>Access Controls</fx:String> -->
+								
+								<fx:Object id="tabAuthority" label="Authority"></fx:Object>
+								<fx:Object id="tabContact" label="Contact"></fx:Object>
+								<fx:Object id="tabExplorer" label="Explorer"></fx:Object>
+								<fx:Object id="tabWindows" label="Windows"></fx:Object>
+								<fx:Object id="tabWorkflow" label="Workflow"></fx:Object>
+								<fx:Object id="tabOther" label="Other"></fx:Object>
+								
+							</mx:ArrayCollection>
+						</s:TabBar>
+					</s:BorderContainer>
+					
+					<component:CustomTitleWindow title="Users" height="100%" width="100%" dropShadowVisible="false" fontFamily="Franklin Gothic Medium"
+												 fontSize="11" fontWeight="normal" skinClass="component.CustomTitleWindowSkin" headerHeight="16">
+						
+						<mx:AdvancedDataGrid id="advanceDG1_ID" height="100%" width="100%" borderVisible="false" rowHeight="20"
+											 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"
+											 horizontalScrollPolicy="auto" lockedColumnCount="6">
+							
+							<mx:dataProvider>
+								<mx:ArrayCollection id="dataProvider1List_ID">
+									<fx:Object Value1="xxxx" Value2="xxxx" Value3="xxxx" isSelected="0"></fx:Object>
+									<fx:Object Value1="xxxx" Value2="xxxx" Value3="xxxx" isSelected="0"></fx:Object>
+									<fx:Object Value1="xxxx" Value2="xxxx" Value3="xxxx" isSelected="0"></fx:Object>
+								</mx:ArrayCollection>
+							</mx:dataProvider>
+							
+							<mx:groupedColumns>
+								<mx:AdvancedDataGridColumn width="20" editorDataField="selected" sortable="false">
+									<mx:headerRenderer>
+										<fx:Component>
+											<mx:HBox horizontalAlign="center" width="100%" verticalAlign="middle" paddingLeft="0" paddingRight="0">
+												<component:ExtendsCheckbox2 width="10" isTristate="true" state="-1"/>
+											</mx:HBox>
+										</fx:Component>
+									</mx:headerRenderer>
+									<mx:itemRenderer>
+										<fx:Component>
+											<mx:HBox horizontalAlign="center" verticalAlign="middle" paddingLeft="0" paddingRight="0">
+												<component:ExtendsCheckbox2 width="10" isTristate="false" state="1"/>
+											</mx:HBox>
+										</fx:Component>
+									</mx:itemRenderer>
+								</mx:AdvancedDataGridColumn>
+								<mx:AdvancedDataGridColumn width="20"/>
+								<mx:AdvancedDataGridColumn width="20"/>
+								<mx:AdvancedDataGridColumn width="130" dataField="Value1" headerText="IndexField1"/>
+								<mx:AdvancedDataGridColumn width="130" dataField="Value2" headerText="IndexField2"/>
+								<mx:AdvancedDataGridColumn width="130" dataField="Value3" headerText="IndexField3"/>
+								
+								<!--<mx:AdvancedDataGridColumn dataField="Value4" headerText="IndexField4"/>
+								<mx:AdvancedDataGridColumn dataField="Value5" headerText="IndexField5"/>
+								<mx:AdvancedDataGridColumn width="20"/>
+								-->
+								<!--<Authority___________________________________________________>-->
+								<mx:AdvancedDataGridColumnGroup id="grpPrivilledge" headerText="Privilege">
+									<mx:AdvancedDataGridColumn width="120" dataField="userType" headerText="User Type" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:ComboBox>
+													<mx:ArrayList>
+														<fx:String>User</fx:String>
+														<fx:String>Manager</fx:String>
+														<fx:String>Operator</fx:String>
+														<fx:String>Administrator</fx:String>
+													</mx:ArrayList>
+												</mx:ComboBox>
+											</fx:Component>
+										</mx:itemRenderer>
+									</mx:AdvancedDataGridColumn>
+								</mx:AdvancedDataGridColumnGroup>
+								<mx:AdvancedDataGridColumnGroup id="grpAuthentication" headerText="Authentication">
+									<mx:AdvancedDataGridColumn width="160" headerText="Authenticate via LDAP"
+															   textAlign="center" dataField="authenticateLDAP">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:CheckBox/>
+											</fx:Component>
+										</mx:itemRenderer>	
+									</mx:AdvancedDataGridColumn>
+									<mx:AdvancedDataGridColumn id="passwordAuth" width="140" headerText="Password" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:TextInput displayAsPassword="true" editable="false" text="password"/>
+											</fx:Component>
+										</mx:itemRenderer>
+									</mx:AdvancedDataGridColumn>
+								</mx:AdvancedDataGridColumnGroup>
+								<mx:AdvancedDataGridColumnGroup id="grpLanguage" headerText="Language for Orion UI">
+									<mx:AdvancedDataGridColumn width="150" dataField="languagePri"
+															   headerText="Primary" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:ComboBox>
+													<mx:ArrayList>
+														<fx:String>English</fx:String>
+														<fx:String>Dutch</fx:String>
+													</mx:ArrayList>
+												</mx:ComboBox>
+											</fx:Component>
+										</mx:itemRenderer>
+									</mx:AdvancedDataGridColumn>
+									<mx:AdvancedDataGridColumn width="150" dataField="languageSec"
+															   headerText="Secondary" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:ComboBox>
+													<mx:ArrayList>
+														<fx:String>English</fx:String>
+														<fx:String>Dutch</fx:String>
+													</mx:ArrayList>
+												</mx:ComboBox>
+											</fx:Component>
+										</mx:itemRenderer>
+									</mx:AdvancedDataGridColumn>
+								</mx:AdvancedDataGridColumnGroup>
+								<!--< END : Authority___________________________________________________>-->
+								<!--<Contact_______________________________________________________>-->
+								<mx:AdvancedDataGridColumnGroup id="grpLocation" headerText="Location">
+									<mx:AdvancedDataGridColumn width="200" dataField="city"
+															   headerText="Department or Place" textAlign="center"/>
+									<mx:AdvancedDataGridColumn width="200" dataField="country" headerText="Country"
+															   textAlign="center"/>
+								</mx:AdvancedDataGridColumnGroup>
+								<mx:AdvancedDataGridColumnGroup id="grpContact" headerText="Contact">
+									<mx:AdvancedDataGridColumn width="300" dataField="email" headerText="Email Address"/>
+								</mx:AdvancedDataGridColumnGroup>
+								<!--<END : Contact____________________________________________________________>-->
+								
+								<!--<App security Explorer_______________________________________________________>-->
+								<mx:AdvancedDataGridColumnGroup id="grpAppExplorer"
+																headerText="Application Security for Orion Explorer and Windows integration (1 of 2)">
+									<mx:AdvancedDataGridColumnGroup headerText="Full text search">
+										<mx:AdvancedDataGridColumn width="90" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+										<mx:AdvancedDataGridColumn width="90" headerText="Windows" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									
+									<mx:AdvancedDataGridColumnGroup headerText="Create public search profiles">
+										<mx:AdvancedDataGridColumn width="200" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									<mx:AdvancedDataGridColumnGroup headerText="Delete public search profiles">
+										<mx:AdvancedDataGridColumn width="200" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									<mx:AdvancedDataGridColumnGroup headerText="Check-in/check-out">
+										<mx:AdvancedDataGridColumn width="90" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+										<mx:AdvancedDataGridColumn width="90" headerText="Windows" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									<mx:AdvancedDataGridColumnGroup headerText="Archive new documents">
+										<mx:AdvancedDataGridColumn width="90" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+										<mx:AdvancedDataGridColumn width="90" headerText="Windows" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+								</mx:AdvancedDataGridColumnGroup>
+								<!--<END : App security Explorer_______________________________________________________>-->
+								
+								<!--<App security Explorer 2_______________________________________________________>-->
+								<mx:AdvancedDataGridColumnGroup id="grpAppWindows"
+																headerText="Application Security for Orion Explorer and Windows integration (2 of 2)">
+									<mx:AdvancedDataGridColumnGroup headerText="Reindex archived documents">
+										<mx:AdvancedDataGridColumn width="110" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+										<mx:AdvancedDataGridColumn width="110" headerText="Windows" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									<mx:AdvancedDataGridColumnGroup headerText="Save archived docs to disk">
+										<mx:AdvancedDataGridColumn width="95" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+										<mx:AdvancedDataGridColumn width="95" headerText="Windows" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									<mx:AdvancedDataGridColumnGroup headerText="Email archived documents">
+										<mx:AdvancedDataGridColumn width="95" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+										<mx:AdvancedDataGridColumn width="95" headerText="Windows" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									<mx:AdvancedDataGridColumnGroup headerText="Print archived documents">
+										<mx:AdvancedDataGridColumn width="95" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+										<mx:AdvancedDataGridColumn width="95" headerText="Windows" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									<mx:AdvancedDataGridColumnGroup headerText="Delete archived documents">
+										<mx:AdvancedDataGridColumn width="95" headerText="Explorer" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+										<mx:AdvancedDataGridColumn width="95" headerText="Windows" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+								</mx:AdvancedDataGridColumnGroup>
+								<!--<END : App security Explorer 2_______________________________________________________>-->
+								
+								<!--<App security workflow_______________________________________________________>-->
+								<mx:AdvancedDataGridColumnGroup id="grpAppWorkflow"
+																headerText="Application security for workflow">
+									<mx:AdvancedDataGridColumn width="200" headerText="Enabled personal workbox"
+															   headerWordWrap="true" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:CheckBox/>
+											</fx:Component>
+										</mx:itemRenderer>	
+									</mx:AdvancedDataGridColumn>
+									<mx:AdvancedDataGridColumn width="180"
+															   headerText="Start new workflow cases for socuments"
+															   headerWordWrap="true" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:CheckBox/>
+											</fx:Component>
+										</mx:itemRenderer>	
+									</mx:AdvancedDataGridColumn>
+									<mx:AdvancedDataGridColumn width="180"
+															   headerText="Attach documents to existing workflow cases"
+															   headerWordWrap="true" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:CheckBox/>
+											</fx:Component>
+										</mx:itemRenderer>	
+									</mx:AdvancedDataGridColumn>
+									<mx:AdvancedDataGridColumn width="180"
+															   headerText="Interact with document processing steps"
+															   headerWordWrap="true" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:CheckBox/>
+											</fx:Component>
+										</mx:itemRenderer>	
+									</mx:AdvancedDataGridColumn>
+									<mx:AdvancedDataGridColumn width="180"
+															   headerText="Interact with business processing steps"
+															   headerWordWrap="true" textAlign="center">
+										<mx:itemRenderer>
+											<fx:Component>
+												<mx:CheckBox/>
+											</fx:Component>
+										</mx:itemRenderer>	
+									</mx:AdvancedDataGridColumn>
+								</mx:AdvancedDataGridColumnGroup>
+								<!--<END : App security workflow_______________________________________________________>-->
+								
+								<!--<App security other_______________________________________________________>-->
+								<mx:AdvancedDataGridColumnGroup id="grpAppOther"
+																headerText="Application security for other">
+									<mx:AdvancedDataGridColumnGroup headerText="DejaVu">
+										<mx:AdvancedDataGridColumn width="350"
+																   headerText="Enable advanced DejaVu configuration"
+																   headerWordWrap="true" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+									<mx:AdvancedDataGridColumnGroup headerText="Windows">
+										<mx:AdvancedDataGridColumn width="350" headerText="Allow use of Wizards"
+																   headerWordWrap="true" textAlign="center">
+											<mx:itemRenderer>
+												<fx:Component>
+													<mx:CheckBox/>
+												</fx:Component>
+											</mx:itemRenderer>	
+										</mx:AdvancedDataGridColumn>
+									</mx:AdvancedDataGridColumnGroup>
+								</mx:AdvancedDataGridColumnGroup>
+								<!--<END : App security other_______________________________________________________>-->
+								
+								
+								
+							</mx:groupedColumns>
+							
+						</mx:AdvancedDataGrid>
+					</component:CustomTitleWindow>
+				</s:BorderContainer>
 				
-				<s:Label text="Log off" color="gray" 
-						 fontFamily="Arial Black" fontSize="12" fontWeight="normal"
-						 visible="{!FlexGlobals.topLevelApplication.isLogin}"
-						 includeInLayout="{!FlexGlobals.topLevelApplication.isLogin}"/>
-				
-				<s:Spacer height="12"/>
-				<s:Label text="User ID"
-						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-				<s:Spacer height="2"/>
-				<s:TextInput id="inputUserID" height="22" keyUp="loginKeyUp(event)"/>
-				<s:Spacer height="12"/>
-				<s:Label text="Password"
-						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-				<s:Spacer height="2"/>
-				<s:TextInput displayAsPassword="true" id="inputPassword" height="22" keyUp="loginKeyUp(event)"/>
-				<mx:Label text="Forgot password?" horizontalCenter="0" buttonMode="true"
-						  click="text1_clickHandler(event)" useHandCursor="true" mouseChildren="false"
-						  fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-				<s:Spacer height="15"/>
-				<s:Button id="Login" label="Login"
-						  height="21" 
-						  fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold"
-						  click="login_clickHandler()" buttonMode="true" styleName="loginButton"/>
+				<!--End SearchFiltersAndSearchResults-->
 			</s:BorderContainer>
 			
-			
-			<!--Document Explorer launch button-->
-			<s:BorderContainer width="100%" height="100%" borderVisible="true">
-				<s:layout>
-					<s:VerticalLayout horizontalAlign="center" paddingTop="5"/>
-				</s:layout>
-				<s:Label text=" Document Explorer" 
-						 fontFamily="Arial Black" fontSize="12" fontWeight="normal"/>
-				<s:BorderContainer width="100%" height="100%" borderVisible="false">
-					<s:Image width="100%" height="100%" scaleMode="stretch"
-							 source="@Embed('../assets/DElogoBW.jpg')" fillMode="scale"
-							 visible="{!FlexGlobals.topLevelApplication.isLogin}"
-							 includeInLayout="{!FlexGlobals.topLevelApplication.isLogin}"/>
-					<s:Image width="100%" height="100%" scaleMode="stretch"
-							 source="@Embed('../assets/DElogo.jpg')" fillMode="scale"
-							 visible="{FlexGlobals.topLevelApplication.isLogin}"
-							 includeInLayout="{FlexGlobals.topLevelApplication.isLogin}"
-							 click="FlexGlobals.topLevelApplication.userLoginSelectPage('DE')"
-							 buttonMode="true" useHandCursor="true" mouseChildren="false"/>
-				</s:BorderContainer>
-			</s:BorderContainer>
-			
-			<!--Case Manager launch button-->
-			<s:BorderContainer width="100%" height="100%" borderVisible="true">
-				<s:layout>
-					<s:VerticalLayout horizontalAlign="center" paddingTop="5"/>
-				</s:layout>
-				<s:Label text=" Case Manager"  
-						 fontFamily="Arial Black" fontSize="12" fontWeight="normal"/>
-				<s:BorderContainer width="100%" height="100%" borderVisible="false">
-					<s:Image width="100%" height="100%" 
-							 scaleMode="stretch" fillMode="scale" 
-							 source="@Embed('../assets/CMlogoBW.jpg')"
-							 visible="{!FlexGlobals.topLevelApplication.isLogin}"
-							 includeInLayout="{!FlexGlobals.topLevelApplication.isLogin}"/>
-					<s:Image width="100%" height="100%" 
-							 scaleMode="stretch" fillMode="scale" 
-							 source="@Embed('../assets/CMlogo.jpg')"
-							 visible="{FlexGlobals.topLevelApplication.isLogin}"
-							 includeInLayout="{FlexGlobals.topLevelApplication.isLogin}"
-							 click="FlexGlobals.topLevelApplication.userLoginSelectPage('CM')"
-							 buttonMode="true" useHandCursor="true" mouseChildren="false"/>
-				</s:BorderContainer>
-			</s:BorderContainer>
-			
-			<!--Charts and Reports launch button-->
-			<s:BorderContainer width="100%" height="100%" borderVisible="true">
-				<s:layout>
-					<s:VerticalLayout horizontalAlign="center" paddingTop="5"/>
-				</s:layout>
-				<s:Label text=" Charts &amp; Reports" 
-						 fontFamily="Arial Black" fontSize="12" fontWeight="normal"/>
-				<s:BorderContainer width="100%" height="100%" borderVisible="false">
-					<s:Image width="100%" height="100%" 
-							 scaleMode="stretch" fillMode="scale" 
-							 source="@Embed('../assets/CRlogoBW.jpg')"
-							 visible="{!FlexGlobals.topLevelApplication.isLogin}"
-							 includeInLayout="{!FlexGlobals.topLevelApplication.isLogin}"/>
-					<s:Image width="100%" height="100%" 
-							 scaleMode="stretch" fillMode="scale" 
-							 source="@Embed('../assets/CRlogo.jpg')"
-							 visible="{FlexGlobals.topLevelApplication.isLogin}"
-							 includeInLayout="{FlexGlobals.topLevelApplication.isLogin}"
-							 click="FlexGlobals.topLevelApplication.userLoginSelectPage('CR')"
-							 buttonMode="true" useHandCursor="true" mouseChildren="false"/>
-				</s:BorderContainer>
-			</s:BorderContainer>
-			
-			<!--Configuration/Administration launch button-->
-			<s:BorderContainer width="100%" height="100%" borderVisible="true">
-				<s:layout>
-					<s:VerticalLayout horizontalAlign="center" paddingTop="5"/>
-				</s:layout>
-				<s:Label text=" Configuration/Administration" 
-						 fontFamily="Arial Black" fontSize="12" fontWeight="normal"/>
-				<s:BorderContainer width="100%" height="100%" borderVisible="false">
-					<s:Image width="100%" height="100%" 
-							 scaleMode="stretch" fillMode="scale" 
-							 source="@Embed('../assets/CAlogoBW.jpg')"
-							 visible="{!FlexGlobals.topLevelApplication.isLogin || (FlexGlobals.topLevelApplication.userModel.userRole != Constants.ADMIN_ROLE)}"
-							 includeInLayout="{!FlexGlobals.topLevelApplication.isLogin || (FlexGlobals.topLevelApplication.userModel.userRole == Constants.ADMIN_ROLE)}"/>
-					<s:Image width="100%" height="100%" 
-							 scaleMode="stretch" fillMode="scale" 
-							 source="@Embed('../assets/CAlogo.jpg')"
-							 click="FlexGlobals.topLevelApplication.userLoginSelectPage('CA')"
-							 buttonMode="true" useHandCursor="true" mouseChildren="false"
-							 visible="{FlexGlobals.topLevelApplication.isLogin &amp;&amp; (FlexGlobals.topLevelApplication.userModel.userRole == Constants.ADMIN_ROLE) }"
-							 includeInLayout="{FlexGlobals.topLevelApplication.isLogin &amp;&amp; (FlexGlobals.topLevelApplication.userModel.userRole == Constants.ADMIN_ROLE) }"/>
-				</s:BorderContainer>
-			</s:BorderContainer>
-			
+			<!--End stage-->
 		</s:BorderContainer>
 		
+		<s:Spacer height="5"/>
 		<!--Common footer-->
-		<s:BorderContainer width="100%" height="18" borderVisible="false" backgroundColor="#00315B7E">
+		<s:BorderContainer width="100%" height="18" borderVisible="false" backgroundColor="#00004F6C">
 			<s:layout>
 				<s:HorizontalLayout verticalAlign="middle" paddingLeft="5" paddingRight="5"/>
 			</s:layout>
@@ -274,12 +593,19 @@
 				<s:Label text="Copyright 2013 Magsoft" 
 						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>
 			</s:HGroup>
+			<!--s:HGroup width="100%" horizontalAlign="center">
+			<s:Label text="Credits" 
+			fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>				
+			</s:HGroup-->
 			<s:HGroup width="100%" horizontalAlign="right">
-				<s:Label text="Credits" 
+				<s:Label text="DASHBOARD" 
 						 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>				
 			</s:HGroup>
 		</s:BorderContainer>
 		<!--End common footer-->
 		
 	</s:BorderContainer>
+	
+	
+	
 </mx:Canvas>

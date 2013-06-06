@@ -204,17 +204,22 @@
 						<!--<s:layout>
 							<s:VerticalLayout/>
 						</s:layout>-->
-						<mx:PieChart id="myChart" 
-									 dataProvider="{DocClassData}" 
-									 showDataTips="true">
-							<mx:series>
-								<mx:PieSeries 
-									field="DocumentsPercentage" 
-									nameField="DocumentClassName"
-									labelPosition="inside"/>
-							</mx:series>
-						</mx:PieChart>
-						<mx:Legend dataProvider="{myChart}"/>
+						
+						<mx:VBox width="100%" height="100%" horizontalAlign="left">
+							<mx:PieChart id="myChart" 
+										 dataProvider="{DocClassData}" 
+										 showDataTips="true">
+								<mx:series>
+									<mx:PieSeries 
+										field="DocumentsPercentage" 
+										nameField="DocumentClassName"
+										labelPosition="inside"/>
+								</mx:series>
+							</mx:PieChart>
+							<mx:Legend dataProvider="{myChart}"/>
+						</mx:VBox>
+						
+						
 					</component:CustomTitleWindow>
 				</s:BorderContainer>
 			
