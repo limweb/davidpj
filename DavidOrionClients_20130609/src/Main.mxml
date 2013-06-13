@@ -15,12 +15,16 @@
 		<![CDATA[
 			import david.configs.Constants;
 			
-			import mx.controls.LinkButton;
 			import mx.collections.ArrayCollection;
+			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
+			import mx.controls.LinkButton;
 			import mx.core.FlexGlobals;
+			import mx.effects.Move;
+			import mx.events.CloseEvent;
 			import mx.events.FlexEvent;
 			import mx.events.ItemClickEvent;
+			import mx.managers.PopUpManager;
 			
 			[Bindable] public var isLogin:Boolean = false;
 			//[Bindable] public var userRole:String = null;
@@ -43,6 +47,9 @@
 			
 			[Bindable] [Embed(source="../assets/config.png")]
 			public var ICON_CONFIG:Class;
+			
+			[Bindable]
+			public var ttw:TitleWindow;
 			
 			//-- Createion Complete
 			protected function creationCompleteHandler(event:FlexEvent):void {
@@ -195,6 +202,54 @@
 				}
 			}
 			
+			public function closePopup(e:CloseEvent):void
+			{
+				trace("test");
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				ttw = new TitleWindow();
+				ttw.addEventListener(CloseEvent.CLOSE,closePopup);
+				ttw.showCloseButton=true;
+				ttw.width=200;
+				ttw.height=0;
+				ttw.x = this.width - 200;
+				ttw.y = this.height - 20;
+				PopUpManager.addPopUp(ttw,this,false);
+				
+				
+				var move1:Move = new Move();
+				move1.target = ttw;
+				move1.yBy = -100;
+				move1.duration = 600;
+				move1.end();
+				move1.play();
+				
+				var minuteTimer:Timer = new Timer(30, 20);
+				
+				// designates listeners for the interval and completion events
+				minuteTimer.addEventListener(TimerEvent.TIMER, onTick);
+				minuteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
+				
+				// starts the timer ticking
+				minuteTimer.start();				
+			}
+			
+			public function onTick(event:TimerEvent):void 
+			{
+				// displays the tick count so far
+				// The target of this event is the Timer instance itself.
+				trace("tick " + event.target.currentCount);
+				ttw.height = ttw.height + 5;
+			}
+			
+			public function onTimerComplete(event:TimerEvent):void
+			{
+				trace("Time's Up!");
+			}			
+			
 		]]>
 	</fx:Script>
 	
@@ -219,6 +274,7 @@
 					<s:layout>
 						<s:HorizontalLayout gap="5" paddingBottom="0" paddingTop="0" verticalAlign="middle"/>
 					</s:layout>
+					<s:Button height="10"/>
 					<s:Label color="#00C1DAD6" fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" text="Notifications"/>
 					<s:Spacer width="5"/>
 					<s:Label color="#00C1DAD6" fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" text="Help"/>
@@ -338,6 +394,7 @@
 				fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" color="#00C1DAD6"/>				
 				</s:HGroup-->
 				<s:HGroup width="100%" horizontalAlign="right">
+					<s:Button height="10" click="button1_clickHandler(event)"/>
 					<s:Label color="#00C1DAD6" fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" text="DASHBOARD"/>	
 				</s:HGroup>
 			</s:BorderContainer>
