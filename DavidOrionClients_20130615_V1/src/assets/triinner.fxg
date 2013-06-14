@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<Graphic xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns="http://ns.adobe.com/fxg/2008" version="2.0">
+	<Group>
+		<Rect x="0.5" y="0.5" width="12" height="12" >
+			<stroke>            
+				<SolidColorStroke color="#5C5C5C" />
+			</stroke>
+			<fill>
+				<SolidColor color="#EEEEEE"/>
+			</fill>
+		</Rect>
+	</Group>
+</Graphic>
+
