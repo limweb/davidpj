@@ -1,10 +1,5 @@
 package custom_tree_component 
 {
-	import assets.triinner;
-	
-	import flash.display.DisplayObject;
-	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.xml.*;
 	
@@ -14,11 +9,6 @@ package custom_tree_component
 	import mx.controls.Tree;
 	import mx.controls.listClasses.*;
 	import mx.controls.treeClasses.*;
-	import mx.controls.treeClasses.TreeItemRenderer;
-	import mx.core.FlexGlobals;
-	import mx.core.IDataRenderer;
-	import mx.events.FlexEvent;
-	import mx.states.AddChild;
 	
 	public class CheckTreeRenderer extends TreeItemRenderer
 	{
@@ -26,7 +16,7 @@ package custom_tree_component
 		protected var myCheckBox:CheckBox;
 		private var imageWidth:Number=9;
 		private var imageHeight:Number=9;
-		private var inner:String="assets/inner.png";
+		private var inner:String="../assets/inner.png";
 		static private var STATE_SCHRODINGER:String="schrodinger";
 		static private var STATE_CHECKED:String="checked";
 		static private var STATE_UNCHECKED:String="unchecked";
@@ -41,7 +31,6 @@ package custom_tree_component
 		{
 			if (item == null)
 			{
-				
 				return;
 			}
 			else
