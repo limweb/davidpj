@@ -334,7 +334,7 @@
 						<s:BitmapImage x="3" y="3" width="70" height="25" fillMode="scale" scaleMode="stretch" source="../assets/MagSoftlogo.jpg"/>
 					</s:BorderContainer>
 					<!--SearchBox container-->
-					<s:BorderContainer x="185" width="100%" height="40" backgroundColor="#00C1DAD6" borderColor="#00E3784E" borderVisible="true"
+					<s:BorderContainer x="190" width="90%" height="40" backgroundColor="#00C1DAD6" borderColor="#00E3784E" borderVisible="true"
 									   visible="{(mainStackID.selectedChild != homeID)?true:false}" includeInLayout="{(mainStackID.selectedChild != homeID)?true:false}">
 						<s:layout>
 							<s:HorizontalLayout paddingBottom="5" paddingLeft="5" paddingRight="5" paddingTop="5" verticalAlign="middle"/>
