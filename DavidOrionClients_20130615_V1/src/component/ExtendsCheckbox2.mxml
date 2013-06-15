@@ -109,7 +109,7 @@
 				change="changeState(event)"/>
 	<s:Image id="tristateImg" width="9" height="9"
 			 mouseEnabled="false" mouseChildren="false"
-			 source="@Embed('assets/icons/inner.png')"
+			 source="@Embed('../assets/inner.png')"
 			 x="{checkbox.x+2}" y="{checkbox.y+4}" />
 
 </s:Group>
