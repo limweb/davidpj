@@ -125,38 +125,11 @@
 					</node>
 					<folder id='14' label="ALL FOLDERS" state="checked" p="1"/>
 				</root>; */
-			
-			
-				/* <mx:XMLListCollection>
-					<fx:XMLList>
-						<folder label="ALL FOLDERS" checked="1"/>
-						<folder label="Folder1" checked="1">
-						<Pfolder label="Subfolder1" checked="1"/>
-						</folder>
-						<folder label="Folder2" checked="1">
-						<Pfolder label="Subfolder1" checked="1"/>
-						<Pfolder label="Subfolder2" checked="1"/>
-						</folder>
-						<folder label="Folder3" checked="1">
-						<Pfolder label="Subfolder1" checked="1"/>
-						<Pfolder label="Subfolder2" checked="1"/>
-						</folder>
-						<folder label="Folder4" checked="1">
-						<Pfolder label="Subfolder1" checked="1"/>
-						</folder>
-						<folder label="Folder5" checked="1">
-						<Pfolder label="Subfolder1" checked="1"/>
-						</folder>
-						<folder label="Folder6" checked="1"/>	
-					</fx:XMLList>
-				 </mx:XMLListCollection> */
-			
-			
 				
 			[Bindable] private var xl1:XMLListCollection = new XMLListCollection();
 			[Bindable] private var chkstate:String = "checked";
-			private var cpa:String ="P";
 			
+			private var cpa:String ="P";
 			
 			protected function treeview (apc:String):void {
 				if ( apc == 'P' ) {
@@ -192,20 +165,6 @@
 			
 			protected function group1_creationCompleteHandler(event:FlexEvent):void {
 				treeview('A');
-				
-				//treeid.setStyle("disclosureOpenIcon", ICON_MINUS);
-				//treeid.setStyle("disclosureClosedIcon", ICON_PLUS);
-				
-				//treeid.setStyle("folderOpenIcon", FOLDER_OPEN);
-				//treeid.setStyle("folderClosedIcon", FOLDER_CLOSE);
-				
-				//defaultLeafIcon: ClassReference(null);
-				//folderClosedIcon: ClassReference(null);
-				//folderOpenIcon: ClassReference(null);
-				//disclosureClosedIcon: ClassReference(null);
-				//disclosureOpenIcon: ClassReference(null);
-				
-				
 			}
 			
 			protected function treeid_itemClickHandler(event:ListEvent):void {
