@@ -24,7 +24,6 @@
 			import mx.events.ItemClickEvent;
 			
 			[Bindable] public var isLogin:Boolean = false;
-			//[Bindable] public var userRole:String = null;
 			[Bindable] public var userModel:UserModel = new UserModel();
 			[Bindable] public var linkBarDataProvider:ArrayCollection = new ArrayCollection();
 			[Bindable] public var titleText:String = null;
@@ -49,33 +48,29 @@
 			protected function creationCompleteHandler(event:FlexEvent):void {
 				mainStackID.selectedChild = homeID;
 				titleText = Constants.HOME;
-				setBtnColour('I');
+				setNotificationBtnColour('I');
 			}
 			
-			private function setBtnColour(action:String):void {
+			private function setNotificationBtnColour(action:String):void {
 				if ( action == 'A' ) {
 					nofBtn1ID.setStyle("chromeColor", "#00ff0000");
 					nofBtn2ID.setStyle("chromeColor", "#00ff8000");
 					nofBtn3ID.setStyle("chromeColor", "#00ffff00");
 					nofBtn4ID.setStyle("chromeColor", "#0000bfff");
 					nofBtn5ID.setStyle("chromeColor", "#000000ff");
-					
+				
 				} else { //action == I
-					
 					nofBtn1ID.setStyle("chromeColor", "#A4A4A4");
 					nofBtn2ID.setStyle("chromeColor", "#A4A4A4");
 					nofBtn3ID.setStyle("chromeColor", "#A4A4A4");
 					nofBtn4ID.setStyle("chromeColor", "#A4A4A4");
 					nofBtn5ID.setStyle("chromeColor", "#A4A4A4");
-						
 				}
 			}
 			
 			//-- Log-in
 			public function login(user:String, pass:String):void {
-				
 				if (user != null && user.length > 0) {
-					
 					if ( user == "admin" ) { //Admin
 						linkBarDataProvider.removeAll();
 						linkBarDataProvider.addItem( { label:Constants.DOC_EXP_LABEL, data:Constants.DOC_EXP_LABEL, icon:ICON_DOC } );
@@ -85,7 +80,7 @@
 						userModel.userName = user;
 						userModel.userRole = Constants.ADMIN_ROLE;
 						isLogin = true;
-						setBtnColour('A');
+						setNotificationBtnColour('A');
 						
 					} else if ( user == "user" ) { //User
 						linkBarDataProvider.removeAll();
@@ -95,7 +90,7 @@
 						isLogin = true;
 						userModel.userName = user;
 						userModel.userRole = Constants.USER_ROLE;
-						setBtnColour('A');
+						setNotificationBtnColour('A');
 						
 					} else {
 						Alert.show("Not Correct UserName!! \n\n Username >> 'admin' or 'user'");
@@ -106,7 +101,6 @@
 				}
 			}
 			
-			
 			//-- Log-out
 			public function logout():void {
 				userModel.userName = null;
@@ -116,7 +110,7 @@
 				mainStackID.selectedChild = homeID;
 				titleText = Constants.HOME;
 				searchBoxDataProvider.removeAll();
-				setBtnColour('I');
+				setNotificationBtnColour('I');
 			}
 			
 			
@@ -219,6 +213,7 @@
 			
 		]]>
 	</fx:Script>
+	
 	
 	<mx:Canvas width="100%" height="100%">
 		<s:BorderContainer width="100%" height="100%" >
