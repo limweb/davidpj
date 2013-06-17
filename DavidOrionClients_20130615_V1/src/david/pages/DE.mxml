@@ -196,7 +196,7 @@
 						<mx:Text text="Folders:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
 						
-						<s:BorderContainer id="Folders" width="100%" height="100%" minHeight="20"
+						<s:BorderContainer id="Folders" width="100%" height="100%" minHeight="40"
 										   borderVisible="false" dropShadowVisible="false" >
 										 
 							<s:layout>

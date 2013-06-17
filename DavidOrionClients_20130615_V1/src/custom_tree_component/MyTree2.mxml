@@ -70,6 +70,50 @@
 			[Bindable] [Embed(source="../assets/tree_dummy_icon/write.png")]
 			public var ICON_WRITE:Class;
 			
+			[Bindable] [Embed(source="../assets/folder_collapse.png")]
+			public var ICON_FOLDER_COLLAPSE:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_expand.png")]
+			public var ICON_FOLDER_EXPAND:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_blue_checked.png")]
+			public var ICON_FOLDER_BLUE_CHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_blue_unchecked.png")]
+			public var ICON_FOLDER_BLUE_UNCHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_green_checked.png")]
+			public var ICON_FOLDER_GREEN_CHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_green_unchecked.png")]
+			public var ICON_FOLDER_GREEN_UNCHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_orange_checked.png")]
+			public var ICON_FOLDER_ORANGE_CHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_orange_unchecked.png")]
+			public var ICON_FOLDER_ORANGE_UNCHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_purple_checked.png")]
+			public var ICON_FOLDER_PURPLE_CHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_purple_unchecked.png")]
+			public var ICON_FOLDER_PURPLE_UNCHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_red_checked.png")]
+			public var ICON_FOLDER_RED_CHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_red_unchecked.png")]
+			public var ICON_FOLDER_RED_UNCHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_yellow_checked.png")]
+			public var ICON_FOLDER_YELLOW_CHECKED:Class;
+			
+			[Bindable] [Embed(source="../assets/folder_yellow_unchecked.png")]
+			public var ICON_FOLDER_YELLOW_UNCHECKED:Class;
+			
+			
+			
 			private var chk:Boolean = false;
 			static private var STATE_SCHRODINGER:String="schrodinger";
 			static private var STATE_CHECKED:String="checked";
@@ -297,9 +341,16 @@
 				 creationComplete="expandNodes()" defaultLeafIcon="{null}"
 				 folderClosedIcon="{null}" folderOpenIcon="{null}"
 				 itemClick="treeid_itemClickHandler(event)"
+				 disclosureClosedIcon="{ICON_FOLDER_COLLAPSE}" 
+				 disclosureOpenIcon="{ICON_FOLDER_EXPAND}"
 				 iconFunction="tree_iconFunc"
+				 rowHeight="16"
 				 itemRenderer="custom_tree_component.CheckTreeRenderer" labelField="@label"
 				 showRoot="true">
+			
+			
+			
+			
 		</mx:Tree>
 	</s:VGroup>
 	
