@@ -12,9 +12,9 @@
 		<![CDATA[
 			
 			import mx.collections.ArrayCollection;
-			import mx.controls.Alert;
 			import mx.collections.ICollectionView;
 			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
 			import mx.controls.treeClasses.ITreeDataDescriptor;
 			import mx.events.FlexEvent;
 			import mx.events.ListEvent;
@@ -119,6 +119,20 @@
 			static private var STATE_CHECKED:String="checked";
 			static private var STATE_UNCHECKED:String="unchecked";
 			
+			
+			/* folder_blue_checked.png
+			folder_blue_unchecked.png
+			folder_green_checked.png
+			folder_green_unchecked.png
+			folder_orange_checked.png
+			folder_orange_unchecked.png
+			folder_purple_checked.png
+			folder_purple_unchecked.png
+			folder_red_checked.png
+			folder_red_unchecked.png
+			folder_yellow_checked.png
+			folder_yellow_unchecked.png */
+			
 			private var orgXML:XML =
 				<root>
 					<node id='0' name='Folder' label="ALL FOLDERS" state="checked" p="1" >
@@ -149,26 +163,32 @@
 				</root>;
 			
 				/* <root>
-					<node id='0' label="Parent 1" state="schrodinger" p="1" >
-						<node  id='2' label="Child 11" state="checked"  p="0"/>
-						<node  id='3' label="Child 12" state="checked"  p="0"/>
-						<node  id='4' label="Child 13" state="unchecked"   p="0"/>
-					</node>
-					<node  id='5' label="Parent 2" state="schrodinger" p="1">
-						<node  id='6' label="Child 21" state="checked"  p="0"/>
-						<node  id='7' label="Child 22" state="unchecked"  p="0"/>
-						<node  id='8' label="Child 23" state="unchecked"  p="0"/>
-					</node>
-					<node  id='9' label="Parent 3" state="schrodinger" p="1" >
-						<node  id='10' label="Child 31" state="checked"  p="0"/>
-						<node  id='11' label="Child 32" state="checked"  p="0"/>
-						<node  id='12' label="Child 33" state="unchecked" p="0"/>
-					</node>
-					<node  id='13' label="Parent 4" state="checked" p="1">
-						<node  id='1' label="Parent 2" state="checked"   p="0"/>
-					</node>
-					<folder id='14' label="ALL FOLDERS" state="checked" p="1"/>
-				</root>; */
+			<node id='0' name='Folder' label="ALL FOLDERS" state="checked" p="1" >
+			<node id='1' name='Board' label="Folder1" state="checked" p="1">
+			<node id='2' name='Book' label="Subfolder1" state="checked" p="0"/>
+			<node id='3' name='Book' label="Subfolder2" state="checked" p="0"/>
+			<node id='4' name='Book' label="Subfolder3" state="checked" p="0"/>
+			</node>
+			<node id='5' name='Cut' label="Folder2" state="checked" p="1">
+			<node id='6' name='Write' label="Subfolder1" state="checked" p="0"/>
+			<node id='7' name='Write' label="Subfolder2" state="checked" p="0"/>
+			</node>
+			<node id='8' name='Icq' label="Folder3" state="checked" p="1">
+			<node id='9' name='Ok' label="Subfolder1" state="checked" p="0"/>
+			<node id='10' name='Ok' label="Subfolder2" state="checked" p="0"/>
+			</node>
+			<node id='11' name='Midi' label="Folder4" state="checked" p="1">
+			<node id='12' name='Media_Player' label="Subfolder1" state="checked" p="0"/>
+			<node id='13' name='Media_Player' label="Subfolder2" state="checked" p="0"/>
+			<node id='14' name='Media_Player' label="Subfolder3" state="checked" p="0"/>
+			</node>
+			<node id='15' name='Song' label="Folder5" state="checked" p="1">
+			<node id='16' name='Speaker' label="Subfolder1" state="checked" p="0"/>
+			<node id='17' name='Speaker' label="Subfolder2" state="checked" p="0"/>
+			<node id='18' name='Speaker' label="Subfolder3" state="checked" p="0"/>
+			</node>
+			</node>
+			</root>; */
 				
 			[Bindable] private var xl1:XMLListCollection = new XMLListCollection();
 			[Bindable] private var chkstate:String = "checked";
@@ -276,38 +296,72 @@
 				var iconClass:Class;
 				var attributeCase:String = XML(item).attribute('name');
 					
+				
 				if ( attributeCase == "Folder" ) {
-					iconClass = ICON_FOLDER;
-				
-				} else if ( attributeCase == "Board" ) {
-					iconClass = ICON_BOARD;
-				
-				} else if ( attributeCase == "Book" ) {
-					iconClass = ICON_BOOK;
+					var isParent:String = XML(item).attribute('p');
+					if (isParent == "1") {
+						var state:String = XML(item).attribute('state');
+						if ( state == "checked" ) {
+							iconClass = ICON_FOLDER_BLUE_CHECKED;
+						} else {
+							iconClass = ICON_FOLDER_BLUE_UNCHECKED;
+						}
+					}
 					
+				} else if ( attributeCase == "Board" ) {
+					var isParent:String = XML(item).attribute('p');
+					if (isParent == "1") {
+						var state:String = XML(item).attribute('state');
+						if ( state == "checked" ) {
+							iconClass = ICON_FOLDER_GREEN_CHECKED;
+						} else {
+							iconClass = ICON_FOLDER_GREEN_UNCHECKED;
+						}
+					}
+				
 				} else if ( attributeCase == "Cut" ) {
-					iconClass = ICON_CUT;
-						
-				} else if ( attributeCase == "Write" ) {
-					iconClass = ICON_WRITE;
+					var isParent:String = XML(item).attribute('p');
+					if (isParent == "1") {
+						var state:String = XML(item).attribute('state');
+						if ( state == "checked" ) {
+							iconClass = ICON_FOLDER_ORANGE_CHECKED;
+						} else {
+							iconClass = ICON_FOLDER_ORANGE_UNCHECKED;
+						}
+					}
 						
 				} else if ( attributeCase == "Icq" ) {
-					iconClass = ICON_ICQ;
-						
-				} else if ( attributeCase == "Ok" ) {
-					iconClass = ICON_OK;
+					var isParent:String = XML(item).attribute('p');
+					if (isParent == "1") {
+						var state:String = XML(item).attribute('state');
+						if ( state == "checked" ) {
+							iconClass = ICON_FOLDER_PURPLE_CHECKED;
+						} else {
+							iconClass = ICON_FOLDER_PURPLE_UNCHECKED;
+						}
+					}
 						
 				} else if ( attributeCase == "Midi" ) {
-					iconClass = ICON_MIDI;
-						
-				} else if ( attributeCase == "Media_Player" ) {
-					iconClass = ICON_MEDIA_PLAYER;
+					var isParent:String = XML(item).attribute('p');
+					if (isParent == "1") {
+						var state:String = XML(item).attribute('state');
+						if ( state == "checked" ) {
+							iconClass = ICON_FOLDER_RED_CHECKED;
+						} else {
+							iconClass = ICON_FOLDER_RED_UNCHECKED;
+						}
+					}
 						
 				} else if ( attributeCase == "Song" ) {
-					iconClass = ICON_SONG;
-						
-				} else if ( attributeCase == "Speaker" ) {
-					iconClass = ICON_SPEAKER;
+					var isParent:String = XML(item).attribute('p');
+					if (isParent == "1") {
+						var state:String = XML(item).attribute('state');
+						if ( state == "checked" ) {
+							iconClass = ICON_FOLDER_YELLOW_CHECKED;
+						} else {
+							iconClass = ICON_FOLDER_YELLOW_UNCHECKED;
+						}
+					}
 				}
 				
 				return iconClass;
@@ -339,17 +393,15 @@
 	<s:VGroup width="100%" height="100%" gap="0">
 		<mx:Tree id="treeid" includeIn="State1,State2,State3" width="100%" height="100%"
 				 creationComplete="expandNodes()" defaultLeafIcon="{null}"
-				 folderClosedIcon="{null}" folderOpenIcon="{null}"
+				 folderClosedIcon="{null}"
+				 folderOpenIcon="{null}"
 				 itemClick="treeid_itemClickHandler(event)"
 				 disclosureClosedIcon="{ICON_FOLDER_COLLAPSE}" 
 				 disclosureOpenIcon="{ICON_FOLDER_EXPAND}"
-				 iconFunction="tree_iconFunc"
-				 rowHeight="16"
+				 rowHeight="16" iconFunction="tree_iconFunc"
+				 fontFamily="Franklin Gothic Medium" fontSize="11"
 				 itemRenderer="custom_tree_component.CheckTreeRenderer" labelField="@label"
-				 showRoot="true">
-			
-			
-			
+				 showRoot="true"> <!--iconFunction="tree_iconFunc" -->
 			
 		</mx:Tree>
 	</s:VGroup>
