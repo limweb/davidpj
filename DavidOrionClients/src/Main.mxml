@@ -244,26 +244,26 @@
 						<s:Image x="5" width="12" height="12" verticalCenter="0" source="../assets/alarm.png" enabled="{isLogin}"/>
 						<s:Image x="20" width="12" height="12" verticalCenter="0" source="../assets/mail.png" enabled="{isLogin}"/>
 						
-						<s:Button id="nofBtn1ID" x="40" width="12" height="12" verticalCenter="0"
+						<s:Button id="nofBtn1ID" x="40" width="13" height="13" verticalCenter="0"
 								  buttonMode="true" emphasized="true"
-								  label="1"
-								  skinClass="myButtonSkin" fontWeight="normal" color="white" fontSize="7"/>
-						<s:Button id="nofBtn2ID" x="55" width="12" height="12" verticalCenter="0"
+								  label="1" skinClass="myButtonSkin" 
+								  fontWeight="normal" color="white" fontSize="8"/>
+						<s:Button id="nofBtn2ID" x="55" width="13" height="13" verticalCenter="0"
 								  buttonMode="true" emphasized="true" label="2"
-								  skinClass="myButtonSkin"
-								  fontWeight="normal" color="white" fontSize="7"/>
-						<s:Button id="nofBtn3ID" x="70" width="12" height="12" verticalCenter="0"
+								  skinClass="myButtonSkin" fontWeight="normal" 
+								  color="white" fontSize="8"/>
+						<s:Button id="nofBtn3ID" x="70" width="13" height="13" verticalCenter="0"
 								  buttonMode="true" emphasized="true" label="3"
 								  skinClass="myButtonSkin"
-								  fontWeight="normal" color="white" fontSize="7"/>
-						<s:Button id="nofBtn4ID" x="85" width="12" height="12" verticalCenter="0"
+								  fontWeight="normal" color="white" fontSize="8"/>
+						<s:Button id="nofBtn4ID" x="85" width="13" height="13" verticalCenter="0"
 								  buttonMode="true" emphasized="true" label="4"
 								  skinClass="myButtonSkin"
-								  fontWeight="normal" color="white" fontSize="7"/>
-						<s:Button id="nofBtn5ID" x="100" width="12" height="12" verticalCenter="0"
+								  fontWeight="normal" color="white" fontSize="8"/>
+						<s:Button id="nofBtn5ID" x="100" width="13" height="13" verticalCenter="0"
 								  buttonMode="true" emphasized="true" label="5"
 								  skinClass="myButtonSkin"
-								  fontWeight="normal" color="white" fontSize="7"/>
+								  fontWeight="normal" color="white" fontSize="8"/>
 					</mx:Canvas>
 					<s:Spacer width="10"/>
 					<s:Label color="#00C1DAD6" fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal" text="Help"/>

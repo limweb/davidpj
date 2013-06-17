@@ -19,12 +19,6 @@
 			import mx.events.FlexEvent;
 			import mx.events.ListEvent;
 			
-			[Bindable] public var title:String = "Title";
-			[Bindable] public var cc:uint = 0x006E00;
-			[Bindable] public var height1:Number = 26;
-			[Bindable] public var height2:Number = 300;
-			[Bindable] public var height3:Number = 400;
-			
 			[Bindable] [Embed(source="../assets/collapse.png")]
 			public var ICON_PLUS:Class;
 			
@@ -36,39 +30,6 @@
 			
 			[Bindable] [Embed(source="../assets/file.png")]
 			public var ICON_FILE:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/board.png")]
-			public var ICON_BOARD:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/book.png")]
-			public var ICON_BOOK:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/cut.png")]
-			public var ICON_CUT:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/icq.png")]
-			public var ICON_ICQ:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/mediaplayer.png")]
-			public var ICON_MEDIA_PLAYER:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/ok.png")]
-			public var ICON_OK:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/midi.png")]
-			public var ICON_MIDI:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/person.png")]
-			public var ICON_PERSON:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/song.png")]
-			public var ICON_SONG:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/speaker.png")]
-			public var ICON_SPEAKER:Class;
-			
-			[Bindable] [Embed(source="../assets/tree_dummy_icon/write.png")]
-			public var ICON_WRITE:Class;
 			
 			[Bindable] [Embed(source="../assets/folder_collapse.png")]
 			public var ICON_FOLDER_COLLAPSE:Class;
@@ -119,20 +80,6 @@
 			static private var STATE_CHECKED:String="checked";
 			static private var STATE_UNCHECKED:String="unchecked";
 			
-			
-			/* folder_blue_checked.png
-			folder_blue_unchecked.png
-			folder_green_checked.png
-			folder_green_unchecked.png
-			folder_orange_checked.png
-			folder_orange_unchecked.png
-			folder_purple_checked.png
-			folder_purple_unchecked.png
-			folder_red_checked.png
-			folder_red_unchecked.png
-			folder_yellow_checked.png
-			folder_yellow_unchecked.png */
-			
 			private var orgXML:XML =
 				<root>
 					<node id='0' name='Folder' label="ALL FOLDERS" state="checked" p="1" >
@@ -162,34 +109,6 @@
 					</node>
 				</root>;
 			
-				/* <root>
-			<node id='0' name='Folder' label="ALL FOLDERS" state="checked" p="1" >
-			<node id='1' name='Board' label="Folder1" state="checked" p="1">
-			<node id='2' name='Book' label="Subfolder1" state="checked" p="0"/>
-			<node id='3' name='Book' label="Subfolder2" state="checked" p="0"/>
-			<node id='4' name='Book' label="Subfolder3" state="checked" p="0"/>
-			</node>
-			<node id='5' name='Cut' label="Folder2" state="checked" p="1">
-			<node id='6' name='Write' label="Subfolder1" state="checked" p="0"/>
-			<node id='7' name='Write' label="Subfolder2" state="checked" p="0"/>
-			</node>
-			<node id='8' name='Icq' label="Folder3" state="checked" p="1">
-			<node id='9' name='Ok' label="Subfolder1" state="checked" p="0"/>
-			<node id='10' name='Ok' label="Subfolder2" state="checked" p="0"/>
-			</node>
-			<node id='11' name='Midi' label="Folder4" state="checked" p="1">
-			<node id='12' name='Media_Player' label="Subfolder1" state="checked" p="0"/>
-			<node id='13' name='Media_Player' label="Subfolder2" state="checked" p="0"/>
-			<node id='14' name='Media_Player' label="Subfolder3" state="checked" p="0"/>
-			</node>
-			<node id='15' name='Song' label="Folder5" state="checked" p="1">
-			<node id='16' name='Speaker' label="Subfolder1" state="checked" p="0"/>
-			<node id='17' name='Speaker' label="Subfolder2" state="checked" p="0"/>
-			<node id='18' name='Speaker' label="Subfolder3" state="checked" p="0"/>
-			</node>
-			</node>
-			</root>; */
-				
 			[Bindable] private var xl1:XMLListCollection = new XMLListCollection();
 			[Bindable] private var chkstate:String = "checked";
 			
@@ -250,13 +169,13 @@
 					
 				//child
 				} else {
-					var node:XMLList = orgXML.node.node.(@id == selectid ); //node คือ ตัวของ child เองที่มัน selected ขึ้นมา
+					var node:XMLList = orgXML.node.node.(@id == selectid );
 					node.@state = p.@state;
 					
-					for each( var nodelist:XML in orgXML.elements("*") ) { //nodelist  get xml ทั้งหมดมา
+					for each( var nodelist:XML in orgXML.elements("*") ) { //nodelist  get all xml
 						if ( nodelist.node.(@id == selectid).@id == selectid ) {
-							ancestorID = nodelist.@id.toString(); //ancestorID คือ id ของ node แม่ ของ child ที่มัน selected
-							var x:XMLList = orgXML.node.(@id == ancestorID); //get xml จาก node ancestorID (จะได้ลูกของ node นี้ทั้งหมด)
+							ancestorID = nodelist.@id.toString(); //ancestorID is parent id of selected child
+							var x:XMLList = orgXML.node.(@id == ancestorID); //get all child of node ancestorID
 							
 							if(p.@state){
 								if(updatechild(x,STATE_CHECKED)){
@@ -295,7 +214,6 @@
 			private function tree_iconFunc(item:Object):Class {
 				var iconClass:Class;
 				var attributeCase:String = XML(item).attribute('name');
-					
 				
 				if ( attributeCase == "Folder" ) {
 					var isParent:String = XML(item).attribute('p');
@@ -401,7 +319,7 @@
 				 rowHeight="16" iconFunction="tree_iconFunc"
 				 fontFamily="Franklin Gothic Medium" fontSize="11"
 				 itemRenderer="custom_tree_component.CheckTreeRenderer" labelField="@label"
-				 showRoot="true"> <!--iconFunction="tree_iconFunc" -->
+				 showRoot="true">
 			
 		</mx:Tree>
 	</s:VGroup>
