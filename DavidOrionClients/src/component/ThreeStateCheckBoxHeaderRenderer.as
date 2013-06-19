@@ -32,7 +32,10 @@ package component {
 		protected var myImage:Image;
 		private var imageWidth:Number = 9.5;
 		private var imageHeight:Number = 9.5;
-		private var inner:String = "../assets/inner.png";
+		//private var inner:String = "@Embed('../assets/inner.png')";
+		
+		[Bindable] [Embed(source="../assets/inner.png")]
+		public var ICON_INNER:Class;
 		
 		private const SELECT_STATE:String="select";
 		private const UNSELECT_STATE:String="unselect";
@@ -61,7 +64,7 @@ package component {
 			myCheckBox.addEventListener( MouseEvent.CLICK, checkBoxClickHandler );
 			addElement(myCheckBox);
 			myImage = new Image();
-			myImage.source = inner;
+			myImage.source = ICON_INNER;
 			myImage.addEventListener( MouseEvent.CLICK, imageClickHandler );
 			myImage.visible = false;
 			addElement(myImage);

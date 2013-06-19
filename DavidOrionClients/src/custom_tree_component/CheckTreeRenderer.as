@@ -16,7 +16,10 @@ package custom_tree_component
 		protected var myCheckBox:CheckBox;
 		private var imageWidth:Number=9;
 		private var imageHeight:Number=9;
-		private var inner:String="../assets/inner.png";
+		//private var inner:String="@Embed('../assets/inner.png')";
+		[Bindable] [Embed(source="../assets/inner.png")]
+		public var ICON_INNER:Class;
+		
 		static private var STATE_SCHRODINGER:String="schrodinger";
 		static private var STATE_CHECKED:String="checked";
 		static private var STATE_UNCHECKED:String="unchecked";
@@ -137,8 +140,8 @@ package custom_tree_component
 			myCheckBox.setStyle("verticalAlign", "middle");
 			myCheckBox.addEventListener(MouseEvent.CLICK, checkBoxToggleHandler);
 			addChild(myCheckBox);
-			myImage=new Image();
-			myImage.source=inner;
+			myImage = new Image();
+			myImage.source = ICON_INNER;
 			myImage.addEventListener(MouseEvent.CLICK, imageToggleHandlder);
 			//			myImage.setStyle("verticalAlign", "middle");
 			addChild(myImage);
