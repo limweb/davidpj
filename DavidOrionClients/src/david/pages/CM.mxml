@@ -3,6 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:component="component.*"
+			   xmlns:components="com.shinynet.shinylib.components.*"
 			   width="100%" height="100%"
 			   creationComplete="canvas1_creationCompleteHandler()">
 	<fx:Script>
@@ -102,19 +103,47 @@
 									  paddingLeft="5" paddingRight="5" 
 									  gap="10"/>
 				</s:layout>
+				
 				<!--Boxes accordion-->
-				<s:BorderContainer width="170" height="249" borderVisible="false">
+				<s:BorderContainer width="170" height="200" borderVisible="false">
 					<s:layout>
 						<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="0" paddingRight="0" 
 										  gap="10"/>
 					</s:layout>
-					<mx:Accordion width="170" height="100%" headerHeight="20"
+					
+					<s:VGroup y="0" width="170" height="100%" gap="0" horizontalCenter="0">
+						<components:CollapsiblePanel width="100%"
+													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin" title="WorkBoxes">
+							<s:VGroup width="100%" height="60">
+							</s:VGroup>
+						</components:CollapsiblePanel>
+						<components:CollapsiblePanel width="100%"
+													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin" title="Cases">
+							<s:VGroup width="100%" height="60">
+							</s:VGroup>
+						</components:CollapsiblePanel>
+						<components:CollapsiblePanel width="100%"
+													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin" title="Steps">
+							<s:VGroup width="100%" height="60">
+							</s:VGroup>
+						</components:CollapsiblePanel>
+						<components:CollapsiblePanel width="100%"
+													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin" title="Documents">
+							<s:VGroup width="100%" height="60">
+							</s:VGroup>
+						</components:CollapsiblePanel>
+					</s:VGroup>
+					
+					<!--############################### Comment ##############################-->
+					<!--<mx:Accordion width="170" height="100%" headerHeight="20"
 								  fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold">
 						<mx:VBox label="WorkBoxes"/>
 						<mx:VBox label="Cases"/>
 						<mx:VBox label="Steps"/>
 						<mx:VBox label="Documents"/>
-					</mx:Accordion>
+					</mx:Accordion>-->
+					<!--############################### Comment ##############################-->
+					
 					<s:BorderContainer width="170" height="40" borderVisible="false">
 						<s:layout>
 							<s:VerticalLayout gap="0"/>
