@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
-
-ADOBE SYSTEMS INCORPORATED
-Copyright 2008 Adobe Systems Incorporated
-All Rights Reserved.
-
-NOTICE: Adobe permits you to use, modify, and distribute this file
-in accordance with the terms of the license agreement accompanying it.
-
--->
-
 <!--- The default skin class for a Spark Panel container.  
 
 @see spark.components.Panel
@@ -24,7 +13,7 @@ in accordance with the terms of the license agreement accompanying it.
 			 xmlns:s="library://ns.adobe.com/flex/spark" 
 			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
 			 blendMode="normal" mouseEnabled="false" 
-			 minWidth="131" minHeight="30"
+			 minWidth="131" minHeight="21"
 			 alpha.disabledState="0.5">
 	
 	<fx:Metadata>
@@ -37,109 +26,109 @@ in accordance with the terms of the license agreement accompanying it.
 	</fx:Metadata> 
 	
 	<fx:Script fb:purpose="styling">
-	<![CDATA[
-		import mx.core.FlexVersion;
-		
-		/* Define the skin elements that should not be colorized. 
-		For panel, border and title background are skinned, but the content area, background, border, and title text are not. */
-		static private const exclusions:Array = ["background", "titleDisplay", "contentGroup", "controlBarGroup", "border"];
-		
-		/* exclusions before Flex 4.5 for backwards-compatibility purposes */
-		static private const exclusions_4_0:Array = ["background", "titleDisplay", "contentGroup", "controlBarGroup"];
-		
-		/**
-		 * @private
-		 */
-		override public function get colorizeExclusions():Array 
-		{
-			// Since border is styleable via borderColor, no need to allow chromeColor to affect
-			// the border.  This is wrapped in a compatibility flag since this change was added  
-			// in Flex 4.5
-			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+		<![CDATA[
+			import mx.core.FlexVersion;
+			
+			/* Define the skin elements that should not be colorized. 
+			For panel, border and title background are skinned, but the content area, background, border, and title text are not. */
+			static private const exclusions:Array = ["background", "titleDisplay", "contentGroup", "controlBarGroup", "border"];
+			
+			/* exclusions before Flex 4.5 for backwards-compatibility purposes */
+			static private const exclusions_4_0:Array = ["background", "titleDisplay", "contentGroup", "controlBarGroup"];
+			
+			/**
+			 * @private
+			 */
+			override public function get colorizeExclusions():Array 
 			{
-				return exclusions_4_0;
-			}
-			
-			return exclusions;
-		}
-		
-		/**
-		 * @private
-		 */
-		override protected function initializationComplete():void
-		{
-			useChromeColor = true;
-			super.initializationComplete();
-		}
-		
-		/**
-		 * @private
-		 */
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-		{
-			if (getStyle("borderVisible") == true)
-			{
-				border.visible = true;
-				background.left = background.top = background.right = background.bottom = 1;
-				contents.left = contents.top = contents.right = contents.bottom = 1;
-			}
-			else
-			{
-				border.visible = false;
-				background.left = background.top = background.right = background.bottom = 0;
-				contents.left = contents.top = contents.right = contents.bottom = 0;
-			}
-			
-			var openDuration:Number = getStyle("openDuration");
-			var closeDuration:Number = getStyle("closeDuration");
-			
-			openSequence.duration = isNaN(openDuration) ? 250 : openDuration;
-			closeSequence.duration = isNaN(closeDuration) ? 250 : closeDuration;
-			
-			dropShadow.visible = getStyle("dropShadowVisible");
-			
-			var cr:Number = getStyle("cornerRadius");
-			var withControls:Boolean = 
-				(currentState == "disabledWithControlBar" || 
-					currentState == "normalWithControlBar");
-			
-			if (cornerRadius != cr)
-			{
-				cornerRadius = cr;
+				// Since border is styleable via borderColor, no need to allow chromeColor to affect
+				// the border.  This is wrapped in a compatibility flag since this change was added  
+				// in Flex 4.5
+				if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+				{
+					return exclusions_4_0;
+				}
 				
-				dropShadow.tlRadius = cornerRadius;
-				dropShadow.trRadius = cornerRadius;
-				dropShadow.blRadius = withControls ? cornerRadius : 0;
-				dropShadow.brRadius = withControls ? cornerRadius : 0;
-				
-				setPartCornerRadii(topMaskRect, withControls); 
-				setPartCornerRadii(border, withControls); 
-				setPartCornerRadii(background, withControls);                
+				return exclusions;
 			}
 			
-			if (bottomMaskRect) setPartCornerRadii(bottomMaskRect, withControls); 
+			/**
+			 * @private
+			 */
+			override protected function initializationComplete():void
+			{
+				useChromeColor = true;
+				super.initializationComplete();
+			}
 			
-			borderStroke.color = getStyle("borderColor");
-			borderStroke.alpha = getStyle("borderAlpha");
-			backgroundFill.color = getStyle("backgroundColor");
-			backgroundFill.alpha = getStyle("backgroundAlpha");
+			/**
+			 * @private
+			 */
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				if (getStyle("borderVisible") == true)
+				{
+					border.visible = true;
+					background.left = background.top = background.right = background.bottom = 1;
+					contents.left = contents.top = contents.right = contents.bottom = 1;
+				}
+				else
+				{
+					border.visible = false;
+					background.left = background.top = background.right = background.bottom = 0;
+					contents.left = contents.top = contents.right = contents.bottom = 0;
+				}
+				
+				var openDuration:Number = getStyle("openDuration");
+				var closeDuration:Number = getStyle("closeDuration");
+				
+				openSequence.duration = isNaN(openDuration) ? 250 : openDuration;
+				closeSequence.duration = isNaN(closeDuration) ? 250 : closeDuration;
+				
+				dropShadow.visible = getStyle("dropShadowVisible");
+				
+				var cr:Number = getStyle("cornerRadius");
+				var withControls:Boolean = 
+					(currentState == "disabledWithControlBar" || 
+						currentState == "normalWithControlBar");
+				
+				if (cornerRadius != cr)
+				{
+					cornerRadius = cr;
+					
+					dropShadow.tlRadius = cornerRadius;
+					dropShadow.trRadius = cornerRadius;
+					dropShadow.blRadius = withControls ? cornerRadius : 0;
+					dropShadow.brRadius = withControls ? cornerRadius : 0;
+					
+					setPartCornerRadii(topMaskRect, withControls); 
+					setPartCornerRadii(border, withControls); 
+					setPartCornerRadii(background, withControls);                
+				}
+				
+				if (bottomMaskRect) setPartCornerRadii(bottomMaskRect, withControls); 
+				
+				borderStroke.color = getStyle("borderColor");
+				borderStroke.alpha = getStyle("borderAlpha");
+				backgroundFill.color = getStyle("backgroundColor");
+				backgroundFill.alpha = getStyle("backgroundAlpha");
+				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
 			
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-		}
-		
-		/**
-		 * @private
-		 */  
-		private function setPartCornerRadii(target:Rect, includeBottom:Boolean):void
-		{            
-			target.topLeftRadiusX = cornerRadius;
-			target.topRightRadiusX = cornerRadius;
-			target.bottomLeftRadiusX = includeBottom ? cornerRadius : 0;
-			target.bottomRightRadiusX = includeBottom ? cornerRadius : 0;
-		}
-		
-		private var cornerRadius:Number;
-	]]>
+			/**
+			 * @private
+			 */  
+			private function setPartCornerRadii(target:Rect, includeBottom:Boolean):void
+			{            
+				target.topLeftRadiusX = cornerRadius;
+				target.topRightRadiusX = cornerRadius;
+				target.bottomLeftRadiusX = includeBottom ? cornerRadius : 0;
+				target.bottomRightRadiusX = includeBottom ? cornerRadius : 0;
+			}
+			
+			private var cornerRadius:Number;
+		]]>
 	</fx:Script>
 	
 	<s:states>
@@ -263,8 +252,9 @@ in accordance with the terms of the license agreement accompanying it.
 				<!-- layer 3: text -->
 				<!--- @copy spark.components.Panel#titleDisplay -->
 				<s:Label id="titleDisplay" maxDisplayedLines="1"
-						 left="9" right="3" top="1" bottom="0" minHeight="30"
-						 verticalAlign="middle" textAlign="start" fontWeight="bold">
+						 left="9" right="3" top="1" bottom="0" minHeight="21"
+						 verticalAlign="middle" textAlign="start"
+						 fontFamily="Franklin Gothic Medium" fontWeight="bold" fontSize="12">
 				</s:Label>
 				
 				<!-- layer 8: arrow -->
