@@ -187,11 +187,11 @@
 						</s:layout>
 						<mx:Text text="Recent searches:"
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160"/>
+						<s:DropDownList width="160" height="18"/>
 						<s:Spacer height="0"/>
 						<mx:Text text="Saved searches:"
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160"/>
+						<s:DropDownList width="160" height="18"/>
 						<s:Spacer height="0"/>
 						<mx:Text text="Folders:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
@@ -293,16 +293,47 @@
 						<s:Spacer height="0"/>
 						<mx:Text text="Document formats:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160"> <!--itemRenderer="DroupDownItemRenderer" dataProvider="{docFormatDataProvider}"-->
+						
+						<s:DropDownList width="160" height="18"> <!--itemRenderer="DroupDownItemRenderer" dataProvider="{docFormatDataProvider}"-->
 						</s:DropDownList>
+						
+						<!--<mx:MenuBar id="myMenuBar" width="160" height="18" labelField="@label">
+							<fx:XMLList>
+								<menuitem label="Select format">
+									<menuitem label="All native formats" type="radio"/>
+									<menuitem label="Only images.." type="radio">
+										<menuitem label="BMP format" type="check"/>
+										<menuitem label="GIF format" type="check"/>
+										<menuitem label="GIF format" type="check"/>
+										<menuitem label="GIF format" type="check"/>
+										<menuitem label="GIF format" type="check"/>
+									</menuitem>
+									<menuitem label="Only PDF.." type="radio">
+										<menuitem label="PDF" type="check"/>
+										<menuitem label="PDF/A (searchable)" type="check"/>
+										<menuitem label="PDF/IHQC (compressed)" type="check"/>
+									</menuitem>
+									<menuitem label="Only MS Office.." type="radio">
+										<menuitem label="MS Access" type="check"/>
+										<menuitem label="MS Excel" type="check"/>
+										<menuitem label="MS PowerPoint" type="check"/>
+										<menuitem label="MS Word" type="check"/>
+									</menuitem>
+									<menuitem label="xxxxxxxx" type="radio">
+										
+									</menuitem>
+								</menuitem>
+							</fx:XMLList>
+						</mx:MenuBar>-->
+						
 						<s:Spacer height="0"/>
 						<mx:Text text="When actioned:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160"/>
+						<s:DropDownList width="160" height="18"/>
 						<s:Spacer height="0"/>
 						<mx:Text text="Document context:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160"/>
+						<s:DropDownList width="160" height="18"/>
 						<s:Spacer height="6"/>
 						<s:BorderContainer width="170%" height="{FilterSearchButton.height}" 
 										   borderVisible="false" backgroundColor="#00C1DAD6">

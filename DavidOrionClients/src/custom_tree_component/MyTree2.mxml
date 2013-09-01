@@ -219,7 +219,7 @@
 					var isParent:String = XML(item).attribute('p');
 					if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" ) {
+						if ( state == "checked" || state == "schrodinger" ) {
 							iconClass = ICON_FOLDER_BLUE_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_BLUE_UNCHECKED;
@@ -230,7 +230,7 @@
 					var isParent:String = XML(item).attribute('p');
 					if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" ) {
+						if ( state == "checked" || state == "schrodinger" ) {
 							iconClass = ICON_FOLDER_GREEN_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_GREEN_UNCHECKED;
@@ -241,7 +241,7 @@
 					var isParent:String = XML(item).attribute('p');
 					if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" ) {
+						if ( state == "checked" || state == "schrodinger" ) {
 							iconClass = ICON_FOLDER_ORANGE_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_ORANGE_UNCHECKED;
@@ -252,7 +252,7 @@
 					var isParent:String = XML(item).attribute('p');
 					if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" ) {
+						if ( state == "checked" || state == "schrodinger" ) {
 							iconClass = ICON_FOLDER_PURPLE_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_PURPLE_UNCHECKED;
@@ -263,7 +263,7 @@
 					var isParent:String = XML(item).attribute('p');
 					if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" ) {
+						if ( state == "checked" || state == "schrodinger" ) {
 							iconClass = ICON_FOLDER_RED_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_RED_UNCHECKED;
@@ -274,7 +274,7 @@
 					var isParent:String = XML(item).attribute('p');
 					if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" ) {
+						if ( state == "checked" || state == "schrodinger" ) {
 							iconClass = ICON_FOLDER_YELLOW_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_YELLOW_UNCHECKED;

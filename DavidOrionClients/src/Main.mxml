@@ -311,7 +311,7 @@
 							 fontWeight="normal" text="Alerts &amp; Notifications"/>
 					<mx:Canvas width="120" height="21">
 						<s:Button id="topNotificationBtn" x="0" y="0" width="120" height="21" buttonMode="true"
-								  click="button1_clickHandler(event)" enabled="false"/>
+								  click="button1_clickHandler(event)" enabled="{isLogin}"/>
 						
 						<s:Image x="5" width="12" height="12" enabled="{isLogin}"
 								 source="@Embed('../assets/alarm.png')" verticalCenter="0"/>
@@ -320,19 +320,24 @@
 						
 						<s:Button id="nofBtn1ID" x="40" width="13" height="13" label="1"
 								  buttonMode="true" color="white" emphasized="true" fontSize="8"
-								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"/>
+								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"
+								  click="button1_clickHandler(event)"  enabled="{isLogin}" />
 						<s:Button id="nofBtn2ID" x="55" width="13" height="13" label="2"
 								  buttonMode="true" color="white" emphasized="true" fontSize="8"
-								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"/>
+								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"
+								  click="button1_clickHandler(event)" enabled="{isLogin}" />
 						<s:Button id="nofBtn3ID" x="70" width="13" height="13" label="3"
 								  buttonMode="true" color="white" emphasized="true" fontSize="8"
-								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"/>
+								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"
+								  click="button1_clickHandler(event)" enabled="{isLogin}" />
 						<s:Button id="nofBtn4ID" x="85" width="13" height="13" label="4"
 								  buttonMode="true" color="white" emphasized="true" fontSize="8"
-								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"/>
+								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"
+								  click="button1_clickHandler(event)" enabled="{isLogin}" />
 						<s:Button id="nofBtn5ID" x="100" width="13" height="13" label="5"
 								  buttonMode="true" color="white" emphasized="true" fontSize="8"
-								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"/>
+								  fontWeight="normal" skinClass="myButtonSkin" verticalCenter="0"
+								  click="button1_clickHandler(event)" enabled="{isLogin}" />
 					</mx:Canvas>
 					<s:Spacer width="10"/>
 					<s:Label color="#00C1DAD6" fontFamily="Franklin Gothic Medium" fontSize="11"
