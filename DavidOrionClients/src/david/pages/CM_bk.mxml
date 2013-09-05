@@ -5,11 +5,10 @@
 		   xmlns:component="component.*"
 		   xmlns:components="com.shinynet.shinylib.components.*"
 		   width="100%" height="100%" creationComplete="canvas1_creationCompleteHandler()">
-	
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
-			
+
 			private var _dataProvider1List:ArrayCollection;
 			private var _dataProvider2List:ArrayCollection;
 			private var _dataProvider3List:ArrayCollection;
@@ -46,18 +45,10 @@
 			public function get dataProvider4List():Object {
 				return _dataProvider4List;
 			}
-						
+			
+			
 			public function init():void {
-				folderCollection1=new XMLListCollection(folderList1);
-				checkTree1.dataProvider=folderCollection1;
-				folderCollection2=new XMLListCollection(folderList2);
-				checkTree2.dataProvider=folderCollection2;
-				folderCollection3=new XMLListCollection(folderList3);
-				checkTree3.dataProvider=folderCollection3;
-				folderCollection4=new XMLListCollection(folderList4);
-				checkTree4.dataProvider=folderCollection4;
-				folderCollection5=new XMLListCollection(folderList5);
-				checkTree5.dataProvider=folderCollection5;	
+				
 			}
 			
 			protected function canvas1_creationCompleteHandler():void {
@@ -90,83 +81,9 @@
 					{checked:false, dataField1:'xxxx', dataField2:'xxxx', dataField3:'xxxx', dataField4:'xxxx', dataField5:'xxxx'}]);
 			}
 			
-			import mx.collections.XMLListCollection;
-			[Bindable]
-			public var folderList1:XMLList=
-				<>
-					<folder state="unchecked" label="Users" isBranch="true" >
-						<folder state="unchecked" isBranch="false" label="ALL USERS" />
-						<folder state="unchecked" isBranch="false" label="UserA" />
-						<folder state="unchecked" isBranch="false" label="..." />
-						<folder state="unchecked" isBranch="false" label="UserZ" />
-					</folder>
-					<folder state="unchecked" label="Groups" isBranch="true" >
-						<folder state="unchecked" isBranch="false" label="ALL GROUPS" />
-						<folder state="unchecked" isBranch="false" label="GroupA" />
-						<folder state="unchecked" isBranch="false" label="..." />
-						<folder state="unchecked" isBranch="false" label="GroupZ" />
-					</folder>
-					<folder state="unchecked" label="Roles" isBranch="true" >
-						<folder state="unchecked" isBranch="false" label="ALL ROLES" />
-						<folder state="unchecked" isBranch="false" label="RoleA" />
-						<folder state="unchecked" isBranch="false" label="..." />
-						<folder state="unchecked" isBranch="false" label="RoleZ" />
-					</folder>										
-				</>;
-			[Bindable]
-			public var folderList2:XMLList=
-				<>
-					<folder state="unchecked" label="Batch Classes" isBranch="true" >
-						<folder state="unchecked" isBranch="false" label="ALL BATCH CLASSES" />
-						<folder state="unchecked" isBranch="false" label="BatchClassA" />
-						<folder state="unchecked" isBranch="false" label="..." />
-						<folder state="unchecked" isBranch="false" label="BatchClassZ" />
-					</folder>
-					<folder state="unchecked" label="Document Classes" isBranch="true" >
-						<folder state="unchecked" isBranch="false" label="ALL DOC CLASSES" />
-						<folder state="unchecked" isBranch="false" label="DocClassA" />
-						<folder state="unchecked" isBranch="false" label="..." />
-						<folder state="unchecked" isBranch="false" label="DocClassZ" />
-					</folder>
-				</>;
-			[Bindable]
-			public var folderList3:XMLList=
-				<>
-					<folder state="unchecked" isBranch="false" label="All PROCEDURES" />
-					<folder state="unchecked" isBranch="false" label="ProcedureA" />
-					<folder state="unchecked" isBranch="false" label="..." />
-					<folder state="unchecked" isBranch="false" label="ProcedureZ" />
-				</>;
-			[Bindable]
-			public var folderList4:XMLList=
-				<>
-					<folder state="unchecked" isBranch="false" label="All PROCEDURES" />
-					<folder state="unchecked" isBranch="false" label="ProcedureA" />
-					<folder state="unchecked" isBranch="false" label="..." />
-					<folder state="unchecked" isBranch="false" label="ProcedureZ" />
-				</>;
-			[Bindable]
-			public var folderList5:XMLList=
-				<>
-					<folder state="unchecked" isBranch="false" label="All TASK CLASSES" />
-					<folder state="unchecked" isBranch="false" label="TaskClassA" />
-					<folder state="unchecked" isBranch="false" label="..." />
-					<folder state="unchecked" isBranch="false" label="TaskClassZ" />
-				</>;
-			[Bindable]
-			public var folderCollection1:XMLListCollection;
-			[Bindable]
-			public var folderCollection2:XMLListCollection;
-			[Bindable]
-			public var folderCollection3:XMLListCollection;
-			[Bindable]
-			public var folderCollection4:XMLListCollection;
-			[Bindable]
-			public var folderCollection5:XMLListCollection;
-			
 		]]>
 	</fx:Script>
-	
+			
 	<s:BorderContainer width="100%" height="100%">
 		<s:layout>
 			<s:VerticalLayout gap="0" paddingBottom="0" paddingLeft="0" paddingRight="0"
@@ -183,102 +100,40 @@
 			<!--Boxes and Results-->
 			<s:BorderContainer id="BoxesAndResults" width="100%" height="100%" borderVisible="false">
 				<s:layout>
-					<s:HorizontalLayout paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5"
-										gap="10"/>
+					<s:HorizontalLayout gap="10" paddingBottom="5" paddingLeft="5" paddingRight="5"
+										paddingTop="5"/>
 				</s:layout>
 				
 				<!--Boxes accordion-->
 				<s:BorderContainer width="170" height="200" borderVisible="false">
 					<s:layout>
-						<s:VerticalLayout paddingTop="0" paddingBottom="0" paddingLeft="0" paddingRight="0"
-										  gap="0"/>
+						<s:VerticalLayout gap="10" paddingBottom="0" paddingLeft="0" paddingRight="0"
+										  paddingTop="0"/>
 					</s:layout>
 					
-					<s:VGroup y="0" width="170" height="100%" gap="0" verticalCenter="0">
-						<components:CollapsiblePanel id="Section1"
-													 width="100%" dropShadowVisible="false"
+					<s:VGroup y="0" width="170" height="100%" gap="0" horizontalCenter="0">
+						<components:CollapsiblePanel width="100%" dropShadowVisible="false"
 													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
-													 title="Users, Groups &amp; Roles">
-							<s:VGroup width="100%" height="55" gap="0">
-								<mx:Tree id="checkTree1" verticalCenter="0"
-										 itemRenderer="custom_tree_component.CheckTreeRenderer"
-										 labelField="@label"
-										 width="100%" height="100%"
-										 rowHeight="15"
-										 contentBackgroundColor="#00FCD59C"
-										 folderClosedIcon="{null}"
-										 folderOpenIcon="{null}"
-										 defaultLeafIcon="{null}"
-										 fontFamily="Franklin Gothic Medium" fontWeight="normal" fontSize="11">
-								</mx:Tree>
+													 title="WorkBoxes">
+							<s:VGroup width="100%" height="60">
 							</s:VGroup>
 						</components:CollapsiblePanel>
-						<components:CollapsiblePanel id="Section2"
-													 width="100%" dropShadowVisible="false"
-													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
-													 title="Batches &amp; Documents">
-							<s:VGroup width="100%" height="55" gap="0">
-								<mx:Tree id="checkTree2"
-										 itemRenderer="custom_tree_component.CheckTreeRenderer"
-										 labelField="@label"
-										 width="100%" height="100%"
-										 rowHeight="15"
-										 folderClosedIcon="{null}"
-										 folderOpenIcon="{null}"
-										 defaultLeafIcon="{null}"
-										 fontFamily="Franklin Gothic Medium" fontWeight="normal" fontSize="11">
-								</mx:Tree>
-							</s:VGroup>
-						</components:CollapsiblePanel>
-						<components:CollapsiblePanel id="Section3"
-													 width="100%" dropShadowVisible="false"
-													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
-													 title="Transactions">
-							<s:VGroup width="100%" height="55" gap="0">
-								<mx:Tree id="checkTree3"
-										 itemRenderer="custom_tree_component.CheckTreeRenderer"
-										 labelField="@label"
-										 width="100%" height="100%"
-										 rowHeight="15"
-										 folderClosedIcon="{null}"
-										 folderOpenIcon="{null}"
-										 defaultLeafIcon="{null}"
-										 fontFamily="Franklin Gothic Medium" fontWeight="normal" fontSize="11">
-								</mx:Tree>
-							</s:VGroup>
-						</components:CollapsiblePanel>
-						<components:CollapsiblePanel id="Section4"
-													 width="100%" dropShadowVisible="false"
+						<components:CollapsiblePanel width="100%" dropShadowVisible="false"
 													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
 													 title="Cases">
-							<s:VGroup width="100%" height="55" gap="0">
-								<mx:Tree id="checkTree4"
-										 itemRenderer="custom_tree_component.CheckTreeRenderer"
-										 labelField="@label"
-										 width="100%" height="100%"
-										 rowHeight="15"
-										 folderClosedIcon="{null}"
-										 folderOpenIcon="{null}"
-										 defaultLeafIcon="{null}"
-										 fontFamily="Franklin Gothic Medium" fontWeight="normal" fontSize="11">
-								</mx:Tree>
+							<s:VGroup width="100%" height="60">
 							</s:VGroup>
 						</components:CollapsiblePanel>
-						<components:CollapsiblePanel id="Section5"
-													 width="100%" dropShadowVisible="false"
+						<components:CollapsiblePanel width="100%" dropShadowVisible="false"
 													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
-													 title="Tasks">
-							<s:VGroup width="100%" height="55" gap="0">
-								<mx:Tree id="checkTree5"
-										 itemRenderer="custom_tree_component.CheckTreeRenderer"
-										 labelField="@label"
-										 width="100%" height="100%"
-										 rowHeight="15"
-										 folderClosedIcon="{null}"
-										 folderOpenIcon="{null}"
-										 defaultLeafIcon="{null}"
-										 fontFamily="Franklin Gothic Medium" fontWeight="normal" fontSize="11">
-								</mx:Tree>
+													 title="Steps">
+							<s:VGroup width="100%" height="60">
+							</s:VGroup>
+						</components:CollapsiblePanel>
+						<components:CollapsiblePanel width="100%" dropShadowVisible="false"
+													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
+													 title="Documents">
+							<s:VGroup width="100%" height="60">
 							</s:VGroup>
 						</components:CollapsiblePanel>
 					</s:VGroup>
@@ -297,12 +152,12 @@
 						<s:layout>
 							<s:VerticalLayout gap="0"/>
 						</s:layout>
-						<!--s:CheckBox width="170" label="Include document processing"
+						<s:CheckBox width="170" label="Include document processing"
 									fontFamily="Franklin Gothic Medium" fontSize="11"
 									fontWeight="normal" selected="true"/>
 						<mx:Text fontFamily="Franklin Gothic Medium" fontSize="11"
 								 fontWeight="normal" text="     steps"/>
-						<s:Spacer height="2"/-->
+						<s:Spacer height="2"/>
 						<s:CheckBox width="170" label="Include closed cases"
 									fontFamily="Franklin Gothic Medium" fontSize="11"
 									fontWeight="normal"/>
@@ -318,7 +173,7 @@
 						<component:CustomTitleWindow width="100%" height="100%"
 													 dropShadowVisible="false" headerHeight="16"
 													 skinClass="component.CustomTitleWindowSkin"
-													 title="{Section2.title}">
+													 title="WorkBoxes">
 							<mx:AdvancedDataGrid width="100%" height="100%" minHeight="20"
 												 borderVisible="false"
 												 dataProvider="@{dataProvider1List}"
@@ -351,7 +206,7 @@
 						<component:CustomTitleWindow width="100%" height="100%"
 													 dropShadowVisible="false" headerHeight="16"
 													 skinClass="component.CustomTitleWindowSkin"
-													 title="{Section3.title}">
+													 title="Cases">
 							<mx:AdvancedDataGrid width="100%" height="100%" minHeight="20"
 												 borderVisible="false"
 												 dataProvider="@{dataProvider2List}"
@@ -386,7 +241,7 @@
 						<component:CustomTitleWindow width="100%" height="100%"
 													 dropShadowVisible="false" headerHeight="16"
 													 skinClass="component.CustomTitleWindowSkin"
-													 title="{Section4.title}">
+													 title="Steps">
 							<mx:AdvancedDataGrid width="100%" height="100%" minHeight="20"
 												 borderVisible="false"
 												 dataProvider="@{dataProvider3List}"
@@ -419,7 +274,7 @@
 						<component:CustomTitleWindow width="100%" height="100%"
 													 dropShadowVisible="false" headerHeight="16"
 													 skinClass="component.CustomTitleWindowSkin"
-													 title="{Section5.title}">
+													 title="Documents">
 							<mx:AdvancedDataGrid width="100%" height="100%" minHeight="20"
 												 borderVisible="false"
 												 dataProvider="@{dataProvider4List}"

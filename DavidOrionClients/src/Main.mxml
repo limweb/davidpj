@@ -80,6 +80,7 @@
 						linkBarDataProvider.removeAll();
 						linkBarDataProvider.addItem( { label:Constants.DOC_EXP_LABEL, data:Constants.DOC_EXP_LABEL, icon:ICON_DOC } );
 						linkBarDataProvider.addItem( { label:Constants.CASE_MANAGER_LABEL, data:Constants.CASE_MANAGER_LABEL, icon:ICON_MANAGE } );
+						//linkBarDataProvider.addItem( { label:"CM_backup", data:"CM_Backup", icon:ICON_MANAGE } ); //Test
 						linkBarDataProvider.addItem( { label:Constants.CHART_REPORT_LABEL, data:Constants.CHART_REPORT_LABEL, icon:ICON_REPORT } );
 						linkBarDataProvider.addItem( { label:Constants.CONFIG_ADMIN_LABEL, data:Constants.CONFIG_ADMIN_LABEL, icon:ICON_CONFIG } );
 						userModel.userName = user;
@@ -154,7 +155,13 @@
 					configAdminID.init();
 					setSearchBoxDataProvider(Constants.CONFIG_ADMIN_LABEL);
 					titleText = Constants.CONFIG_ADMIN_LABEL;
-				}
+				
+				} /* else if (linkBarSelected == "CM_Backup") { //Test
+					mainStackID.selectedChild = caseManager_bk_ID;
+					caseManager_bk_ID.init();
+					setSearchBoxDataProvider(Constants.CONFIG_ADMIN_LABEL);
+					titleText = Constants.CONFIG_ADMIN_LABEL;
+				} */
 			}
 			
 			//User login click
@@ -452,6 +459,7 @@
 						<pages:Home id="homeID"/>
 						<pages:CA id="configAdminID"/>
 						<pages:CM id="caseManagerID"/>
+						<!--<pages:CM_bk id="caseManager_bk_ID"/>--> <!--Test-->
 						<pages:CR id="chartReportID"/>
 						<pages:DE id="documentExplorerID"/>
 					</mx:ViewStack>

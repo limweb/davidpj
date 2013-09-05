@@ -1,38 +1,35 @@
-package custom_tree_component
+package custom_tree_component 
 {
-	import mx.controls.treeClasses.TreeItemRenderer;
-	import mx.controls.Image;
-	import mx.controls.Tree;
-	import mx.controls.treeClasses.*;
-	import mx.collections.*;
-	import mx.controls.CheckBox;
-	import mx.controls.listClasses.*;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import mx.events.FlexEvent;
-	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 	import flash.xml.*;
-	import mx.core.IDataRenderer;
-
-	public class CheckTreeRenderer extends TreeItemRenderer
+	
+	import mx.collections.*;
+	import mx.controls.CheckBox;
+	import mx.controls.Image;
+	import mx.controls.Tree;
+	import mx.controls.listClasses.*;
+	import mx.controls.treeClasses.*;
+	
+	public class CheckTreeRenderer_bk extends TreeItemRenderer
 	{
-		//protected var myImage:Image;
+		protected var myImage:Image;
 		protected var myCheckBox:CheckBox;
-		// set image properties
-		//private var imageWidth:Number=6;
-		//private var imageHeight:Number=6;
-		private var inner:String="assets/inner.png";
+		private var imageWidth:Number=9;
+		private var imageHeight:Number=9;
+		//private var inner:String="@Embed('../assets/inner.png')";
+		[Bindable] [Embed(source="../assets/inner.png")]
+		public var ICON_INNER:Class;
+		
 		static private var STATE_SCHRODINGER:String="schrodinger";
 		static private var STATE_CHECKED:String="checked";
 		static private var STATE_UNCHECKED:String="unchecked";
-
-		public function CheckTreeRenderer()
+		
+		public function CheckTreeRenderer_bk()
 		{
 			super();
 			mouseEnabled=false;
 		}
-
+		
 		private function toggleParents(item:Object, tree:Tree, state:String):void
 		{
 			if (item == null)
@@ -45,7 +42,7 @@ package custom_tree_component
 				toggleParents(tree.getParentItem(item), tree, getState(tree, tree.getParentItem(item)));
 			}
 		}
-
+		
 		private function toggleChildren(item:Object, tree:Tree, state:String):void
 		{
 			if (item == null)
@@ -68,7 +65,7 @@ package custom_tree_component
 				}
 			}
 		}
-
+		
 		private function getState(tree:Tree, parent:Object):String
 		{
 			var noChecks:int=0;
@@ -108,13 +105,13 @@ package custom_tree_component
 				return STATE_UNCHECKED;
 			}
 		}
-
+		
 		private function imageToggleHandlder(event:MouseEvent):void
 		{
 			myCheckBox.selected=!myCheckBox.selected;
 			checkBoxToggleHandler(event);
 		}
-
+		
 		private function checkBoxToggleHandler(event:MouseEvent):void
 		{
 			if (data)
@@ -135,7 +132,7 @@ package custom_tree_component
 				toggleParents(parent, tree, getState(tree, parent));
 			}
 		}
-
+		
 		override protected function createChildren():void
 		{
 			super.createChildren();
@@ -143,14 +140,13 @@ package custom_tree_component
 			myCheckBox.setStyle("verticalAlign", "middle");
 			myCheckBox.addEventListener(MouseEvent.CLICK, checkBoxToggleHandler);
 			addChild(myCheckBox);
-			//myImage=new Image();
-			//myImage.source=inner;
-			//myImage.addEventListener(MouseEvent.CLICK, imageToggleHandlder);
-			//myImage.setStyle("verticalAlign", "middle");
-			//addChild(myImage);
-
+			myImage = new Image();
+			myImage.source = ICON_INNER;
+			myImage.addEventListener(MouseEvent.CLICK, imageToggleHandlder);
+			//			myImage.setStyle("verticalAlign", "middle");
+			addChild(myImage);
 		}
-
+		
 		private function setCheckState(checkBox:CheckBox, value:Object, state:String):void
 		{
 			if (state == STATE_CHECKED)
@@ -166,13 +162,13 @@ package custom_tree_component
 				checkBox.selected=false;
 			}
 		}
-
+		
 		override public function set data(value:Object):void
 		{
 			if (value != null)
 			{
 				super.data=value;
-
+				
 				setCheckState(myCheckBox, value, value.@state);
 				if (TreeListData(super.listData).item.@type == 'dimension')
 				{
@@ -189,7 +185,7 @@ package custom_tree_component
 				}
 			}
 		}
-
+		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 		{
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -198,29 +194,33 @@ package custom_tree_component
 				if (super.icon != null)
 				{
 					myCheckBox.x=super.icon.x;
-					myCheckBox.y=9;
-					super.icon.x=myCheckBox.x + myCheckBox.width + 17;
+					myCheckBox.x += 3;
+					//myCheckBox.y=9;
+					myCheckBox.y=6;
+					//super.icon.x=myCheckBox.x + myCheckBox.width + 17;
+					super.icon.x=myCheckBox.x + myCheckBox.width + 15;
 					super.label.x=super.icon.x + super.icon.width + 3;
 				}
 				else
 				{
 					myCheckBox.x=super.label.x;
-					myCheckBox.y=9;
-					super.label.x=myCheckBox.x + myCheckBox.width + 17;
+					myCheckBox.x += 3;
+					//myCheckBox.y=9;
+					myCheckBox.y=6;
+					//super.label.x=myCheckBox.x + myCheckBox.width + 17;
+					super.label.x=myCheckBox.x + myCheckBox.width + 15;
 				}
 				if (data.@state == STATE_SCHRODINGER)
 				{
-					//myImage.x=myCheckBox.x + 4;
-					//myImage.y=myCheckBox.y + 4;
-					//myImage.width=imageWidth;
-					//myImage.height=imageHeight;
+					myImage.visible = true;
+					myImage.x=myCheckBox.x+2; 
+					myImage.y=myCheckBox.y-4;
+					myImage.width=imageWidth;
+					myImage.height=imageHeight;
 				}
 				else
 				{
-					//myImage.x=0;
-					//myImage.y=0;
-					//myImage.width=0;
-					//myImage.height=0;
+					myImage.visible = false;
 				}
 			}
 		}
