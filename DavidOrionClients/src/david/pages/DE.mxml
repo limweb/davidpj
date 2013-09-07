@@ -294,10 +294,11 @@
 						<mx:Text text="Document formats:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
 						
-						<s:DropDownList width="160" height="18"> <!--itemRenderer="DroupDownItemRenderer" dataProvider="{docFormatDataProvider}"-->
-						</s:DropDownList>
+						<!--itemRenderer="DroupDownItemRenderer" dataProvider="{docFormatDataProvider}"-->
+						<!--<s:DropDownList width="160" height="18">
+						</s:DropDownList>-->
 						
-						<!--<mx:MenuBar id="myMenuBar" width="160" height="18" labelField="@label">
+						<mx:MenuBar id="myMenuBar" width="160" height="18" labelField="@label">
 							<fx:XMLList>
 								<menuitem label="Select format">
 									<menuitem label="All native formats" type="radio"/>
@@ -324,7 +325,7 @@
 									</menuitem>
 								</menuitem>
 							</fx:XMLList>
-						</mx:MenuBar>-->
+						</mx:MenuBar>
 						
 						<s:Spacer height="0"/>
 						<mx:Text text="When actioned:" 

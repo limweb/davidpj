@@ -25,7 +25,8 @@
 					{checked:false, Value1:'xxxx', Value2:'xxxx', Value3:'xxxx'},
 					{checked:false, Value1:'xxxx', Value2:'xxxx', Value3:'xxxx'},
 					{checked:false, Value1:'xxxx', Value2:'xxxx', Value3:'xxxx'},
-					{checked:false, Value1:'xxxx', Value2:'xxxx', Value3:'xxxx'}]);
+					{checked:false, Value1:'xxxx', Value2:'xxxx', Value3:'xxxx'}
+				]);
 			}
 			
 			public function init():void {
@@ -497,12 +498,7 @@
 									</mx:AdvancedDataGridColumn>
 									<mx:AdvancedDataGridColumn width="180"
 															   headerText="Interact with business processing steps"
-															   headerWordWrap="true" textAlign="center">
-										<mx:itemRenderer>
-											<fx:Component>
-												<mx:CheckBox/>
-											</fx:Component>
-										</mx:itemRenderer>
+															   headerWordWrap="true" textAlign="center" itemRenderer="component.workflowLastItemRenderer">
 									</mx:AdvancedDataGridColumn>
 								</mx:AdvancedDataGridColumnGroup>
 								<!--<END : App security workflow_______________________________________________________>-->
