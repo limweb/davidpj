@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<mx:MenuBar id="myMenuBar" width="160" height="18" labelField="@label">
+		<fx:XMLList>
+			<menuitem label="Select format">
+				<menuitem label="All native formats" type="radio"/>
+				<menuitem label="Only images.." type="radio">
+					<menuitem label="BMP format" type="check"/>
+					<menuitem label="GIF format" type="check"/>
+					<menuitem label="GIF format" type="check"/>
+					<menuitem label="GIF format" type="check"/>
+					<menuitem label="GIF format" type="check"/>
+				</menuitem>
+				<menuitem label="Only PDF.." type="radio">
+					<menuitem label="PDF" type="check"/>
+					<menuitem label="PDF/A (searchable)" type="check"/>
+					<menuitem label="PDF/IHQC (compressed)" type="check"/>
+				</menuitem>
+				<menuitem label="Only MS Office.." type="radio">
+					<menuitem label="MS Access" type="check"/>
+					<menuitem label="MS Excel" type="check"/>
+					<menuitem label="MS PowerPoint" type="check"/>
+					<menuitem label="MS Word" type="check"/>
+				</menuitem>
+				<menuitem label="xxxxxxxx" type="radio">
+					
+				</menuitem>
+			</menuitem>
+		</fx:XMLList>
+	</mx:MenuBar>
+	
+	
+	
+</s:Application>
