@@ -199,17 +199,16 @@
 													 width="100%" dropShadowVisible="false"
 													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
 													 title="Users, Groups &amp; Roles">
-							<s:VGroup width="100%" height="55" gap="0">
+							<s:VGroup width="100%" height="65" gap="0">
 								<mx:Tree id="checkTree1" verticalCenter="0"
 										 itemRenderer="custom_tree_component.CheckTreeRenderer"
 										 labelField="@label"
 										 width="100%" height="100%"
 										 rowHeight="15"
-										 contentBackgroundColor="#00FCD59C"
 										 folderClosedIcon="{null}"
 										 folderOpenIcon="{null}"
 										 defaultLeafIcon="{null}"
-										 fontFamily="Franklin Gothic Medium" fontWeight="normal" fontSize="11">
+										 fontFamily="Franklin Gothic Medium" fontWeight="normal" fontSize="11"> <!--contentBackgroundColor="#00FCD59C"-->
 								</mx:Tree>
 							</s:VGroup>
 						</components:CollapsiblePanel>
@@ -217,7 +216,7 @@
 													 width="100%" dropShadowVisible="false"
 													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
 													 title="Batches &amp; Documents">
-							<s:VGroup width="100%" height="55" gap="0">
+							<s:VGroup width="100%" height="65" gap="0">
 								<mx:Tree id="checkTree2"
 										 itemRenderer="custom_tree_component.CheckTreeRenderer"
 										 labelField="@label"
@@ -234,7 +233,7 @@
 													 width="100%" dropShadowVisible="false"
 													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
 													 title="Transactions">
-							<s:VGroup width="100%" height="55" gap="0">
+							<s:VGroup width="100%" height="65" gap="0">
 								<mx:Tree id="checkTree3"
 										 itemRenderer="custom_tree_component.CheckTreeRenderer"
 										 labelField="@label"
@@ -251,7 +250,7 @@
 													 width="100%" dropShadowVisible="false"
 													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
 													 title="Cases">
-							<s:VGroup width="100%" height="55" gap="0">
+							<s:VGroup width="100%" height="65" gap="0">
 								<mx:Tree id="checkTree4"
 										 itemRenderer="custom_tree_component.CheckTreeRenderer"
 										 labelField="@label"
@@ -268,7 +267,7 @@
 													 width="100%" dropShadowVisible="false"
 													 skinClass="com.shinynet.shinylib.skins.CollapsiblePanelSkin"
 													 title="Tasks">
-							<s:VGroup width="100%" height="55" gap="0">
+							<s:VGroup width="100%" height="65" gap="0">
 								<mx:Tree id="checkTree5"
 										 itemRenderer="custom_tree_component.CheckTreeRenderer"
 										 labelField="@label"

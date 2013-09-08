@@ -198,14 +198,16 @@ package custom_tree_component
 				if (super.icon != null)
 				{
 					myCheckBox.x=super.icon.x;
-					myCheckBox.y=9;
+					//myCheckBox.y=9;
+					myCheckBox.y=5;
 					super.icon.x=myCheckBox.x + myCheckBox.width + 17;
 					super.label.x=super.icon.x + super.icon.width + 3;
 				}
 				else
 				{
 					myCheckBox.x=super.label.x;
-					myCheckBox.y=9;
+					//myCheckBox.y=9;
+					myCheckBox.y=5;
 					super.label.x=myCheckBox.x + myCheckBox.width + 17;
 				}
 				if (data.@state == STATE_SCHRODINGER)
