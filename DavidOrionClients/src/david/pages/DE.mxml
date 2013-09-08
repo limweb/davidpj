@@ -10,7 +10,10 @@
 		<![CDATA[
 			import component.ExtendsCheckbox2;
 			
+			import mx.controls.Alert;
 			import mx.collections.ArrayCollection;
+			import mx.events.MenuEvent;
+			import mx.utils.ObjectUtil;
 
 			[Bindable] private var docFormatDataProvider:ArrayCollection = new ArrayCollection();
 			
@@ -143,6 +146,15 @@
 			}
 			
 			
+			
+			protected function myMenuBar_changeHandler(event:MenuEvent):void
+			{
+				// TODO Auto-generated method stub
+				var detail:String = event.label;
+				
+				myMenuBar.labelField = detail;
+				//Alert.show(detail);
+			}
 			
 		]]>
 	</fx:Script>
@@ -298,7 +310,7 @@
 						<!--<s:DropDownList width="160" height="18">
 						</s:DropDownList>-->
 						
-						<mx:MenuBar id="myMenuBar" width="160" height="18" labelField="@label">
+						<mx:MenuBar id="myMenuBar" width="160" height="18" labelField="@label" change="myMenuBar_changeHandler(event)">
 							<fx:XMLList>
 								<menuitem label="Select format">
 									<menuitem label="All native formats" type="radio"/>
