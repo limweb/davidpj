@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   minWidth="955" minHeight="600" 
-		       backgroundColor="white">
+		       backgroundColor="white" xmlns:local="*">
 	
 	
 	<fx:Declarations>
@@ -38,7 +38,7 @@
 			</root>
 		</fx:XML>
 		
-		<fx:XML id="xmlDP2">
+		<fx:XML  id="xmlDP2">
 			<root>
 				<node id='0' label="All native formats" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
 				<node id='1' label="Only images.." type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
@@ -57,6 +57,35 @@
 					<node id='12' label="MS Excel" type="check" p="0" toggled="false"/>
 					<node id='13' label="MS PowerPoint" type="check" p="0" toggled="false"/>
 				</node>
+				<node id='14' label="xxxxxxx" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+				<node id='15' label="aaaaaaaaa" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+				
+			</root>
+		</fx:XML>
+		
+		<fx:XML format="e4x" id="xmlDP3">
+			<root>
+				<node id='0' label="All native formats" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+				<node id='1' label="Only images.." type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
+					<node id='2' label="BMP format" type="check" p="0" toggled="false"/>
+					<node id='3' label="JPEG format" type="check" p="0" toggled="false"/>
+					<node id='4' label="GIF format" type="check" p="0" toggled="false"/>
+					<node id='5' label="PNG format" type="check" p="0" toggled="false"/>
+				</node>
+				<node id='6' label="Only PDF.." type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
+					<node id='7' label="PDF" type="check" p="0" toggled="false"/>
+					<node id='8' label="PDF/A (searchable)" type="check" p="0" toggled="false"/>
+					<node id='9' label="PDF/IHQC (compressed)" type="check" p="0" toggled="false"/>
+				</node>
+				<node id='10' label="Only MS Office.." type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
+					<node id='11' label="MS Access" type="check" p="0" toggled="false"/>
+					<node id='12' label="MS Excel" type="check" p="0" toggled="false"/>
+					<node id='13' label="MS PowerPoint" type="check" p="0" toggled="false"/>
+				</node>
+				<node id='14' label="xxxxxxx" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+				<node id='15' label="aaaaaaaaa" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+				<node id='16' label="zzzzzzzzzz" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+				
 			</root>
 		</fx:XML>
 		
@@ -92,24 +121,23 @@
 			myMenu.dataProvider = xmlDP2;
 			myMenu.showRoot = false;
 			myMenu.addEventListener("itemClick", itemClickHandler);
-			//myMenu.addEventListener("change", menuChange);
+			myMenu.addEventListener("change", menuChange);
 			
 			myMenu.width = popB.width;
 			popB.popUp = myMenu;
-			
-			//click="myMenuBar_clickHandler(event)" itemClick="myMenuBar_itemClickHandler(event)"
 			
 		}
 			
 		// Define the event listener for the Menu control's change event. 
 		private function menuChange(event:MenuEvent):void {
-			
 			var menuXML:XML = XML(event.item);
 			var selectAncestorIDStr:String = menuXML.@id.toString();
-			clearToggle(selectAncestorIDStr);
+			var x:XMLList = xmlDP2.node.(@id == menuXML.@id);
 			
-			var x:XMLList = xmlDP2.node.(@id == menuXML.@id); //get all child of node ancestorID
-			x.@toggled = true;
+			if (menuXML.@haveChild == "n") {
+				clearToggle(null);
+				x.@toggled = true;
+			}
 			
 			var label:String = event.label;        
 			popTypeB.text=String("Moved to " + label);
@@ -131,8 +159,6 @@
 			var ancestorID:int = 0; //parent id of current selected item
 			var selectid:String = p.@id ;
 			var currentItemIsToggle:Boolean = p.@toggled;
-			
-			//var node:XMLList = xmlDP2.node.node.(@id == selectid );
 			
 			//find ancestorID
 			for each( var nodelist:XML in xmlDP2.elements("*") ) { //nodelist  get all xml
@@ -165,32 +191,9 @@
 				clearToggle(null);
 				x.@toggled = false;
 			}
-			
-			
-			
-			//if ( currentItemIsToggle ) {
-			//	ancestorID = nodelist.@id.toString(); //ancestorID is parent id of selected child
-			//} else {
-			//	break;
-			//}
-			
-			//Check 
-			
-			
-			//set toggle to current parent
-			//var x:XMLList = xmlDP2.node.(@id == ancestorID); //get all child of node ancestorID
-			//x.@toggled = true; 
-			
-			//clear all before parent toggle
-			
-			/* Alert.show(
-				"ancestorID : " + ancestorID
-				+ "selectid : " + selectid
-			); */
 		}
 			
 		private function clearToggle(ancestorIDStr:String):void {
-			
 			if ( ancestorIDStr != null ) {
 				for each( var nodelist:XML in xmlDP2.elements("*") ) { //nodelist  get all xml
 					if (nodelist.@id.toString() != ancestorIDStr) {
@@ -232,15 +235,18 @@
 	
 	
 	<mx:HBox width="100%">
-		<mx:VBox width="25%">
+		<mx:VBox width="30%">
 			<mx:PopUpButton id="popUpButton"
 							label="Please select an item"
 							openAlways="true"
 							creationComplete="init();"
 							/>
 		</mx:VBox>
-		<mx:VBox width="15%"/>
-		<mx:VBox width="60%">
+		<mx:VBox width="30%">
+			
+		<local:MyPopUpButton dataProviderXML="{xmlDP3}" defaultPopupLabel="Please Selected" textAlign="left" width="160" height="18"/>
+		</mx:VBox>
+		<mx:VBox width="40%">
 			<mx:Label text="Main button mimics the last selected menuItem."/>
 			<!--<mx:PopUpButton id="popB" label="Edit" width="135" creationComplete="initMenu();"/>-->
 			<mx:PopUpButton id="popB" label="Edit" width="160" creationComplete="initMenu();" openAlways="true"/>

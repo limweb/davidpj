@@ -6,6 +6,43 @@
 			   xmlns:customTreeComponent="custom_tree_component.*"
 			   width="100%" height="100%"
 			   creationComplete="canvas1_creationCompleteHandler()">
+	<fx:Declarations>
+		
+			<fx:XML format="e4x" id="docsFormatXML">
+				<root>
+					<node id='0' label="All native formats" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+					<node id='1' label="Only images" type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
+						<node id='2' label="BMP format" type="check" p="0" toggled="false"/>
+						<node id='3' label="JPEG format" type="check" p="0" toggled="false"/>
+						<node id='4' label="GIF format" type="check" p="0" toggled="false"/>
+						<node id='5' label="PNG format" type="check" p="0" toggled="false"/>
+					</node>
+					<node id='6' label="Only PDF" type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
+						<node id='7' label="PDF" type="check" p="0" toggled="false"/>
+						<node id='8' label="PDF/A (searchable)" type="check" p="0" toggled="false"/>
+						<node id='9' label="PDF/IHQC (compressed)" type="check" p="0" toggled="false"/>
+					</node>
+					<node id='10' label="Only MS Office.." type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
+						<node id='11' label="MS Access" type="check" p="0" toggled="false"/>
+						<node id='12' label="MS Excel" type="check" p="0" toggled="false"/>
+						<node id='13' label="MS PowerPoint" type="check" p="0" toggled="false"/>
+					</node>
+				</root>
+			</fx:XML>
+			
+			<fx:XML format="e4x" id="docsContextXML">
+				<root>
+					<node id='0' label="ALL CONTEXTS" type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
+						<node id='1' label="Has revisions" type="check" p="0" toggled="false"/>
+					</node>
+					<node id='2' label="Is in active case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+					<node id='3' label="Is in closed case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+					
+				</root>
+			</fx:XML>
+		
+	</fx:Declarations>
+	
 	<fx:Script>
 		<![CDATA[
 			import component.ExtendsCheckbox2;
@@ -143,17 +180,6 @@
 				}
 				
 				return status;
-			}
-			
-			
-			
-			protected function myMenuBar_changeHandler(event:MenuEvent):void
-			{
-				// TODO Auto-generated method stub
-				var detail:String = event.label;
-				
-				myMenuBar.labelField = detail;
-				//Alert.show(detail);
 			}
 			
 		]]>
@@ -303,51 +329,55 @@
 						<s:CheckBox label="  Search full text" 
 									fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
 						<s:Spacer height="0"/>
+						
 						<mx:Text text="Document formats:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
 						
-						<!--itemRenderer="DroupDownItemRenderer" dataProvider="{docFormatDataProvider}"-->
-						<!--<s:DropDownList width="160" height="18">
-						</s:DropDownList>-->
-						
-						<mx:MenuBar id="myMenuBar" width="160" height="18" labelField="@label" change="myMenuBar_changeHandler(event)">
-							<fx:XMLList>
-								<menuitem label="Select format">
-									<menuitem label="All native formats" type="radio"/>
-									<menuitem label="Only images.." type="radio">
-										<menuitem label="BMP format" type="check"/>
-										<menuitem label="GIF format" type="check"/>
-										<menuitem label="GIF format" type="check"/>
-										<menuitem label="GIF format" type="check"/>
-										<menuitem label="GIF format" type="check"/>
-									</menuitem>
-									<menuitem label="Only PDF.." type="radio">
-										<menuitem label="PDF" type="check"/>
-										<menuitem label="PDF/A (searchable)" type="check"/>
-										<menuitem label="PDF/IHQC (compressed)" type="check"/>
-									</menuitem>
-									<menuitem label="Only MS Office.." type="radio">
-										<menuitem label="MS Access" type="check"/>
-										<menuitem label="MS Excel" type="check"/>
-										<menuitem label="MS PowerPoint" type="check"/>
-										<menuitem label="MS Word" type="check"/>
-									</menuitem>
-									<menuitem label="xxxxxxxx" type="radio">
-										
-									</menuitem>
-								</menuitem>
-							</fx:XMLList>
-						</mx:MenuBar>
-						
+						<!--<s:DropDownList width="160" height="18"/>-->
+						<component:MyPopUpButton dataProviderXML="{docsFormatXML}" defaultPopupLabel="Document formats" textAlign="left" width="160" height="18"/>
 						<s:Spacer height="0"/>
+						
 						<mx:Text text="When actioned:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160" height="18"/>
+						<mx:HBox width="160" horizontalGap="0">
+							<mx:ComboBox width="80" fontSize="9" height="18" prompt="TOUCHED">
+								<mx:ArrayCollection>
+									<fx:String>TOUCHED</fx:String>
+									<fx:String>Filed</fx:String>
+									<fx:String>Viewed</fx:String>
+									<fx:String>Output</fx:String>
+									<fx:String>Exported</fx:String>
+									<fx:String>Modified</fx:String>
+									<fx:String>Reindexed</fx:String>
+									<fx:String>Actioned</fx:String>
+								</mx:ArrayCollection>
+							</mx:ComboBox>
+							
+							<mx:ComboBox width="80" fontSize="9" height="18" prompt="ANY TIME">
+								<mx:ArrayCollection>
+									<fx:String>ANY TIME</fx:String>
+									<fx:String>Today</fx:String>
+									<fx:String>Yesterday</fx:String>
+									<fx:String>This week</fx:String>
+									<fx:String>Past week</fx:String>
+									<fx:String>Past month</fx:String>
+									<fx:String>Last month</fx:String>
+									<fx:String>This year</fx:String>
+									<fx:String>Past year</fx:String>
+									<fx:String>Before past year</fx:String>
+								</mx:ArrayCollection>
+							</mx:ComboBox>
+							
+						</mx:HBox>
+						
 						<s:Spacer height="0"/>
+						
 						<mx:Text text="Document context:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160" height="18"/>
+						<!--<s:DropDownList width="160" height="18"/>-->
+						<component:MyPopUpButton dataProviderXML="{docsContextXML}" defaultPopupLabel="Document context" textAlign="left" width="160" height="18"/>
 						<s:Spacer height="6"/>
+						
 						<s:BorderContainer width="170%" height="{FilterSearchButton.height}" 
 										   borderVisible="false" backgroundColor="#00C1DAD6">
 							<s:layout>
