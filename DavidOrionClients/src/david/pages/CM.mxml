@@ -8,7 +8,14 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import component.PopUpCustomTitleWindow;
+			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
+			import mx.events.CloseEvent;
+			import mx.events.ListEvent;
+			import mx.managers.PopUpManager;
 			
 			private var _dataProvider1List:ArrayCollection;
 			private var _dataProvider2List:ArrayCollection;
@@ -163,6 +170,16 @@
 			public var folderCollection4:XMLListCollection;
 			[Bindable]
 			public var folderCollection5:XMLListCollection;
+						
+			protected function advanceddatagrid1_itemDoubleClickHandler(event:ListEvent):void
+			{
+				// TODO Auto-generated method stub
+				//var customTitleWindow:CustomTitleWindow = new CustomTitleWindow();
+				var pop:PopUpCustomTitleWindow = new PopUpCustomTitleWindow();
+				pop.height=FlexGlobals.topLevelApplication.height;
+				pop.width=FlexGlobals.topLevelApplication.width;
+				PopUpManager.addPopUp(pop,this);				
+			}
 			
 		]]>
 	</fx:Script>
@@ -355,7 +372,7 @@
 												 borderVisible="false"
 												 dataProvider="@{dataProvider2List}"
 												 fontFamily="Franklin Gothic Medium" fontSize="11"
-												 fontWeight="normal" rowHeight="20">
+												 fontWeight="normal" rowHeight="20" doubleClickEnabled="true" itemDoubleClick="advanceddatagrid1_itemDoubleClickHandler(event)">
 								
 								<mx:groupedColumns>
 									<mx:AdvancedDataGridColumn width="30" dataField="checked"
