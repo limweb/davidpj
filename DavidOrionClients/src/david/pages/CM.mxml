@@ -10,6 +10,8 @@
 		<![CDATA[
 			import component.PopUpCustomTitleWindow;
 			
+			import event.NNDemoEvent;
+			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.core.FlexGlobals;
@@ -77,6 +79,10 @@
 				
 				//Set dataprovider2 list
 				dataProvider2List = new ArrayCollection([
+					{checked:false, dataField1:'xxxx', dataField2:'xxxx', dataField3:'xxxx', dataField4:'xxxx', dataField5:'xxxx'},
+					{checked:false, dataField1:'xxxx', dataField2:'xxxx', dataField3:'xxxx', dataField4:'xxxx', dataField5:'xxxx'},
+					{checked:false, dataField1:'xxxx', dataField2:'xxxx', dataField3:'xxxx', dataField4:'xxxx', dataField5:'xxxx'},
+					{checked:false, dataField1:'xxxx', dataField2:'xxxx', dataField3:'xxxx', dataField4:'xxxx', dataField5:'xxxx'},
 					{checked:false, dataField1:'xxxx', dataField2:'xxxx', dataField3:'xxxx', dataField4:'xxxx', dataField5:'xxxx'},
 					{checked:false, dataField1:'xxxx', dataField2:'xxxx', dataField3:'xxxx', dataField4:'xxxx', dataField5:'xxxx'},
 					{checked:false, dataField1:'xxxx', dataField2:'xxxx', dataField3:'xxxx', dataField4:'xxxx', dataField5:'xxxx'},
@@ -170,17 +176,54 @@
 			public var folderCollection4:XMLListCollection;
 			[Bindable]
 			public var folderCollection5:XMLListCollection;
+			[Bindable]
+			public var pop:PopUpCustomTitleWindow;
 						
-			protected function advanceddatagrid1_itemDoubleClickHandler(event:ListEvent):void
+			protected function advanceddatagrid1_itemDoubleClickHandler(evt:ListEvent):void
 			{
 				// TODO Auto-generated method stub
 				//var customTitleWindow:CustomTitleWindow = new CustomTitleWindow();
-				var pop:PopUpCustomTitleWindow = new PopUpCustomTitleWindow();
-				pop.height=FlexGlobals.topLevelApplication.height;
-				pop.width=FlexGlobals.topLevelApplication.width;
-				PopUpManager.addPopUp(pop,this);				
+				if (evt.rowIndex==0)
+				{
+					pop = new PopUpCustomTitleWindow();
+					pop.height=FlexGlobals.topLevelApplication.height;
+					pop.width=FlexGlobals.topLevelApplication.width;
+					pop.addEventListener(NNDemoEvent.NNDEMO_CLOSE,closePopUp);
+					PopUpManager.addPopUp(pop,this);	
+				}
+				else if (evt.rowIndex==4)
+				{
+					pop = new PopUpCustomTitleWindow();
+					pop.height=FlexGlobals.topLevelApplication.height;
+					pop.width=FlexGlobals.topLevelApplication.width;
+					pop.addEventListener(NNDemoEvent.NNDEMO_CLOSE_2,closePopUp);
+					pop.myindex = 3;
+					PopUpManager.addPopUp(pop,this);						
+				}
 			}
 			
+			public function changeVS(event:NNDemoEvent):void
+			{
+				Alert.show("changeVS");
+			}
+			
+			public function closePopUp(event:NNDemoEvent):void
+			{
+				pop.removeEventListener(NNDemoEvent.NNDEMO_CLOSE,closePopUp);
+				PopUpManager.removePopUp(pop);
+				
+				(dataProvider2List as ArrayCollection).removeItemAt(0);
+				(dataProvider2List as ArrayCollection).removeItemAt(0);
+				(dataProvider2List as ArrayCollection).removeItemAt(0);
+			}
+			
+			public function closePopUp2(event:NNDemoEvent):void
+			{
+				pop.removeEventListener(NNDemoEvent.NNDEMO_CLOSE_2,closePopUp2);
+				PopUpManager.removePopUp(pop);
+				
+				(dataProvider2List as ArrayCollection).removeItemAt(0);
+			}
 		]]>
 	</fx:Script>
 	

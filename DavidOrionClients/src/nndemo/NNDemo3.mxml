@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:model="com.vstyran.transform.model.*"
@@ -17,8 +17,11 @@
 	
 	<fx:Script>
 		<![CDATA[
-			
 			import com.blogagic.util.HTMLToolTip;
+			
+			import component.PopUpCustomTitleWindow;
+			
+			import event.NNDemoEvent;
 			
 			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
@@ -29,8 +32,11 @@
 			import mx.managers.PopUpManager;
 			import mx.managers.ToolTipManager;
 			
+			import org.rockholla.popups.PopUp;
+			
 			import spark.components.BorderContainer;
 			import spark.components.Button;
+			import spark.events.IndexChangeEvent;
 			import spark.events.TextOperationEvent;
 			
 			[Bindable]
@@ -592,6 +598,16 @@
 			}
 
 
+			protected function buttonbar1_changeHandler(event:IndexChangeEvent):void
+			{
+				// TODO Auto-generated method stub
+				//var pop:PopUpCustomTitleWindow = this.parent.parent.parent.parent.parent.parent.parent.parent as PopUpCustomTitleWindow;
+				//PopUpManager.removePopUp(pop);
+				var evt:NNDemoEvent = new NNDemoEvent(NNDemoEvent.NNDEMO_CLOSE);
+				//evt.nndemo_index=2;
+				dispatchEvent(evt);
+			}
+			
 		]]>
 	</fx:Script>
 
@@ -801,7 +817,7 @@
 					</s:layout>
 					<s:Spacer width="100%"/>
 					<s:ButtonBar height="21"
-								 fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold">
+								 fontFamily="Franklin Gothic Medium" fontSize="12" fontWeight="bold" change="buttonbar1_changeHandler(event)">
 						<s:layout>
 							<s:ButtonBarHorizontalLayout gap="5" />
 						</s:layout>
@@ -1024,4 +1040,4 @@
 			<s:Button label="Cancel"/>
 		</s:HGroup>
 	</s:VGroup>
-</s:Application>
+</s:HGroup>
