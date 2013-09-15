@@ -82,29 +82,29 @@
 			
 			private var orgXML:XML =
 				<root>
-					<node id='0' name='Folder' label="ALL FOLDERS" state="checked" p="1" >
-						<node id='1' name='Board' label="Folder1" state="checked" p="1">
-							<node id='2' name='Book' label="Subfolder1" state="checked" p="0"/>
-							<node id='3' name='Book' label="Subfolder2" state="checked" p="0"/>
-							<node id='4' name='Book' label="Subfolder3" state="checked" p="0"/>
+					<node id='0' name='Root' label="ALL FOLDERS" state="checked" p="1" >
+						<node id='1' name='Folder1' label="Folder1" state="checked" p="1">
+							<node id='2' name='Subfolder1' label="Subfolder1" state="checked" p="0"/>
+							<node id='3' name='Subfolder1' label="Subfolder2" state="checked" p="0"/>
+							<node id='4' name='Subfolder1' label="Subfolder3" state="checked" p="0"/>
 						</node>
-						<node id='5' name='Cut' label="Folder2" state="checked" p="1">
-							<node id='6' name='Write' label="Subfolder1" state="checked" p="0"/>
-							<node id='7' name='Write' label="Subfolder2" state="checked" p="0"/>
+						<node id='5' name='Folder2' label="Folder2" state="checked" p="1">
+							<node id='6' name='Subfolder2' label="Subfolder1" state="checked" p="0"/>
+							<node id='7' name='Subfolder2' label="Subfolder2" state="checked" p="0"/>
 						</node>
-						<node id='8' name='Icq' label="Folder3" state="checked" p="1">
-							<node id='9' name='Ok' label="Subfolder1" state="checked" p="0"/>
-							<node id='10' name='Ok' label="Subfolder2" state="checked" p="0"/>
+						<node id='8' name='Folder3' label="Folder3" state="checked" p="1">
+							<node id='9' name='Subfolder3' label="Subfolder1" state="checked" p="0"/>
+							<node id='10' name='Subfolder3' label="Subfolder2" state="checked" p="0"/>
 						</node>
-						<node id='11' name='Midi' label="Folder4" state="checked" p="1">
-							<node id='12' name='Media_Player' label="Subfolder1" state="checked" p="0"/>
-							<node id='13' name='Media_Player' label="Subfolder2" state="checked" p="0"/>
-							<node id='14' name='Media_Player' label="Subfolder3" state="checked" p="0"/>
+						<node id='11' name='Folder4' label="Folder4" state="checked" p="1">
+							<node id='12' name='Subfolder4' label="Subfolder1" state="checked" p="0"/>
+							<node id='13' name='Subfolder4' label="Subfolder2" state="checked" p="0"/>
+							<node id='14' name='Subfolder4' label="Subfolder3" state="checked" p="0"/>
 						</node>
-						<node id='15' name='Song' label="Folder5" state="checked" p="1">
-							<node id='16' name='Speaker' label="Subfolder1" state="checked" p="0"/>
-							<node id='17' name='Speaker' label="Subfolder2" state="checked" p="0"/>
-							<node id='18' name='Speaker' label="Subfolder3" state="checked" p="0"/>
+						<node id='15' name='Folder5' label="Folder5" state="checked" p="1">
+							<node id='16' name='Subfolder5' label="Subfolder1" state="checked" p="0"/>
+							<node id='17' name='Subfolder5' label="Subfolder2" state="checked" p="0"/>
+							<node id='18' name='Subfolder5' label="Subfolder3" state="checked" p="0"/>
 						</node>
 					</node>
 				</root>;
@@ -215,71 +215,71 @@
 				var iconClass:Class;
 				var attributeCase:String = XML(item).attribute('name');
 				
-				if ( attributeCase == "Folder" ) {
+				if ( attributeCase == "Root" ) {
 					var isParent:String = XML(item).attribute('p');
 					if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" || state == "schrodinger" ) {
+						if ( state == "checked" ) {
 							iconClass = ICON_FOLDER_BLUE_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_BLUE_UNCHECKED;
 						}
 					}
 					
-				} else if ( attributeCase == "Board" ) {
+				} else if ( attributeCase == "Folder1" || attributeCase == "Subfolder1" ) {
 					var isParent:String = XML(item).attribute('p');
-					if (isParent == "1") {
+					//if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" || state == "schrodinger" ) {
+						if ( state == "checked" ) {
 							iconClass = ICON_FOLDER_GREEN_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_GREEN_UNCHECKED;
 						}
-					}
+					//}
 				
-				} else if ( attributeCase == "Cut" ) {
+				} else if ( attributeCase == "Folder2" || attributeCase == "Subfolder2" ) {
 					var isParent:String = XML(item).attribute('p');
-					if (isParent == "1") {
+					//if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" || state == "schrodinger" ) {
+						if ( state == "checked" ) {
 							iconClass = ICON_FOLDER_ORANGE_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_ORANGE_UNCHECKED;
 						}
-					}
+					//}
 						
-				} else if ( attributeCase == "Icq" ) {
+				} else if ( attributeCase == "Folder3" || attributeCase == "Subfolder3" ) {
 					var isParent:String = XML(item).attribute('p');
-					if (isParent == "1") {
+					//if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" || state == "schrodinger" ) {
+						if ( state == "checked" ) {
 							iconClass = ICON_FOLDER_PURPLE_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_PURPLE_UNCHECKED;
 						}
-					}
+					//}
 						
-				} else if ( attributeCase == "Midi" ) {
+				} else if ( attributeCase == "Folder4" || attributeCase == "Subfolder4" ) {
 					var isParent:String = XML(item).attribute('p');
-					if (isParent == "1") {
+					//if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" || state == "schrodinger" ) {
+						if ( state == "checked" ) {
 							iconClass = ICON_FOLDER_RED_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_RED_UNCHECKED;
 						}
-					}
+					//}
 						
-				} else if ( attributeCase == "Song" ) {
+				} else if ( attributeCase == "Folder5" || attributeCase == "Subfolder5" ) {
 					var isParent:String = XML(item).attribute('p');
-					if (isParent == "1") {
+					//if (isParent == "1") {
 						var state:String = XML(item).attribute('state');
-						if ( state == "checked" || state == "schrodinger" ) {
+						if ( state == "checked" ) {
 							iconClass = ICON_FOLDER_YELLOW_CHECKED;
 						} else {
 							iconClass = ICON_FOLDER_YELLOW_UNCHECKED;
 						}
-					}
+					//}
 				}
 				
 				return iconClass;
@@ -318,8 +318,8 @@
 				 disclosureOpenIcon="{ICON_FOLDER_EXPAND}"
 				 rowHeight="16" iconFunction="tree_iconFunc"
 				 fontFamily="Franklin Gothic Medium" fontSize="11"
-				 itemRenderer="custom_tree_component.CheckTreeRenderer" labelField="@label"
-				 showRoot="true">
+				 itemRenderer="custom_tree_component.CheckTreeRenderer_DE" labelField="@label"
+				 showRoot="true"> <!--itemRenderer="custom_tree_component.CheckTreeRenderer" labelField="@label"-->
 			
 		</mx:Tree>
 	</s:VGroup>

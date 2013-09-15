@@ -10,7 +10,7 @@ package custom_tree_component
 	import mx.controls.listClasses.*;
 	import mx.controls.treeClasses.*;
 	
-	public class CheckTreeRenderer_bk extends TreeItemRenderer
+	public class CheckTreeRenderer_DE extends TreeItemRenderer
 	{
 		protected var myImage:Image;
 		protected var myCheckBox:CheckBox;
@@ -24,7 +24,7 @@ package custom_tree_component
 		static private var STATE_CHECKED:String="checked";
 		static private var STATE_UNCHECKED:String="unchecked";
 		
-		public function CheckTreeRenderer_bk()
+		public function CheckTreeRenderer_DE()
 		{
 			super();
 			mouseEnabled=false;
