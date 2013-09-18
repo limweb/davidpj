@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx">
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="160" height="18">
 	
 	<fx:Declarations>
 	</fx:Declarations>
@@ -149,6 +150,6 @@
 		]]>
 	</fx:Script>
 	
-	<mx:PopUpButton id="myPopupBtnID" width="160" creationComplete="initMenu();" openAlways="true"/>
+	<mx:PopUpButton id="myPopupBtnID" width="160" height="18" creationComplete="initMenu();" openAlways="true" fontSize="11"/>
 	
 </s:Group>

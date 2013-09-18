@@ -32,11 +32,12 @@
 			
 			<fx:XML format="e4x" id="docsContextXML">
 				<root>
-					<node id='0' label="ALL CONTEXTS" type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
-						<node id='1' label="Has revisions" type="check" p="0" toggled="false"/>
-					</node>
-					<node id='2' label="Is in active case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
-					<node id='3' label="Is in closed case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+					<node id='0' label="ALL CONTEXTS" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+					<node id='1' type="separator" />
+					<node id='2' label="Has revisions" type="check" p="1" haveChild="n" toggled="false"/>
+					<node id='3' label="Is in active case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
+					<node id='4' type="separator" />
+					<node id='5' label="Is in closed case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
 					
 				</root>
 			</fx:XML>
@@ -225,11 +226,13 @@
 						</s:layout>
 						<mx:Text text="Recent searches:"
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160" height="18"/>
-						<s:Spacer height="0"/>
+						<!--<s:DropDownList width="160" height="18"/>-->
+						<mx:ComboBox width="160" height="18"/>
+						<!--<s:Spacer height="0"/>-->
 						<mx:Text text="Saved searches:"
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
-						<s:DropDownList width="160" height="18"/>
+						<!--<s:DropDownList width="160" height="18"/>-->
+						<mx:ComboBox width="160" height="18"/>
 						<s:Spacer height="0"/>
 						<mx:Text text="Folders:" 
 								 fontFamily="Franklin Gothic Medium" fontSize="11" fontWeight="normal"/>
