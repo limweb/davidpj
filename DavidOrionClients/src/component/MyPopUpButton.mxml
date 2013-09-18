@@ -7,6 +7,19 @@
 	<fx:Declarations>
 	</fx:Declarations>
 	
+	<fx:Style>
+		.myCustomselectedTabTextStyleName {
+			fontWeight: normal;
+			textAlign: left;
+		}
+		.myCustomPopUpStyleName {
+			fontWeight: normal;
+			textAlign: left;
+			verticalAlign: middle;
+			selectedTabTextStyleName: myCustomselectedTabTextStyleName;
+		}
+	</fx:Style>
+	
 	<fx:Script>
 		<![CDATA[
 			import mx.controls.Alert;
@@ -37,12 +50,14 @@
 				myMenu = new Menu();
 				myMenu.labelField = "@label";
 				myMenu.dataProvider = dataProviderXML;
+				myMenu.rowHeight = 18;
 				myMenu.showRoot = false;
 				myMenu.addEventListener("itemClick", itemClickHandler);
 				myMenu.addEventListener("change", menuChange);
 				myMenu.width = myPopupBtnID.width;
 				myPopupBtnID.popUp = myMenu;
 				myPopupBtnID.label = defaultPopupLabel;
+				
 			}
 			
 			// Define the event listener for the Menu control's change event. 
@@ -150,6 +165,6 @@
 		]]>
 	</fx:Script>
 	
-	<mx:PopUpButton id="myPopupBtnID" width="160" height="18" creationComplete="initMenu();" openAlways="true" fontSize="11"/>
+	<mx:PopUpButton id="myPopupBtnID" width="160" height="18" creationComplete="initMenu();" openAlways="true" fontSize="11" popUpStyleName="myCustomPopUpStyleName"/>
 	
 </s:Group>

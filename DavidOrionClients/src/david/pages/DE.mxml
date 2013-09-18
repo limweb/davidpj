@@ -35,8 +35,8 @@
 					<node id='0' label="ALL CONTEXTS" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
 					<node id='1' type="separator" />
 					<node id='2' label="Has revisions" type="check" p="1" haveChild="n" toggled="false"/>
-					<node id='3' label="Is in active case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
-					<node id='4' type="separator" />
+					<node id='3' type="separator" />
+					<node id='4' label="Is in active case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
 					<node id='5' label="Is in closed case" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
 					
 				</root>
