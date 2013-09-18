@@ -318,7 +318,7 @@
 				 disclosureOpenIcon="{ICON_FOLDER_EXPAND}"
 				 rowHeight="16" iconFunction="tree_iconFunc"
 				 fontFamily="Franklin Gothic Medium" fontSize="11"
-				 itemRenderer="custom_tree_component.CheckTreeRenderer_DE" labelField="@label"
+				 itemRenderer="custom_tree_component.CheckTreeRenderer_For_DE" labelField="@label"
 				 showRoot="true"> <!--itemRenderer="custom_tree_component.CheckTreeRenderer" labelField="@label"-->
 			
 		</mx:Tree>
