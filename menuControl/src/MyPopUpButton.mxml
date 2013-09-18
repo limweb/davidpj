@@ -14,12 +14,12 @@
 			
 			private var myMenu:Menu;
 			
-			private var _dataProviderXML:XML;
+			private var _dataProviderXML:XMLList;
 			private var _defaultPopupLabel:String;
 			
 			[Bindable]
 			public function set dataProviderXML(value:Object):void {
-				_dataProviderXML = value as XML
+				_dataProviderXML = value as XMLList
 			}
 			public function get dataProviderXML():Object {
 				return _dataProviderXML;

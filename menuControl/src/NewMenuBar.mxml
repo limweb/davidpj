@@ -8,6 +8,31 @@
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<fx:XMLList id="xxxID">
+			<root>
+				<menuitem label="@label">
+					<menuitem label="All native formats" type="radio" groupName="radioGroup"/>
+					<menuitem label="Only images.." type="radio" groupName="radioGroup" toggled="true">
+						<menuitem label="BMP format" type="check"/>
+						<menuitem label="GIF format" type="check"/>
+						<menuitem label="GIF format" type="check"/>
+						<menuitem label="GIF format" type="check"/>
+						<menuitem label="GIF format" type="check"/>
+					</menuitem>
+					<menuitem label="Only PDF.." type="radio" groupName="radioGroup">
+						<menuitem label="PDF" type="check"/>
+						<menuitem label="PDF/A (searchable)" type="check"/>
+						<menuitem label="PDF/IHQC (compressed)" type="check"/>
+					</menuitem>
+					<menuitem label="Only MS Office.." type="radio" groupName="radioGroup" toggled="true">
+						<menuitem label="MS Access" type="check"/>
+						<menuitem label="MS Excel" type="check"/>
+						<menuitem label="MS PowerPoint" type="check"/>
+						<menuitem label="MS Word" type="check"/>
+					</menuitem>
+				</menuitem>
+			</root>
+		</fx:XMLList>
 		
 		<fx:XML id="xmlDP">
 			<root>
@@ -63,7 +88,7 @@
 			</root>
 		</fx:XML>
 		
-		<fx:XML format="e4x" id="xmlDP3">
+		<fx:XMLList id="xmlDP3">
 			<root>
 				<node id='0' label="All native formats" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
 				<node id='1' label="Only images.." type="radio" groupName="radioGroup" p="1" haveChild="y" toggled="false">
@@ -85,9 +110,8 @@
 				<node id='14' label="xxxxxxx" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
 				<node id='15' label="aaaaaaaaa" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
 				<node id='16' label="zzzzzzzzzz" type="radio" groupName="radioGroup" p="1" haveChild="n" toggled="false"/>
-				
 			</root>
-		</fx:XML>
+		</fx:XMLList>
 		
 	</fx:Declarations>
 	
@@ -102,14 +126,23 @@
 		
 		private var menu:Menu;
 		private var myMenu:Menu;
+		private var myMenuBar:MenuBar;
 		
 		private function init():void {
+			
+			/* myMenuBar = new MenuBar();
+			myMenuBar.labelField = "@label";
+			myMenuBar.dataProvider = xmlDP;
+			myMenuBar.showRoot = false;
+			myMenuBar.width = popUpButton.width;
+			popUpButton.popUp = myMenuBar; */
+			
 			menu = new Menu();
 			menu.labelField = "@label";
 			menu.dataProvider = xmlDP;
 			menu.showRoot = false;
 			menu.width = popUpButton.width;
-			popUpButton.popUp = menu;
+			popUpButton.popUp = menu; 
 		}
 		
 		// Initialize the Menu control, 
@@ -241,10 +274,18 @@
 							openAlways="true"
 							creationComplete="init();"
 							/>
+			
+			<mx:MenuBar dataProvider="xmlDP" labelField="@label" width="160" height="18"/>
+			
 		</mx:VBox>
 		<mx:VBox width="30%">
 			
+		
+			
 		<local:MyPopUpButton dataProviderXML="{xmlDP3}" defaultPopupLabel="Please Selected" textAlign="left" width="160" height="18"/>
+			
+		
+			
 		</mx:VBox>
 		<mx:VBox width="40%">
 			<mx:Label text="Main button mimics the last selected menuItem."/>
